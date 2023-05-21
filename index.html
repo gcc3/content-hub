@@ -1,0 +1,96 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="global.css">
+  <title>GCC³ Home</title>
+  <script>
+    function hideContents() {
+      [...document.getElementsByClassName("content-view")].forEach(view => {
+        view.style.display = "none";
+      });
+    }
+
+    function redirectToMainView() {
+      hideContents();
+      document.getElementById("main-view").style.display = "block";
+    }
+
+    function redirectToTimelineView() {
+      hideContents();
+      document.getElementById("timeline-view").style.display = "block";
+      const iframe = document.getElementById("iframe-timeline");
+      iframe.src = iframe.src;  // refresh it.
+    }
+
+    function redirectToSimpleAiChatView() {
+      hideContents();
+      document.getElementById("simple-ai-chat-view").style.display = "block";
+    }
+    
+    function redirectToClipboardView() {
+      hideContents();
+      document.getElementById("clipboard-view").style.display = "block";
+    }
+  </script>
+</head>
+
+<body>
+  <div>
+    <a href="https://www.gcc3.com" style="text-decoration:none">
+      <h1 style="display:inline">GCC</h1>
+      <div style="display:inline;vertical-align:top;">3</div>
+    </a>
+  </div>
+  <p>Coding a better world～☕</p>
+  <hr>
+  <div class="wrapper wrapper-inline-block">
+    <div class="index">
+      <h4>Projects</h4>
+      <p>
+        <div class="subject" onclick="redirectToMainView()">timeline</div>
+        <div class="tab subject" onclick="redirectToTimelineView()">live demo</div>
+      </p>
+      <p>
+        <div class="subject" onclick="redirectToSimpleAiChatView()">simple ai chat(gpt)</div>
+      </p>
+      <p>
+        <div class="subject" onclick="redirectToMainView()">plain text note</div>
+      </p>
+      <h4>Tools</h4>
+      <div class="project">
+        <a href="https://github.com/lhypds/clipboard">clipboard</a>
+	      <div class="tab subject" onclick="redirectToClipboardView()">live demo</div>
+      </div>
+      <p><a href="https://github.com/lhypds/input-method-switcher">input method switcher</a></p>
+      <p><a href="https://github.com/lhypds/quick-launcher-2">quick launcher 2</a></p>
+      <p><a href="https://github.com/lhypds/tf-gui">tfs gui</a></p>
+      <p><a href="https://github.com/lhypds/bluetooth-file-transfor">bluetooth file transfer</a></p>
+      <h4>About</h4>
+      <p>318yang</p>
+      <a href="https://github.com/lhypds"><img src="img/github.ico" width="20" height="20"></a>
+    </div>
+    <div class="content">
+      <div class="content-view" id="main-view">
+        (building in progress...)
+      </div>
+      <div class="content-view" id="timeline-view" hidden>
+        <iframe id="iframe-timeline" frameBorder="0" scrolling="no"
+          src="https://timeline.gcc3.com">
+        </iframe>
+      </div>
+      <div class="content-view" id="simple-ai-chat-view" hidden>
+        <iframe id="iframe-simple-ai-chat" frameBorder="0"
+          src="https://simple-ai-chat.gcc3.com">
+        </iframe>
+      </div>
+      <div class="content-view" id="clipboard-view" hidden>
+        <iframe id="iframe-clipboard" frameBorder="0"
+          src="https://clipboard.gcc3.com">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
