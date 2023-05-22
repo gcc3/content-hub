@@ -1,8 +1,8 @@
 
-GCC3
+GCC³
 ====
 
-GCC3 development repository.  
+GCC³ web development repository.  
 
 
 Dependencies
