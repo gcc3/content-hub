@@ -42,14 +42,16 @@
       document.getElementById("btn-collapse-index-in").style.display = "none";
       document.getElementById("btn-collapse-index-out").style.display = "block";
       document.querySelector(".index").style.display = "none";
-      document.querySelector(".wrapper-inline-block .content").style.width = "100%";
+      document.querySelector(".content").style.width = "100%";
+      document.querySelector(".content").style.marginLeft = "0px";
     }
 
     function collapseIndexOut() {
       document.getElementById("btn-collapse-index-in").style.display = "block";
       document.getElementById("btn-collapse-index-out").style.display = "none";
       document.querySelector(".index").style.display = "block";
-      document.querySelector(".wrapper-inline-block .content").style.width = "calc(100% - 190px";
+      document.querySelector(".content").style.width = "calc(100% - 190px)";
+      document.querySelector(".content").style.marginLeft = "10px";
     }
   </script>
 </head>
