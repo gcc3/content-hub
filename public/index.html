@@ -41,6 +41,8 @@
     function collapseIndexIn() {
       document.getElementById("btn-collapse-index-in").style.display = "none";
       document.getElementById("btn-collapse-index-out").style.display = "block";
+      document.getElementById("btn-collapse-index-out").style.position = "fixed";
+      document.getElementById("btn-collapse-index-out").style.bottom = "10px";
       document.querySelector(".index").style.display = "none";
       document.querySelector(".content").style.width = "100%";
       document.querySelector(".content").style.marginLeft = "0px";
@@ -49,7 +51,7 @@
     function collapseIndexOut() {
       document.getElementById("btn-collapse-index-in").style.display = "block";
       document.getElementById("btn-collapse-index-out").style.display = "none";
-      document.querySelector(".index").style.display = "block";
+      document.querySelector(".index").style.display = "inline-block";
       document.querySelector(".content").style.width = "calc(100% - 190px)";
       document.querySelector(".content").style.marginLeft = "10px";
     }
@@ -70,7 +72,6 @@
       <div style="display:flex;justify-content:space-between;height:38px">
         <h4>Projects</h4>
         <h4 id="btn-collapse-index-in" class="btn-collapse-index" onclick="collapseIndexIn()"><<</h4>
-        <h4 id="btn-collapse-index-out" style="display:none" class="btn-collapse-index" onclick="collapseIndexOut()">>></h4>
       </div>
       <p>
         <div class="subject" onclick="redirectToMainView()">timeline</div>
@@ -115,6 +116,10 @@
           src="https://clipboard.gcc3.com">
         </iframe>
       </div>
+      <div style="height:40px"></div>
+      <div id="btn-collapse-index-out" class="btn-collapse-index" 
+        style="display:none;font-size:20px" 
+        onclick="collapseIndexOut()">•</div>
     </div>
   </div>
 </body>
