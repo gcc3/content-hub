@@ -1,5 +1,6 @@
 node_modules/
 public/main.js
+src/note/
 .DS_Store
 *.log
 .idea
@@ -7,4 +8,3 @@ public/main.js
 .cache
 .eslintcache
 package-lock.json
-
