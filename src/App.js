@@ -4,7 +4,7 @@ import Timeline from "./projects/Timeline.md";
 import SimpleAiChat from "./projects/Simple AI Chat.md";
 import PlainTextNote from "./projects/Plain Text Note.md";
 
-const App = () =>{
+const App = () => {
   return (
     <>
       <ReactMarkdown>
