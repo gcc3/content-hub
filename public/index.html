@@ -6,31 +6,40 @@
   <link rel="stylesheet" href="global.css">
   <title>GCC³</title>
   <script>
-    function hideContents() {
+    function hideAllContents() {
       [...document.getElementsByClassName("content-view")].forEach(view => {
         view.style.display = "none";
       });
     }
 
+    function changeContentView(targetViewName) {
+      var event = new CustomEvent('changeContentView', { detail: targetViewName });
+      window.dispatchEvent(event);
+    }
+
+    function redirectToNoteList() {
+      changeContentView("noteList");
+    }
+
     function redirectToMainView() {
-      hideContents();
+      hideAllContents();
       document.getElementById("main-view").style.display = "block";
     }
 
     function redirectToTimelineView() {
-      hideContents();
+      hideAllContents();
       document.getElementById("timeline-view").style.display = "block";
       const iframe = document.getElementById("iframe-timeline");
       iframe.src = iframe.src;  // refresh it.
     }
 
     function redirectToSimpleAiChatView() {
-      hideContents();
+      hideAllContents();
       document.getElementById("simple-ai-chat-view").style.display = "block";
     }
     
     function redirectToClipboardView() {
-      hideContents();
+      hideAllContents();
       document.getElementById("clipboard-view").style.display = "block";
       const iframe = document.getElementById("iframe-clipboard");
       iframe.src = iframe.src;  // refresh it.
@@ -81,7 +90,7 @@
       </p>
       <p>
         <div class="subject" onclick="redirectToMainView()">plain text note</div>
-        <div class="tab subject" onclick="redirectToMainView()">note list</div>
+        <div class="tab subject" onclick="redirectToNoteList()">note list</div>
       </p>
       <h4>Tools</h4>
       <div class="project">
