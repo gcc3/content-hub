@@ -21,11 +21,11 @@ const App = () => {
       </ReactMarkdown>
       {
         contentView === "projects" &&
-        <>
+        <div>
           <ReactMarkdown children={`${Timeline}`} />
           <ReactMarkdown children={`${SimpleAiChat}`} />
           <ReactMarkdown children={`${PlainTextNote}`} />
-        </>
+        </div>
       }
       {
         contentView === "notes" &&
