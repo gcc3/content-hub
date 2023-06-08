@@ -4,6 +4,7 @@ import Timeline from "./projects/Timeline.md";
 import SimpleAiChat from "./projects/Simple AI Chat.md";
 import PlainTextNote from "./projects/Plain Text Note.md";
 import UnixNote from "./note/.markdown/Unix Note.md";
+import rehypeRaw from 'rehype-raw'
 
 const App = () => {
   const [contentView, setContentView] = useState("projects");
@@ -22,13 +23,7 @@ const App = () => {
       {
         contentView === "projects" &&
         <div>
-          <ReactMarkdown children={`${Timeline}`} />
-          <div style={{ maxWidth: '1000px' }}>
-            <iframe frameBorder="0" scrolling="no"
-              width="100%" height="450px"
-              src="https://timeline.gcc3.com">
-            </iframe>
-          </div>
+          <ReactMarkdown children={`${Timeline}`} rehypePlugins={[rehypeRaw]} />
           <ReactMarkdown children={`${SimpleAiChat}`} />
           <ReactMarkdown children={`${PlainTextNote}`} />
         </div>
