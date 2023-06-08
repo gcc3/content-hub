@@ -18,7 +18,7 @@ const App = () => {
   return (
     <>
       <ReactMarkdown>
-        *(Building in progress...)*  
+        *(Building in progress...)*
       </ReactMarkdown>
       {
         contentView === "projects" &&
@@ -33,7 +33,7 @@ const App = () => {
             <ReactMarkdown children={`${PlainTextNote}`} />
           </div>
           <ReactMarkdown>
-            Welcome to [join](mailto:lhypds.dev@gmail.com) the projects. 
+            *Welcome to [join](mailto:lhypds.dev@gmail.com) any of the projects.*
           </ReactMarkdown>
         </div>
       }
