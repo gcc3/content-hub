@@ -23,6 +23,12 @@ const App = () => {
         contentView === "projects" &&
         <div>
           <ReactMarkdown children={`${Timeline}`} />
+          <div style={{ maxWidth: '1000px' }}>
+            <iframe frameBorder="0" scrolling="no"
+              width="100%" height="450px"
+              src="https://timeline.gcc3.com">
+            </iframe>
+          </div>
           <ReactMarkdown children={`${SimpleAiChat}`} />
           <ReactMarkdown children={`${PlainTextNote}`} />
         </div>
