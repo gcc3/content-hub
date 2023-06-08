@@ -5,7 +5,7 @@ Plain Text Note
 A set of tools to create plain text note.  
 
 1. [Quick Launcher 2](https://github.com/lhypds/quick-launcher-2)  
-2. A markdown converter  
+2. A markdown converter script.  
 
 * Why I Use Plain Text Notes  
 
@@ -23,9 +23,9 @@ But, you still need to type two spaces every line end.
 You still need to take care of typo miss because it has its strict format.  
 ...    
 
-* Todos
+* Todos  
 
 1. A macOS version of Quick Launcher 2.  
-2. Add image support for current markdown converter.  
+2. Add image support for the markdown converter script.  
 
-Welcome to join...
+Welcome to join the project...
