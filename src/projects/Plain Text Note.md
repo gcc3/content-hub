@@ -22,3 +22,10 @@ Although, there is Markdown, particularly for those who need to share their note
 But, you still need to type two spaces every line end.  
 You still need to take care of typo miss because it has its strict format.  
 ...    
+
+* Todos
+
+1. A macOS version of Quick Launcher 2.  
+2. Add image support for current markdown converter.  
+
+Welcome to join...
