@@ -27,5 +27,3 @@ You still need to take care of typo miss because it has its strict format.
 
 1. A macOS version of Quick Launcher 2.  
 2. Add image support for the markdown converter script.  
-
-Welcome to join the project...

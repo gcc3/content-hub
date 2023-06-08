@@ -32,6 +32,9 @@ const App = () => {
           <div id="plain-text-note">
             <ReactMarkdown children={`${PlainTextNote}`} />
           </div>
+          <ReactMarkdown>
+            Welcome to [join](mailto:lhypds.dev@gmail.com) the projects. 
+          </ReactMarkdown>
         </div>
       }
       {
