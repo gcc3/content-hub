@@ -18,6 +18,8 @@
     }
 
     function redirectToNotes() {
+      hideAllContents();
+      document.getElementById("main-view").style.display = "block";
       changeContentView("notes");
     }
 
