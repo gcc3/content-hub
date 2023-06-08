@@ -11,7 +11,7 @@ body {
   position: fixed;
 }
 .content {
-  margin-left: 10px;
+  margin-left: 180px;
   width: calc(100% - 190px);
 }
 .wrapper-inline-block {
