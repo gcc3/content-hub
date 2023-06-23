@@ -25,6 +25,11 @@ To use roleplay, samply type `:role use [role_name]`.
 Use `:role list` to check current avaiable roles.  
 Promopts provided by the [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts)
 
+4. Self Result Evaluation   
+I found that the AI can evalute the result of itself very well.  
+And this can solve credibility problem in dictionary search.  
+To show the stats information which including the self result evaluation use `:stats on`.  
+
 * Command-line run
 
 1. Install `node` and `npm`  
