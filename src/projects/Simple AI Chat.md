@@ -4,7 +4,7 @@ Simple AI Chat
 
 Simple AI Chat is now avaiable at [simple-ai.io](https://simple-ai.io)
 
-[live demo](https://simple-ai-chat.gcc3.com).  
+[old live demo](https://simple-ai-chat.gcc3.com).  
 
 A dialogue application implemented based on OpenAI's API, the backend of which can be customizable.  
 
@@ -37,11 +37,11 @@ To show the stats information which including the self result evaluation use `:s
 1. Install `node` and `npm`  
 2. Install [carbonyl](https://github.com/fathyb/carbonyl)  
 `npm install --global carbonyl`  
-3. Run `carbonyl https://simple-ai-chat.gcc3.com`  
+3. Run `carbonyl https://simple-ai.io`  
 
 Or use docker
 1. Install docker
-2. Run `docker run -ti fathyb/carbonyl https://simple-ai-chat.gcc3.com`  
+2. Run `docker run -ti fathyb/carbonyl https://simple-ai.io`  
 
 Have fun!  
 
