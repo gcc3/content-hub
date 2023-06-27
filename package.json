@@ -1,7 +1,7 @@
 {
   "name": "gcc3",
   "version": "1.0.0",
-  "description": "GCC^3 web",
+  "description": "GCC³ web",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server .",
