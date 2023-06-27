@@ -1,15 +1,36 @@
 import React, { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
-import Timeline from "./projects/Timeline.md";
-import SimpleAiChat from "./projects/Simple AI Chat.md";
-import PlainTextNote from "./projects/Plain Text Note.md";
 import UnixNote from "./note/.markdown/Unix Note.md";
 import rehypeRaw from 'rehype-raw'
 
 const App = () => {
   const [contentView, setContentView] = useState("projects");
+  const [timeline, setTimeline] = useState();
+  const [simpleAiChat, setSimpleAiChat] = useState();
+  const [plainTextNote, setPlainTextNote] = useState();
+  const [unixNote, setUnixNote] = useState();
 
   useEffect(() => {
+    fetch('/projects/Timeline.md')
+      .then(response => response.text())
+      .then(data => setTimeline(data))
+      .catch(error => console.error(error));
+
+    fetch('/projects/Simple AI Chat.md')
+      .then(response => response.text())
+      .then(data => setSimpleAiChat(data))
+      .catch(error => console.error(error));
+
+    fetch('/projects/Plain Text Note.md')
+      .then(response => response.text())
+      .then(data => setPlainTextNote(data))
+      .catch(error => console.error(error));
+
+    fetch('/note/.markdown/Unix Note.md')
+      .then(response => response.text())
+      .then(data => setUnixNote(data))
+      .catch(error => console.error(error));
+
     window.addEventListener('changeContentView', (e) => {
       setContentView(e.detail);
     });
@@ -24,13 +45,13 @@ const App = () => {
         contentView === "projects" &&
         <div>
           <div id="timeline">
-            <ReactMarkdown children={`${Timeline}`} rehypePlugins={[rehypeRaw]} />
+            {timeline && <ReactMarkdown children={`${timeline}`} rehypePlugins={[rehypeRaw]} />}
           </div>
           <div id="simple-ai-chat">
-            <ReactMarkdown children={`${SimpleAiChat}`} />
+            {simpleAiChat && <ReactMarkdown children={`${simpleAiChat}`} />}
           </div>
           <div id="plain-text-note">
-            <ReactMarkdown children={`${PlainTextNote}`} />
+            {plainTextNote && <ReactMarkdown children={`${plainTextNote}`} />}
           </div>
           <ReactMarkdown>
             *Welcome to [join](mailto:lhypds.dev@gmail.com) any of the projects.*
@@ -40,7 +61,7 @@ const App = () => {
       {
         contentView === "notes" &&
         <div>
-          <ReactMarkdown children={`${UnixNote}`} />
+          {unixNote && <ReactMarkdown children={`${unixNote}`} />}
         </div>
       }
     </>
