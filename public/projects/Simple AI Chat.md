@@ -46,20 +46,22 @@ Use `:speak on` to turn on the speak after generating.
 Use `:speak stop` to stop the speaking.  
 To change language use `:lang use [language code]`  
 
-* Command-line run
+Command-line run
 
 1. Install `node` and `npm`  
 2. Install [carbonyl](https://github.com/fathyb/carbonyl)  
 `npm install --global carbonyl`  
 3. Run `carbonyl https://simple-ai.io`  
 
-Or use docker
+Or, use docker  
+
 1. Install docker
 2. Run `docker run -ti fathyb/carbonyl https://simple-ai.io`  
 
 Have fun!  
 
-* Todos  
+Some more challedging tasks
 
-Extract keywords to imporve searching.  
-AI links to AI.  
+1. Intergrate LangChain to support document query.  
+2. Generate image from the stable-diffusion AI.  
+3. AI links to AI.  
