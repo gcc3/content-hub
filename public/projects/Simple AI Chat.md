@@ -2,12 +2,14 @@
 Simple AI Chat
 ==============
 
+
 Simple AI Chat is now avaiable at [simple-ai.io](https://simple-ai.io)  
 
 [live demo](https://simple-ai-chat.gcc3.com).  
 
 A dialogue application implemented based on OpenAI's API.  
 The backend of which can be customizable.  
+
 
 Main Features
 -------------
@@ -46,7 +48,9 @@ Use `:speak on` to turn on the speak after generating.
 Use `:speak stop` to stop the speaking.  
 To change language use `:lang use [language code]`  
 
+
 Command-line run
+----------------
 
 1. Install `node` and `npm`  
 2. Install [carbonyl](https://github.com/fathyb/carbonyl)  
@@ -60,8 +64,10 @@ Or, use docker
 
 Have fun!  
 
-Some more challedging tasks
 
-1. Intergrate LangChain to support document query.  
+Some more challedging and fun tasks
+-----------------------------------
+
+1. Intergrate LangChain to support document query. (In progress)  
 2. Generate image from the stable-diffusion AI.  
-3. AI links to AI.  
+3. AI links to AI. (In progress)  
