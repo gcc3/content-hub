@@ -3,11 +3,6 @@ Plain Text Note
 ===============
 
 
-A set of tools to create plain text note.  
-
-1. [Note Script](https://github.com/lhypds/note-script)  
-2. [Quick Launcher 2](https://github.com/lhypds/quick-launcher-2)  
-
 * Why Use Plain Text Notes  
 
 Plain text notes let note-takers forget about platform compatibility,  
@@ -36,6 +31,15 @@ You still need to take care of typo miss because it has its strict format.
 
 Folder name starts with `.` (like `.images`, `.markdown`) stores note relative files.  
 Folders named `X Note` in `.` folder is for a corresponding note.  
+
+* Some tools for plain text note.  
+
+1. [Note Script](https://github.com/lhypds/note-script)  
+   Convert the plain text note into markdown.  
+
+2. [Quick Launcher 2](https://github.com/lhypds/quick-launcher-2)  
+   This tool helps users open notes, create notes, and delete notes with ease.  
+   (it also provides a shortcut to run a Windows command.)  
 
 
 TOODs
