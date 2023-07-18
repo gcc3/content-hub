@@ -24,16 +24,18 @@ But, you still need to type two spaces every line end.
 You still need to take care of typo miss because it has its strict format.  
 ...  
 
-* Format rules  
+* Note format  
 
-1. Every note's named "X Not.txt", X is the topic.  
-2. Title with double underline, section title with underline.  
+1. Every note's file name is "X Not.txt", X is the topic.  
+2. Title with double underline, section title with a underline.  
 3. Title and section has 2 empty lines in between.  
+4. Every note title will be `X Note`, X is the topic.  
+5. The First section title will be `X`, X is the topic. It will define and briefly describe the topic.  
 
-* `.` Folder
+* `.` Folders  
 
-Folder name ends with `.` (`.images`, `.markdown`) stores note relative files.  
-Folders named `X Note` in `.` folder is for corresponding note.  
+Folder name starts with `.` (like `.images`, `.markdown`) stores note relative files.  
+Folders named `X Note` in `.` folder is for a corresponding note.  
 
 
 TOODs
