@@ -47,8 +47,35 @@ Use `:speak on` to turn on the speak after generating.
 Use `:speak stop` to stop the speaking.  
 To change language use `:lang use [language code]`  
 
-* AI links to AI (experimental)  
-Use function calling to link to another AI (core AI)  
+* AI links   
+Refer AI Links below.
+
+* Vector Database  
+Query data from vector database engine.  
+Currently support [Vectara](https://vectara.com/).  
+
+* Color Theme  
+Use `:theme [light/dark]` to change color theme.  
+
+* Full Screen Mode  
+Use `:fullscreen on` to turn on fullscreen mode.  
+
+
+AI Links
+--------
+
+Simple AI is able to link to another support AI by function calling.  
+
+The API response format must be
+
+```json
+{
+    "result": "Sample result text."
+}
+```
+
+Also, 2 projects [simple-ai-node](https://github.com/gcc3/simple-ai-node) and [simple-ai-hub](https://github.com/gcc3/simple-ai-hub) are provided.  
+To use multiple AI node, a AI hub is suggested, it can send query to multipe node simultaneously.  
 
 
 Command-line Run
@@ -70,6 +97,6 @@ Have fun!
 Some Challenging Fun Tasks
 --------------------------
 
-1. Intergrate LangChain to support document query. (In progress)  
+1. Intergrate LangChain to support document query. (done)  
 2. Generate image from the stable-diffusion AI.  
-3. AI links to AI. (In progress)  
+3. AI links to AI. (done)  
