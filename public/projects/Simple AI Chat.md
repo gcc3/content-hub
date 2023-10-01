@@ -2,6 +2,7 @@
 Simple AI Chat
 ==============
 
+GitHub: [simple-ai-chat](https://github.com/gcc3/simple-ai-chat)  
 
 Simple AI Chat is now avaiable at [simple-ai.io](https://simple-ai.io)  
 
