@@ -14,20 +14,20 @@ The application is deployed at [simple-ai.io](https://simple-ai.io).
 Quick Start
 -----------
 
-Web use  
-https://simple-ai.io
+- Web use  
+[https://simple-ai.io](https://simple-ai.io)  
 
-Command-line interface (CLI) use  
+- Command-line interface (CLI) use  
 Install: npm i simple-ai-chat -g  
 Start: schat  
 npm package: simple-ai-chat  
 
-MCP client  
+- MCP client  
 Install: npm i simple-ai-chat -g  
 Use smcp (or just schat) to start the client service.  
 The mcpconfig.json file is located in the ~/.simple.  
 
-Ollama  
+- Ollama  
 Set the environment variable OLLAMA_ORIGINS to * or your domain to allow CORS.  
 Use :model ls to list the models, and :model use <model> to use the Ollama models.  
 To use function calling, set :stream off as in Ollama it's not supported.  
