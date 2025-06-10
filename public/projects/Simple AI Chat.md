@@ -64,8 +64,9 @@ Connect to another AI or any data source to use its data. When a node is used, t
 As one of the AI callable function, WolframAlpha is a highly capable computational knowledge engine that enhances the reliability of answers provided.
 
 - Command-line Interface (CLI)  
-Command-line interface software is provided via the Node Package Manager (npm) and supports the same features as the web UI.
-More features:
+Command-line interface software is provided via the Node Package Manager (npm) and supports the same features as the web UI.  
+
+More features
 
 - Full-screen mode and split-screen mode  
 For easy use requiring extensive input and output, such as programmers, essay writer. To use split-screen mode, use command `:fullscreen split`.

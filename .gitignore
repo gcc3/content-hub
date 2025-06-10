@@ -9,3 +9,4 @@ public/note/
 .eslintcache
 package-lock.json
 .env
+public/test.*

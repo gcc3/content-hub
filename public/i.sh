@@ -39,19 +39,8 @@ if [ "$distro" == "Ubuntu" ]; then
     sudo apt install $tools -y
     sudo apt install $toolsBuild -y
     sudo apt install $toolsConnct -y
-elif [ "$distro" == "Debian GNU/Linux" ]; then
-    echo "Detect Debian"
-    echo "Abort as Debian is not supported yet"
-elif [ "$distro" == "Fedora" ]; then
-    echo "Detect Fedora"
-    echo "Abort as Fedora is not supported yet"
-elif [ "$distro" == "CentOS Linux" ]; then
-    echo "Detect CentOS, installing..."
-    sudo yum install $tools -y
-    sudo yum install $toolsBuild -y
-    sudo yum install $toolsConnct -y
 else
-    echo "Unknown distribution: $distro"
+    echo "Unsupported distribution: $distro"
 fi
 
 # finish
