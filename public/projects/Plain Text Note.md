@@ -19,31 +19,17 @@ But, you still need to type two spaces every line end.
 You still need to take care of typo miss because it has its strict format.  
 ...  
 
-* Note format  
-
-1. Every note's file name is "X Not.txt", X is the topic.  
-2. Title with double underline, section title with a underline.  
-3. Title and section has 2 empty lines in between.  
-4. Every note title will be `X Note`, X is the topic.  
-5. The First section title will be `X`, X is the topic. It will define and briefly describe the topic.  
+* Format  
+Every note's file name is "X Not.txt", X is the topic.  
+Title with double underline, section title with a underline.  
+Title and section has 2 empty lines in between.  
+Every note title will be `X Note`, X is the topic.  
+The First section title will be `X`, X is the topic. It will define and briefly describe the topic.  
 
 * `.` Folders  
-
 Folder name starts with `.` (like `.images`, `.markdown`) stores note relative files.  
 Folders named `X Note` in `.` folder is for a corresponding note.  
 
-* Some tools for plain text note.  
-
-1. [Note Script](https://github.com/lhypds/note-script)  
-   Convert the plain text note into markdown.  
-
-2. [Quick Launcher 2](https://github.com/lhypds/quick-launcher-2)  
-   This tool helps users open notes, create notes, and delete notes with ease.  
-   (it also provides a shortcut to run a Windows command.)  
-
-
-TOODs
------
-
-1. Image support.  
-2. A macOS version of Quick Launcher 2.  
+* Tools for plain text note.  
+[Note Script](https://github.com/lhypds/note-script)  
+Convert the plain text note into markdown.  
