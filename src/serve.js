@@ -5,10 +5,23 @@ const express = require('express');
 
 const app = express();
 const port = process.env.PORT || 3000;
+const corsOrigin = process.env.CORS_ORIGIN || '*';
+
+// CORS middleware
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', corsOrigin);
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+  return next();
+});
 
 // Ping
 app.get('/', (req, res) => {
-  res.send('gcc3')
+  res.send('dead');
 })
 
 // List categories

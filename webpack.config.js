@@ -1,4 +1,6 @@
 const path = require("path");
+const webpack = require("webpack");
+require("dotenv").config();
 
 /*We are basically telling webpack to take index.js from entry. Then check for all file extensions in resolve. 
 After that apply all the rules in module.rules and produce the output and place it in main.js in the public folder.*/
@@ -58,6 +60,11 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            "process.env.REACT_APP_BASE_URL": JSON.stringify(process.env.REACT_APP_BASE_URL || ""),
+        }),
+    ],
     resolve: {
         /** "extensions" 
          * If multiple files share the same name but have different extensions, webpack will 
