@@ -51,8 +51,8 @@
         document.getElementById("btn-collapse-index-in").style.display = "block";
         document.getElementById("btn-collapse-index-out").style.display = "none";
         document.querySelector(".index").style.display = "inline-block";
-        document.querySelector(".content").style.width = "calc(100% - 193px)";
-        document.querySelector(".content").style.marginLeft = "193px";
+        document.querySelector(".content").style.width = "calc(100% - var(--index-width) - 13px)";
+        document.querySelector(".content").style.marginLeft = "calc(var(--index-width) + 13px)";
       }
     </script>
   </head>
@@ -74,6 +74,9 @@
 
         <p>
           <a class="subject" href="#simple-ai-chat" onclick="redirectToMainView()">simple ai - chat</a>
+        </p>
+        <p>
+          <a class="subject" href="#vscode-window-color-rotator" onclick="redirectToMainView()">vscode window color rotator</a>
         </p>
         <p>
           <a class="subject" href="#timeline" onclick="redirectToMainView()">timeline</a>

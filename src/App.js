@@ -8,6 +8,7 @@ const App = () => {
   const [simpleAiChat, setSimpleAiChat] = useState();
   const [plainTextNote, setPlainTextNote] = useState();
   const [unixNote, setUnixNote] = useState();
+  const [vscodeWindowColorRotator, setVscodeWindowColorRotator] = useState();
 
   useEffect(() => {
     fetch('/projects/Timeline.md')
@@ -30,6 +31,11 @@ const App = () => {
       .then(data => setUnixNote(data))
       .catch(error => console.error(error));
 
+    fetch('/projects/Window Color Rotator.md')
+      .then(response => response.text())
+      .then(data => setVscodeWindowColorRotator(data))
+      .catch(error => console.error(error));
+
     window.addEventListener('changeContentView', (e) => {
       setContentView(e.detail);
     });
@@ -45,6 +51,9 @@ const App = () => {
           </ReactMarkdown>
           <div id="simple-ai-chat">
             {simpleAiChat && <ReactMarkdown children={`${simpleAiChat}`} />}
+          </div>
+          <div id="vscode-window-color-rotator">
+            {vscodeWindowColorRotator && <ReactMarkdown children={`${vscodeWindowColorRotator}`} />}
           </div>
           <div id="timeline">
             {timeline && <ReactMarkdown children={`${timeline}`} rehypePlugins={[rehypeRaw]} />}

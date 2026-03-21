@@ -18,16 +18,19 @@ Although, there is Markdown, particularly for those who need to share their note
 But, you still need to type two spaces every line end and taking care of typo miss because it has its strict format.  
 
 * Format  
+
 Every note's file name is "X Not.txt", X is the topic.  
 Title with double underline, section title with a underline.  
 Title and section has 2 empty lines in between.  
 Every note title will be `X Note`, X is the topic.  
 The First section title will be `X`, X is the topic. It will define and briefly describe the topic.  
 
-* `.` Folders  
+* The dot folders  
+
 Folder name starts with `.` (like `.images`, `.markdown`) stores note relative files.  
 Folders named `X Note` in `.` folder is for a corresponding note.  
 
 * Tools  
+
 [Note Script](https://github.com/lhypds/note-script)  
 Convert the plain text note into markdown.  

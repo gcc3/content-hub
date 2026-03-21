@@ -3,6 +3,8 @@
 body {
   font-family: "Fira Code VF", Helvetica, sans-serif;
   margin: 10px 10px 20px 10px;
+
+  --index-width: 200px;
 }
 
 .wrapper {
@@ -14,15 +16,16 @@ body {
 }
 
 .index {
-  width: 170px;
+  width: var(--index-width);
   height: 100%;
   position: fixed;
   border-right: 1px solid gray;
 }
 
 .content {
-  margin-left: 193px;
-  width: calc(100% - 193px);
+  margin-left: calc(var(--index-width) + 13px);
+  width: calc(100% - var(--index-width) - 13px);
+  max-width: 900px;
 }
 
 .wrapper-inline-block {
