@@ -15,7 +15,7 @@ body {
   margin-top: 10px;
 }
 
-.index {
+.sidebar {
   width: var(--index-width);
   height: 100%;
   position: fixed;
@@ -32,7 +32,7 @@ body {
   box-sizing: content-box;
   font-size: 0;
 }
-.wrapper-inline-block .index,
+.wrapper-inline-block .sidebar,
 .wrapper-inline-block .content {
   display: inline-block;
   vertical-align: top;
@@ -40,10 +40,10 @@ body {
   box-sizing: border-box;
 }
 
-.index .tab {
+.sidebar .tab {
   margin-left: 20px;
 }
-.index .subject {
+.sidebar .subject {
   margin-top: 6px;
   text-decoration: underline !important;
   cursor: pointer;
