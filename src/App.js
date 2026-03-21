@@ -46,6 +46,9 @@ const App = () => {
       {
         contentView === "projects" &&
         <div>
+          <ReactMarkdown>
+            **projects**
+          </ReactMarkdown>
           <div id="simple-ai-chat">
             {simpleAiChat && <ReactMarkdown children={`${simpleAiChat}`} rehypePlugins={[rehypeRaw]} />}
           </div>
