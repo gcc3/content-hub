@@ -11,8 +11,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/notes', (req, res) => {
-  const noteDir = path.join(__dirname, '../public/note');
-  fs.readdir(noteDir, (err, files) => {
+  const notesDir = path.join(__dirname, '../public/notes');
+  fs.readdir(notesDir, (err, files) => {
     if (err) {
       return res.status(500).json({ error: 'Failed to read notes directory' });
     }
