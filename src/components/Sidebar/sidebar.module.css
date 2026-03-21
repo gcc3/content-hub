@@ -30,7 +30,13 @@
 .searchInput {
   width: 100%;
   box-sizing: border-box;
+  border: 1px solid black;
   padding: 6px 8px;
+  font-size: 12px;
+}
+
+.searchInput::placeholder {
+  color: gray;
 }
 
 .searchInput:focus,
