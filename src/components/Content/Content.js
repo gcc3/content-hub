@@ -30,7 +30,7 @@ const Content = ({ category, notes_ }) => {
 
   return (
     <>
-      <ReactMarkdown>{category}</ReactMarkdown>
+      <ReactMarkdown>{`**${category}**`}</ReactMarkdown>
       {notes.map(note => (
         <div id={note.name} key={note.name}>
           <ReactMarkdown children={note.content} rehypePlugins={[rehypeRaw]} />
