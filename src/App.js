@@ -3,6 +3,7 @@ import clsx from "clsx";
 import Content from "./components/Content/Content";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Copyright from "./components/Copyright/Copyright";
+import { SITE_NAME } from "./constants";
 import styles from "./app.module.css";
 
 const App = () => {
@@ -12,6 +13,8 @@ const App = () => {
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
+    document.title = SITE_NAME;
+
     fetch("/api/categories")
       .then(response => response.json())
       .then(data => setCategories(data))
