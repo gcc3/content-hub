@@ -12,3 +12,4 @@ package-lock.json
 public/*.sh
 public/test.*
 src/constants.js
+public/assets/*
