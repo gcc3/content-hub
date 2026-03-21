@@ -9,8 +9,14 @@ const App = () => {
   const [plainTextNote, setPlainTextNote] = useState();
   const [unixNote, setUnixNote] = useState();
   const [vscodeWindowColorRotator, setVscodeWindowColorRotator] = useState();
+  const [noteList, setNoteList] = useState([]);
 
   useEffect(() => {
+    fetch('/api/notes')
+      .then(response => response.json())
+      .then(data => setNoteList(data))
+      .catch(error => console.error(error));
+
     fetch('/notes/projects/timeline.md')
       .then(response => response.text())
       .then(data => setTimeline(data))
