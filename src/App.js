@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import clsx from "clsx";
 import Content from "./components/Content/Content";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Copyright from "./components/Copyright/Copyright";
+import styles from "./app.module.css";
 
 const App = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -38,7 +40,7 @@ const App = () => {
   }, [category]);
 
   return (
-    <div className="wrapper wrapper-inline-block">
+    <div className={clsx(styles.wrapper, styles.wrapperInlineBlock)}>
       {!isSidebarCollapsed && (
         <Sidebar
           category={category}
@@ -48,8 +50,7 @@ const App = () => {
       )}
 
       <div
-        className="content"
-        style={isSidebarCollapsed ? { width: "100%", marginLeft: "0px" } : undefined}
+        className={clsx(styles.content, { [styles.contentExpanded]: isSidebarCollapsed })}
       >
         <div className="content-view" id="main-view">
           <Content category={category} notes_={notes} />
@@ -59,8 +60,7 @@ const App = () => {
         {isSidebarCollapsed && (
           <div
             id="btn-expand-sidbar"
-            className="btn-collapse-index"
-            style={{ display: "block", position: "fixed", bottom: "10px", fontSize: "20px", textAlign: "center" }}
+            className={styles.expandSidebarBtn}
             onClick={() => setIsSidebarCollapsed(false)}
           >
             •

@@ -3,12 +3,12 @@ import styles from "./sidebar.module.css";
 
 const Sidebar = ({ category, notes, onCollapse }) => {
   return (
-    <div className="sidebar">
-      <div className="title">
+    <div className={styles.sidebar}>
+      <div className={styles.title}>
         <a href="https://www.gcc3.com" className={styles.linkReset}>
           <h1 className={styles.brandMain}>GCC</h1>
           <div className={styles.brandSup}>3</div>
-          <div id="label-lab">lab</div>
+          <div className={styles.lab}>lab</div>
         </a>
       </div>
 
@@ -16,7 +16,7 @@ const Sidebar = ({ category, notes, onCollapse }) => {
         <h4>{category}</h4>
         <h5
           id="btn-collapse-sidbar"
-          className="btn-collapse-index"
+          className={styles.collapseBtn}
           onClick={onCollapse}
         >
           {"<<"}
@@ -25,7 +25,7 @@ const Sidebar = ({ category, notes, onCollapse }) => {
 
       {notes.map(note => (
         <p key={note}>
-          <a className="subject" href={`#${note}`}>{note.replace('.md', '').replace(/^\d+_/, '')}</a>
+          <a className={styles.subject} href={`#${note}`}>{note.replace('.md', '').replace(/^\d+_/, '')}</a>
         </p>
       ))}
 

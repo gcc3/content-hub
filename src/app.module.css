@@ -1,0 +1,37 @@
+.wrapper {
+  padding: 0px 5px 0px 0px;
+}
+
+.wrapperInlineBlock {
+  box-sizing: content-box;
+  font-size: 0;
+}
+
+.wrapperInlineBlock > *,
+.content {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.content {
+  margin-left: calc(var(--sidebar-width) + 13px);
+  width: calc(100% - var(--sidebar-width) - 13px);
+  max-width: 900px;
+}
+
+.contentExpanded {
+  width: 100%;
+  margin-left: 0px;
+}
+
+.expandSidebarBtn {
+  display: block;
+  position: fixed;
+  bottom: 10px;
+  width: 10px;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+}
