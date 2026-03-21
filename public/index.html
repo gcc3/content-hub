@@ -26,13 +26,13 @@
           document.getElementById("btn-collapse-index-out").style.display = "block";
           document.getElementById("btn-collapse-index-out").style.position = "fixed";
           document.getElementById("btn-collapse-index-out").style.bottom = "10px";
-          document.querySelector(".index").style.display = "none";
+          document.querySelector(".sidebar").style.display = "none";
           document.querySelector(".content").style.width = "100%";
           document.querySelector(".content").style.marginLeft = "0px";
         } else {
           document.getElementById("btn-collapse-index-in").style.display = "block";
           document.getElementById("btn-collapse-index-out").style.display = "none";
-          document.querySelector(".index").style.display = "inline-block";
+          document.querySelector(".sidebar").style.display = "inline-block";
           document.querySelector(".content").style.width = "calc(100% - var(--index-width) - 13px)";
           document.querySelector(".content").style.marginLeft = "calc(var(--index-width) + 13px)";
         }
