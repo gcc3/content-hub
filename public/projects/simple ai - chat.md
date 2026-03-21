@@ -3,7 +3,7 @@ simple ai - chat
 ================
 
 
-<img src="/assets/simple-ai-chat/icon-512x512.png" alt="Simple AI Chat Icon" width="100" />
+<img src="/assets/simple-ai-chat/icon-512x512.png" alt="simple ai - chat" width="100" />
 
 Public access: [https://simple-ai.io](https://simple-ai.io)  
 GitHub: [gcc3/simple-ai-chat](https://github.com/gcc3/simple-ai-chat)  

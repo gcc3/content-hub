@@ -11,17 +11,17 @@ const App = () => {
   const [vscodeWindowColorRotator, setVscodeWindowColorRotator] = useState();
 
   useEffect(() => {
-    fetch('/projects/Timeline.md')
+    fetch('/projects/timeline.md')
       .then(response => response.text())
       .then(data => setTimeline(data))
       .catch(error => console.error(error));
 
-    fetch('/projects/Simple AI Chat.md')
+    fetch('/projects/simple ai - chat.md')
       .then(response => response.text())
       .then(data => setSimpleAiChat(data))
       .catch(error => console.error(error));
 
-    fetch('/projects/Plain Text Note.md')
+    fetch('/projects/notes (plain text).md')
       .then(response => response.text())
       .then(data => setPlainTextNote(data))
       .catch(error => console.error(error));
@@ -31,7 +31,7 @@ const App = () => {
       .then(data => setUnixNote(data))
       .catch(error => console.error(error));
 
-    fetch('/projects/Window Color Rotator.md')
+    fetch('/projects/window color rotator.md')
       .then(response => response.text())
       .then(data => setVscodeWindowColorRotator(data))
       .catch(error => console.error(error));
