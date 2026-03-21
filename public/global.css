@@ -1,7 +1,7 @@
 @import url(https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css);
 
 :root {
-  --sidebar-width: 200px;
+  --sidebar-width: 220px;
 }
 
 body {
@@ -23,6 +23,14 @@ ol {
 
 html {
   scroll-behavior: smooth;
+}
+
+.content-view,
+.content-view p,
+.content-view li,
+.content-view a {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 p > code,
