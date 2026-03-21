@@ -1,6 +1,6 @@
 node_modules/
 public/main.js
-public/note/
+public/projects/note/
 public/downloads/
 .DS_Store
 *.log
