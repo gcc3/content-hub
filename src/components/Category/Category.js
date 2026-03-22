@@ -15,6 +15,7 @@ const Category = ({ category, notes_ }) => {
     }
 
     setLoading(true);
+
     notes_ = notes_.slice(0, NOTES_LIMIT);
     Promise.all(notes_.map(async note_ => {
       try {
