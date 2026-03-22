@@ -1,10 +1,10 @@
 
-GCC³
+gcc³
 ====
 
 
 Light weight blog system.  
-Used by [GCC³](https://gcc3.com) web.  
+Used by [gcc³](https://gcc3.com) web.  
 
 
 How To Use
@@ -15,6 +15,7 @@ Setup
 Setup `.env` from `.env.example` and fill in the required values.  
 `PORT` is the content server port.  
 `REACT_APP_NAME`, `REACT_APP_PUBLIC_URL`, and `REACT_APP_COPYRIGHT` are used by the frontend pages.  
+(Optional) Add `favicon.ico` in the `public/` directory.  
 
 Serve  
 Build the project for production:  
