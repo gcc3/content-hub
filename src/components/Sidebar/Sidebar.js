@@ -17,15 +17,6 @@ const handleSearchKeyDown = (event, searchText, setSearchText) => {
   }
 };
 
-const handleNoteSubjectClick = (event, category, note, onNoteClick) => {
-  const href = event.currentTarget.getAttribute("href") || "";
-  const noteId = toNoteId(category, note);
-
-  if (href.includes(noteId)) {
-    onNoteClick?.(category, note);
-  }
-};
-
 const handleCategoryTitleClick = (category, onCategoryClick) => {
   clearHash();
   onCategoryClick?.(category);
@@ -109,7 +100,7 @@ const Sidebar = ({
               <a
                 className={styles.subject}
                 href={`#${toNoteId(cat, note)}`}
-                onClick={event => handleNoteSubjectClick(event, cat, note, onNoteClick)}
+                onClick={() => onNoteClick?.(cat, note)}
               >
                 {toNoteTitle(note)}
               </a>
