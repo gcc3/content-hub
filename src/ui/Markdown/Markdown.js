@@ -9,6 +9,14 @@ const resolveRelativeUrlsIn = (html, basePath) => {
 
   const template = document.createElement("template");
   template.innerHTML = html;
+
+  // Links
+  template.content.querySelectorAll("a[href]").forEach(element => {
+    element.setAttribute("target", "_blank");
+    element.setAttribute("rel", "noopener noreferrer");
+  });
+
+  // Images
   template.content.querySelectorAll("img[src]").forEach(element => {
     const attributeValue = element.getAttribute("src");
     if (!attributeValue) {
