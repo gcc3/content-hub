@@ -11,10 +11,8 @@ How To Use
 ----------
 
 Setup  
-`npm install`  
-Setup `.env` from `.env.example` and fill in the required values.  
-`PORT` is the content server port.  
-`REACT_APP_NAME`, `REACT_APP_PUBLIC_URL`, and `REACT_APP_COPYRIGHT` are used by the frontend pages.  
+`npm install` to install packages.  
+Setup `.env` from `.env.example` and fill in the required values, refer `.env` section below.  
 (Optional) Add `favicon.ico` in the `public/` directory.  
 
 Serve  
@@ -24,8 +22,6 @@ This generates the bundled `main.js` file in the `public/` directory.
 Serve the project with Express:  
 `npm start`  
 
-The frontend and API are served from the same Express server and port.  
-
 Content  
 Simply write and put the markdown files in the `notes/[category]/*.md` directory.  
 Category will be loaded as indexes in sidebar.  
@@ -34,14 +30,40 @@ Category will be loaded as indexes in sidebar.
 Development
 -----------
 
-Dependencies
+Dependencies  
 Node.js https://nodejs.org/en/docs  
 React https://react.dev/reference/react  
 Webpack https://webpack.js.org/guides/  
 Babel https://babeljs.io/docs/  
 
-Develop the project with hot reload:
-`npm run dev`
+Develop the project with hot reload:  
+`npm run dev`  
 
-This will start the webpack dev server at http://localhost:9500/
+This will start the webpack dev server at http://localhost:9500/  
 The content server `PORT` can be set in `.env` file.  
+
+Content server APIs  
+/api/categories  
+Get the list of categories.  
+/api/notes/:category  
+Get the list of notes in a category.  
+
+
+.env
+----
+
+PORT  
+Used to set the web and content server port.  
+Default is 3180.  
+
+REACT_APP_NAME  
+Used to set the site name.  
+
+REACT_APP_PUBLIC_URL  
+Used to set the site public URL.  
+
+REACT_APP_COPYRIGHT  
+Used to set the site copyright information.  
+
+REACT_APP_USE_SEARCH  
+Used to enable the search page.  

@@ -43,9 +43,9 @@ app.get('/api/categories', (req, res) => {
 })
 
 // List notes
-app.get('/api/notes/:category_name', (req, res) => {
-  const categoryName = req.params.category_name;
-  const categoryDir = path.resolve(notesDir, categoryName);
+app.get('/api/notes/:category', (req, res) => {
+  const category = req.params.category;
+  const categoryDir = path.resolve(notesDir, category);
   const markdownDir = path.join(categoryDir, '.markdown');
 
   if (!categoryDir.startsWith(notesDir)) {
