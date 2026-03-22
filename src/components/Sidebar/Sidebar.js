@@ -10,7 +10,7 @@ const links = (process.env.REACT_APP_LINKS || "").split(";").map(link => {
   return { name, url };
 }).filter(link => link.name && link.url);
 
-const Sidebar = ({ categories = [], categoryNoteList = {}, onCollapse }) => {
+const Sidebar = ({ categories = [], categoryNoteList = {}, onCategoryClick, onCollapse }) => {
   const [searchText, setSearchText] = useState("");
 
   const filteredCategoryNotes = useMemo(() => {
@@ -69,7 +69,9 @@ const Sidebar = ({ categories = [], categoryNoteList = {}, onCollapse }) => {
 
       {categories.map(cat => (
         <div key={cat}>
-          {(filteredCategoryNotes[cat] || []).length > 0 && <h4>{cat}</h4>}
+          {(filteredCategoryNotes[cat] || []).length > 0 && (
+            <h4 className={styles.categoryName} onClick={() => onCategoryClick?.(cat)}>{cat}</h4>
+          )}
           {(filteredCategoryNotes[cat] || []).map(note => (
             <p key={note}>
               <a className={styles.subject} href={`#${toNoteId(cat, note)}`}>{toNoteTitle(note)}</a>

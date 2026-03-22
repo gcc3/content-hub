@@ -67,6 +67,7 @@ const App = () => {
         <Sidebar
           categories={categories}
           categoryNoteList={categoryNoteList}
+          onCategoryClick={setCategory}
           onCollapse={() => setIsSidebarCollapsed(true)}
         />
       )}

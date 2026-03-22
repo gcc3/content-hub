@@ -66,6 +66,10 @@
   margin-left: 20px;
 }
 
+.categoryName {
+  cursor: pointer;
+}
+
 .subject {
   margin-top: 6px;
   text-decoration: underline !important;
