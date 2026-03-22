@@ -4,6 +4,7 @@ import { toNoteId, toNoteTitle } from "../../utils/textUtils";
 
 const siteName = process.env.REACT_APP_NAME || "";
 const sitePublicUrl = process.env.REACT_APP_PUBLIC_URL || "#";
+const useSearch = process.env.REACT_APP_USE_SEARCH === "true";
 
 const Sidebar = ({ categories = [], categoryNotes = {}, onCollapse }) => {
   const [searchText, setSearchText] = useState("");
@@ -48,16 +49,18 @@ const Sidebar = ({ categories = [], categoryNotes = {}, onCollapse }) => {
           </h5>
         </div>
 
-        <div className={styles.search}>
-          <input
-            type="text"
-            value={searchText}
-            onChange={e => setSearchText(e.target.value)}
-            placeholder="search notes"
-            className={styles.searchInput}
-            aria-label="Search notes"
-          />
-        </div>
+        {useSearch && (
+          <div className={styles.search}>
+            <input
+              type="text"
+              value={searchText}
+              onChange={e => setSearchText(e.target.value)}
+              placeholder="search notes"
+              className={styles.searchInput}
+              aria-label="Search notes"
+            />
+          </div>
+        )}
       </div>
 
       {categories.map(cat => (

@@ -74,11 +74,13 @@ module.exports = (_, argv = {}) => {
             extensions: ['.js', '.jsx', '.json']
         },
         plugins: [
-            new webpack.DefinePlugin({
-                'process.env.REACT_APP_NAME': JSON.stringify(process.env.REACT_APP_NAME || ''),
-                'process.env.REACT_APP_PUBLIC_URL': JSON.stringify(process.env.REACT_APP_PUBLIC_URL || ''),
-                'process.env.REACT_APP_COPYRIGHT': JSON.stringify(process.env.REACT_APP_COPYRIGHT || ''),
-            }),
+            new webpack.DefinePlugin(
+                Object.fromEntries(
+                    Object.entries(process.env)
+                        .filter(([key]) => key.startsWith('REACT_APP_'))
+                        .map(([key, value]) => [`process.env.${key}`, JSON.stringify(value)])
+                )
+            ),
         ],
         module: {
             /** "rules"
