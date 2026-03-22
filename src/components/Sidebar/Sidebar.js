@@ -11,17 +11,6 @@ const links = (process.env.REACT_APP_LINKS || "").split(";").map(link => {
   return { name, url };
 }).filter(link => link.name && link.url);
 
-const handleSearchKeyDown = (event, searchText, setSearchText) => {
-  if (event.key === "Escape" && searchText) {
-    setSearchText("");
-  }
-};
-
-const handleCategoryTitleClick = (category, onCategoryClick) => {
-  clearHash();
-  onCategoryClick?.(category);
-};
-
 const Sidebar = ({
   categories = [],
   categoryNoteList = {},
@@ -50,6 +39,17 @@ const Sidebar = ({
     }, {});
   }, [categories, categoryNoteList, searchText]);
 
+  const handleSearchKeyDown = (event) => {
+    if (event.key === "Escape" && searchText) {
+      setSearchText("");
+    }
+  };
+
+  const handleCategoryTitleClick = (category) => {
+    clearHash();
+    onCategoryClick?.(category);
+  };
+
   return (
     <div className={styles.sidebar}>
       <div className={styles.stickyTop}>
@@ -76,7 +76,7 @@ const Sidebar = ({
               type="text"
               value={searchText}
               onChange={e => setSearchText(e.target.value)}
-              onKeyDown={event => handleSearchKeyDown(event, searchText, setSearchText)}
+              onKeyDown={event => handleSearchKeyDown(event)}
               placeholder="search notes"
               className={styles.searchInput}
               aria-label="Search notes"
@@ -86,22 +86,22 @@ const Sidebar = ({
       </div>
 
       <div className={styles.index}>
-        {categories.map(cat => (
-          <div className={styles.categories} key={cat}>
-            {(filteredCategoryNoteList[cat] || []).length > 0 && (
+        {categories.map(category => (
+          <div className={styles.categories} key={category}>
+            {(filteredCategoryNoteList[category] || []).length > 0 && (
               <div
                 className={styles.categoryName}
-                onClick={() => handleCategoryTitleClick(cat, onCategoryClick)}
+                onClick={() => handleCategoryTitleClick(category)}
               >
-                {toCategoryTitle(cat)}
+                {toCategoryTitle(category)}
               </div>
             )}
-            {(filteredCategoryNoteList[cat] || []).map(note => (
+            {(filteredCategoryNoteList[category] || []).map(note => (
               <div key={note}>
                 <a
                   className={styles.note}
-                  href={`#${toNoteId(cat, note)}`}
-                  onClick={() => onNoteClick?.(cat, note)}
+                  href={`#${toNoteId(category, note)}`}
+                  onClick={() => onNoteClick?.(category, note)}
                 >
                   {toNoteTitle(note)}
                 </a>
