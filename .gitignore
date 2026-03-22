@@ -1,5 +1,6 @@
 node_modules/
 public/main.js
+public/main.js.LICENSE.txt
 public/notes/*
 .DS_Store
 *.log
