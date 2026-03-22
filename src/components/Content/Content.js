@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
+import Markdown from "../../ui/Markdown";
 import { toNoteId } from "../../utils/textUtils";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "";
@@ -38,7 +38,7 @@ const Content = ({ category, notes_ }) => {
       <ReactMarkdown>{`**${category}**`}</ReactMarkdown>
       {notes.map(note => (
         <div id={toNoteId(category, note.name)} key={note.name}>
-          <ReactMarkdown children={note.content} rehypePlugins={[rehypeRaw]} />
+          <Markdown>{note.content}</Markdown>
         </div>
       ))}
     </>
