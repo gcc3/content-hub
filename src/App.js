@@ -5,7 +5,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Copyright from "./components/Copyright/Copyright";
 import styles from "./app.module.css";
 
-const siteName = process.env.SITE_NAME || "";
+const siteName = process.env.REACT_APP_NAME || "";
 
 const App = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);

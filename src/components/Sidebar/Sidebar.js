@@ -2,8 +2,8 @@ import React, { useMemo, useState } from "react";
 import styles from "./sidebar.module.css";
 import { toNoteId, toNoteTitle } from "../../utils/textUtils";
 
-const siteName = process.env.SITE_NAME || "";
-const sitePublicUrl = process.env.SITE_PUBLIC_URL || "#";
+const siteName = process.env.REACT_APP_NAME || "";
+const sitePublicUrl = process.env.REACT_APP_PUBLIC_URL || "#";
 
 const Sidebar = ({ categories = [], categoryNotes = {}, onCollapse }) => {
   const [searchText, setSearchText] = useState("");

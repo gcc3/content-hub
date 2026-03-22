@@ -75,9 +75,9 @@ module.exports = (_, argv = {}) => {
         },
         plugins: [
             new webpack.DefinePlugin({
-                'process.env.SITE_NAME': JSON.stringify(process.env.SITE_NAME || ''),
-                'process.env.SITE_PUBLIC_URL': JSON.stringify(process.env.SITE_PUBLIC_URL || ''),
-                'process.env.COPYRIGHT': JSON.stringify(process.env.COPYRIGHT || ''),
+                'process.env.REACT_APP_NAME': JSON.stringify(process.env.REACT_APP_NAME || ''),
+                'process.env.REACT_APP_PUBLIC_URL': JSON.stringify(process.env.REACT_APP_PUBLIC_URL || ''),
+                'process.env.REACT_APP_COPYRIGHT': JSON.stringify(process.env.REACT_APP_COPYRIGHT || ''),
             }),
         ],
         module: {
