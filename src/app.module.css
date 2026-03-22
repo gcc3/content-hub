@@ -19,7 +19,6 @@
   margin-left: calc(var(--sidebar-width) + 13px);
   width: calc(100% - var(--sidebar-width) - 13px);
   max-width: 900px;
-  line-height: 1.5;
 }
 
 .contentExpanded {

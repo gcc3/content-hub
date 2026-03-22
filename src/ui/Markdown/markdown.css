@@ -1,0 +1,174 @@
+.md-root {
+  line-height: 1.7;
+}
+
+.md-root .md-token {
+  box-sizing: border-box;
+}
+
+.md-root .md-token-paragraph {
+  margin: 0 0 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.md-root .md-token-heading {
+  margin: 1.5rem 0 0.75rem;
+  font-weight: 700;
+}
+
+.md-root .md-token-heading-1 {
+  font-size: 1.75rem;
+  border-bottom: 1px solid black;
+  margin-top: 10px;
+}
+
+.md-root .md-token-heading-2 {
+  font-size: 1.5rem;
+}
+
+.md-root .md-token-heading-3 {
+  font-size: 1.25rem;
+}
+
+.md-root .md-token-heading-4 {
+  font-size: 1.1rem;
+}
+
+.md-root .md-token-heading-5,
+.md-root .md-token-heading-6 {
+  font-size: 1rem;
+}
+
+.md-root .md-token-blockquote {
+  margin: 1rem 0;
+  padding: 0.25rem 0 0.25rem 1rem;
+  border-left: 3px solid #d0d0d0;
+  color: #555;
+}
+
+.md-root .md-token-list {
+  margin: 0 0 1rem;
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.md-root .md-token-list-unordered {
+  margin: 0 0 1rem;
+  padding-left: 1rem;
+  margin-bottom: 0;
+}
+
+.md-root .md-token-list-ordered {
+  margin: 0 0 1rem;
+  padding-left: 1.6rem;
+  margin-bottom: 0;
+}
+
+.md-root .md-token-list-item,
+.md-root .md-token-task-item {
+  margin: 0.25rem 0;
+}
+
+.md-root .md-token-task-checkbox {
+  margin-right: 0.4rem;
+}
+
+.md-root .md-token-code-block {
+  margin-top: 0;
+  padding: 0.6rem 0.6rem;
+  overflow-x: auto;
+  border-radius: 0.4rem;
+  background: #f6f6f6;
+  font-size: 0.9em;
+}
+
+.md-root .md-token-code {
+  display: block;
+  font-family: inherit;
+  white-space: pre;
+}
+
+.md-root .md-token-codespan {
+  color: #e01e5a;
+  background: #f6f6f6;
+  padding: 0.1rem 0rem 0.1rem;
+  border-radius: 0.2rem;
+  font-size: 0.9em;
+  border-radius: 0.2rem;
+}
+
+.md-root .md-token-link {
+  color: #0b57d0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.md-root .md-token-link:hover {
+  text-decoration: none;
+}
+
+.md-root .md-token-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+}
+
+.md-root .md-token-strong {
+  font-weight: 700;
+}
+
+.md-root .md-token-emphasis {
+  font-style: italic;
+}
+
+.md-root .md-token-delete {
+  text-decoration: line-through;
+}
+
+.md-root .md-token-hr {
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 1px solid #ddd;
+}
+
+.md-root .md-token-table {
+  width: 100%;
+  margin: 1rem 0;
+  border-collapse: collapse;
+}
+
+.md-root .md-token-table-head {
+  background: #fafafa;
+}
+
+.md-root .md-token-table-row {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.md-root .md-token-table-cell {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.md-root .md-token-table-cell-left {
+  text-align: left;
+}
+
+.md-root .md-token-table-cell-center {
+  text-align: center;
+}
+
+.md-root .md-token-table-cell-right {
+  text-align: right;
+}
+
+.md-root .md-token-break {
+  line-height: inherit;
+}
+
+.md-root .md-token-text {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}

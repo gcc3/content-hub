@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Markdown from "@ui/Markdown";
 import { toCategoryTitle, toNoteId } from "@utils/textUtils";
+import styles from "./category.module.css";
 
 const NOTES_LIMIT = 30;
 
@@ -42,7 +43,7 @@ const Category = ({ category, notes_ }) => {
         <h5 style={{ fontWeight: "normal" }}>Loading...</h5>
       ) : (
         notes.map(note => (
-          <div id={toNoteId(category, note.filename)} key={note.filename}>
+          <div id={toNoteId(category, note.filename)} className={styles.note} key={note.filename}>
             <Markdown basePath={`/notes/${category}/`}>{note.content}</Markdown>
           </div>
         ))
