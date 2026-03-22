@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Markdown from "../../ui/Markdown";
-import { toNoteId } from "../../utils/textUtils";
+import { toCategoryTitle, toNoteId } from "../../utils/textUtils";
 
 const NOTES_LIMIT = 30;
 
@@ -36,7 +36,7 @@ const Content = ({ category, notes_ }) => {
 
   return (
     <>
-      {category ? <Markdown>{`**${category}**`}</Markdown> : null}
+      {category ? <Markdown>{`**${toCategoryTitle(category)}**`}</Markdown> : null}
       {loading ? (
         <h5 style={{ fontWeight: "normal" }}>Loading...</h5>
       ) : (

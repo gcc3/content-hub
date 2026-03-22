@@ -10,3 +10,7 @@ export function toNoteTitle(note) {
     .replace('.markdown/', '')
     .replace(/^\d+_/, '');
 }
+
+export function toCategoryTitle(cat) {
+  return cat.replace(/^\d+_/, '');
+}

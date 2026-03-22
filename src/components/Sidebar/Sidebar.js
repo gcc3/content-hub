@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import styles from "./sidebar.module.css";
-import { toNoteId, toNoteTitle } from "../../utils/textUtils";
+import { toNoteId, toNoteTitle, toCategoryTitle } from "../../utils/textUtils";
 
 const siteName = process.env.REACT_APP_NAME || "";
 const sitePublicUrl = process.env.REACT_APP_PUBLIC_URL || "#";
@@ -19,9 +19,8 @@ const handleSearchKeyDown = (event, searchText, setSearchText) => {
 const Sidebar = ({ categories = [], categoryNoteList = {}, onCategoryClick, onCollapse }) => {
   const [searchText, setSearchText] = useState("");
 
-  const filteredCategoryNotes = useMemo(() => {
+  const filteredCategoryNoteList = useMemo(() => {
     const keyword = searchText.trim().toLowerCase();
-
     if (!keyword) {
       return categoryNoteList;
     }
@@ -76,10 +75,10 @@ const Sidebar = ({ categories = [], categoryNoteList = {}, onCategoryClick, onCo
 
       {categories.map(cat => (
         <div key={cat}>
-          {(filteredCategoryNotes[cat] || []).length > 0 && (
-            <h4 className={styles.categoryName} onClick={() => onCategoryClick?.(cat)}>{cat}</h4>
+          {(filteredCategoryNoteList[cat] || []).length > 0 && (
+            <h4 className={styles.categoryName} onClick={() => onCategoryClick?.(cat)}>{toCategoryTitle(cat)}</h4>
           )}
-          {(filteredCategoryNotes[cat] || []).map(note => (
+          {(filteredCategoryNoteList[cat] || []).map(note => (
             <p key={note}>
               <a className={styles.subject} href={`#${toNoteId(cat, note)}`}>{toNoteTitle(note)}</a>
             </p>
