@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Markdown from "../../ui/Markdown";
 import { toNoteId } from "../../utils/textUtils";
 
-const NOTES_LIMIT = 10;
+const NOTES_LIMIT = 30;
 
 const Content = ({ category, notes_ }) => {
   const [notes, setNotes] = useState([]);
