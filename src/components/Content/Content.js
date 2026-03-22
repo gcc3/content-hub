@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
 import Markdown from "../../ui/Markdown";
 import { toNoteId } from "../../utils/textUtils";
 
@@ -37,7 +36,7 @@ const Content = ({ category, notes_ }) => {
 
   return (
     <>
-      <ReactMarkdown>{`**${category}**`}</ReactMarkdown>
+      <Markdown>{`**${category}**`}</Markdown>
       {loading ? (
         <h5 style={{ fontWeight: "normal" }}>Loading...</h5>
       ) : (
