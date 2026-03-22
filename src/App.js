@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import clsx from "clsx";
-import { Category, Sidebar, Copyright } from "./components";
+import { Category, Note, Sidebar, Copyright } from "./components";
 import styles from "./app.module.css";
 
 const siteName = process.env.REACT_APP_NAME || "";
@@ -12,6 +12,7 @@ const App = () => {
 
   // Sidebar
   const [categoryNoteList, setCategoryNoteList] = useState({});
+  const [selectedNote, setSelectedNote] = useState("");
 
   // Content
   const [notes, setNotes] = useState([]);
@@ -44,6 +45,7 @@ const App = () => {
     // III. Set initial category
     if (categories.length > 0) {
       setCategory(categories[0]);
+      setSelectedNote("");
     }
   }, [categories]);
 
@@ -59,13 +61,24 @@ const App = () => {
       .catch(error => console.error(error));
   }, [category]);
 
+  const handleCategoryClick = nextCategory => {
+    setCategory(nextCategory);
+    setSelectedNote("");
+  };
+
+  const handleNoteClick = (nextCategory, nextNote) => {
+    setCategory(nextCategory);
+    setSelectedNote(nextNote);
+  };
+
   return (
     <div className={clsx(styles.wrapper, styles.wrapperInlineBlock)}>
       {!isSidebarCollapsed && (
         <Sidebar
           categories={categories}
           categoryNoteList={categoryNoteList}
-          onCategoryClick={setCategory}
+          onCategoryClick={handleCategoryClick}
+          onNoteClick={handleNoteClick}
           onCollapse={() => setIsSidebarCollapsed(true)}
         />
       )}
@@ -74,7 +87,11 @@ const App = () => {
         className={clsx(styles.content, { [styles.contentExpanded]: isSidebarCollapsed })}
       >
         <div className="content-view" id="main-view">
-          <Category category={category} notes_={notes} />
+          {selectedNote ? (
+            <Note category={category} note_={selectedNote} />
+          ) : (
+            <Category category={category} notes_={notes} />
+          )}
           <Copyright />
         </div>
 

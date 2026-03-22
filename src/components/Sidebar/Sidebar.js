@@ -16,7 +16,13 @@ const handleSearchKeyDown = (event, searchText, setSearchText) => {
   }
 };
 
-const Sidebar = ({ categories = [], categoryNoteList = {}, onCategoryClick, onCollapse }) => {
+const Sidebar = ({
+  categories = [],
+  categoryNoteList = {},
+  onCategoryClick,
+  onNoteClick,
+  onCollapse,
+}) => {
   const [searchText, setSearchText] = useState("");
 
   const filteredCategoryNoteList = useMemo(() => {
@@ -80,7 +86,13 @@ const Sidebar = ({ categories = [], categoryNoteList = {}, onCategoryClick, onCo
           )}
           {(filteredCategoryNoteList[cat] || []).map(note => (
             <p key={note}>
-              <a className={styles.subject} href={`#${toNoteId(cat, note)}`}>{toNoteTitle(note)}</a>
+              <a
+                className={styles.subject}
+                href={`#${toNoteId(cat, note)}`}
+                onClick={() => onNoteClick?.(cat, note)}
+              >
+                {toNoteTitle(note)}
+              </a>
             </p>
           ))}
         </div>
