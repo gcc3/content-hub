@@ -92,11 +92,11 @@
 
 .md-root .md-token-code-block {
   margin-top: 0;
-  padding: 0.6rem 0.6rem;
+  padding: 8px 14px;
   overflow-x: auto;
-  border-radius: 0.4rem;
   background: #f6f6f6;
   font-size: 0.9em;
+  margin-top: 4px;
 }
 
 .md-root .md-token-code {
@@ -109,8 +109,7 @@
   color: #e01e5a;
   background: #f6f6f6;
   padding: 0.1rem 0rem 0.1rem;
-  border-radius: 0.2rem;
-  font-size: 0.9em;
+  font-size: 12.8px;
   border-radius: 0.2rem;
 }
 
