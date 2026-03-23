@@ -18,8 +18,9 @@
 
 .md-root .md-token-heading-1 {
   font-size: 1.75rem;
+  line-height: 1.5;
   border-bottom: 1px solid black;
-  margin-top: 10px;
+  margin-top: 5px;
   margin-bottom: 1rem;
 }
 

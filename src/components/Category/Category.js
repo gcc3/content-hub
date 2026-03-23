@@ -39,15 +39,17 @@ const Category = ({ category, notes_ }) => {
   return (
     <>
       {category ? <Markdown>{`**${toCategoryTitle(category)}**`}</Markdown> : null}
-      {loading ? (
-        <h5 style={{ fontWeight: "normal" }}>Loading...</h5>
-      ) : (
-        notes.map(note => (
-          <div id={toNoteId(category, note.filename)} className={styles.note} key={note.filename}>
-            <Markdown basePath={`/notes/${category}/`}>{note.content}</Markdown>
-          </div>
-        ))
-      )}
+      <div className={styles.notes}>
+        {loading ? (
+          <h5 style={{ fontWeight: "normal" }}>Loading...</h5>
+        ) : (
+          notes.map(note => (
+            <div id={toNoteId(category, note.filename)} key={note.filename}>
+              <Markdown basePath={`/notes/${category}/`}>{note.content}</Markdown>
+            </div>
+          ))
+        )}
+      </div>
     </>
   );
 };
