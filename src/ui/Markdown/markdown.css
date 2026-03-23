@@ -54,22 +54,9 @@
 }
 
 .md-root .md-token-list-unordered {
-  list-style: none;
-  margin: 0;
-
-  /* list item left padding */
-  padding-left: 0.2rem;
-}
-
-.md-root .md-token-list-unordered > .md-token-list-item::before {
-  content: "• ";
-}
-
-.md-root .md-token-list-unordered > .md-token-list-item > * {
-  display: inline;
-
-  /* gap between the bullet and the text */
-  margin: 0rem;
+  margin: 0 0 1rem;
+  padding-left: 1rem;
+  margin-bottom: 0;
 }
 
 .md-root .md-token-list-ordered {
