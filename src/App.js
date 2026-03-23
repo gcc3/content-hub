@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import clsx from "clsx";
-import { Category, Note, Sidebar, Copyright } from "./components";
+import { Content, Sidebar, Copyright } from "./components";
 import styles from "./app.module.css";
 import { clearHash } from "@utils/hashUtils";
 
@@ -9,15 +9,12 @@ const siteName = process.env.REACT_APP_NAME || "";
 globalThis.content = "";
 
 const App = () => {
-  const [category, setCategory] = useState("");
-
   // Sidebar
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [index, setIndex] = useState({});
 
   // Content
-  const [showCategory, setShowCategory] = useState(true);
-  const [note, setNote] = useState("");
+  const [content, setContent] = useState("");
 
   // Initialize
   useEffect(() => {
@@ -46,25 +43,24 @@ const App = () => {
 
         // III. Set initial category
         if (categories.length > 0) {
-          globalThis.content = "category:" + categories[0];
-          setCategory(categories[0]);
-          setShowCategory(true);
+          const initialContent = "category:" + categories[0];
+          globalThis.content = initialContent;
+          setContent(initialContent);
         }
       })
       .catch(error => console.error(error));
   }, []);
 
   const handleCategorySelected = nextCategory => {
-    globalThis.content = "category:" + nextCategory;
-    setCategory(nextCategory);
-    setShowCategory(true);
+    const nextContent = "category:" + nextCategory;
+    globalThis.content = nextContent;
+    setContent(nextContent);
   };
 
   const handleNoteSelected = (nextCategory, nextNote) => {
-    globalThis.content = "note:" + nextCategory + "[" + nextNote + "]";
-    setCategory(nextCategory);
-    setShowCategory(false);
-    setNote(nextNote);
+    const nextContent = "note:" + nextCategory + "[" + nextNote + "]";
+    globalThis.content = nextContent;
+    setContent(nextContent);
   };
 
   return (
@@ -82,11 +78,7 @@ const App = () => {
         className={clsx(styles.contentContainer, { [styles.contentExpanded]: isSidebarCollapsed })}
       >
         <div className="content" id="main-view">
-          {showCategory ? (
-            <Category category={category} />
-          ) : (
-            <Note category={category} note_={note} />
-          )}
+          <Content content={content} />
           <Copyright />
         </div>
 
