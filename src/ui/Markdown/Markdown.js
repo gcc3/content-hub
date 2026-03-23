@@ -91,7 +91,7 @@ const createMarkedRenderer = () => {
 };
 
 // In Markdown, resolve the baseUrl for relative URLs (e.g. images).
-const resolveRelativeUrlsInHtml = (html, basePath) => {
+const resolveRelativeUrls = (html, basePath) => {
   if (typeof window === "undefined" || typeof document === "undefined") {
     return html;
   }
@@ -118,7 +118,14 @@ const resolveRelativeUrlsInHtml = (html, basePath) => {
 
 const Markdown = ({ children, basePath = "/" }) => {
   const renderer = createMarkedRenderer();
-  const resolvedHtml = resolveRelativeUrlsInHtml(marked.parse(children, { renderer }), basePath);
+  let resolvedHtml = marked.parse(children, { renderer });
+
+  // Resolve relative URLs
+  resolvedHtml = resolveRelativeUrls(resolvedHtml, basePath);
+
+  // Replace spaces in markdown with non-breaking spaces
+  resolvedHtml = resolvedHtml.replace(/░/g, "&nbsp;");
+
   return (
     <div
       className="md-root"
