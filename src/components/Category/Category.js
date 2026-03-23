@@ -12,15 +12,22 @@ const Category = ({ category, notes_ }) => {
   useEffect(() => {
     if (!category || !notes_?.length) {
       setNotes([]);
+      setLoading(false);
       return;
     }
 
+    let isCancelled = false;
+
     setLoading(true);
 
-    notes_ = notes_.slice(0, NOTES_LIMIT);
-    Promise.all(notes_.map(async note_ => {
+    const limitedNotes = notes_.slice(0, NOTES_LIMIT);
+
+    Promise.all(limitedNotes.map(async note_ => {
       try {
         const response = await fetch(`/notes/${category}/${note_}`);
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
         const content = await response.text();
 
         return { filename: note_, content };
@@ -30,10 +37,20 @@ const Category = ({ category, notes_ }) => {
       }
     }))
       .then(results => {
-        const validResults = results.filter(result => result !== null);
-        setNotes(validResults);
+        if (!isCancelled) {
+          const validResults = results.filter(result => result !== null);
+          setNotes(validResults);
+        }
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (!isCancelled) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      isCancelled = true;
+    };
   }, [category, notes_]);
 
   return (
