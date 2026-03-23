@@ -18,6 +18,7 @@ const Note = ({ category, note_ }) => {
 
     setLoading(true);
 
+    // Not RESTful, its content
     fetch(`/notes/${category}/${note_}`)
       .then(async response => {
         if (!response.ok) {

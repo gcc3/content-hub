@@ -20,7 +20,7 @@ const Category = ({ category }) => {
 
     setLoading(true);
 
-    fetch(`/api/notes/${category}`)
+    fetch(`/api/categories/${category}/notes`)
       .then(response => response.json())
       .then(data => {
         const notes_ = data || [];

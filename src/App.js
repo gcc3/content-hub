@@ -35,11 +35,11 @@ const App = () => {
   useEffect(() => {
     // II. Load note list for each category
     Promise.all(
-      categories.map(cat =>
-        fetch(`/api/notes/${cat}`)
+      categories.map(category =>
+        fetch(`/api/categories/${category}/notes`)
           .then(response => response.json())
-          .then(data => ({ cat, data }))
-          .catch(() => ({ cat, data: [] }))
+          .then(data => ({ cat: category, data }))
+          .catch(() => ({ cat: category, data: [] }))
       )
     ).then(results => {
       const map = {};

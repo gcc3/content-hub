@@ -46,7 +46,7 @@ app.get('/api/categories', (req, res) => {
 // The notes folder structure can be either:
 // note/Note.md
 // note/Note.txt, note/.markdown/Note.md, .md build from .txt
-app.get('/api/notes/:category', (req, res) => {
+app.get('/api/categories/:category/notes', (req, res) => {
   const category = req.params.category;
   const categoryDir = path.resolve(notesDir, category);
   const markdownDir = path.join(categoryDir, '.markdown');
