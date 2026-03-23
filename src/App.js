@@ -6,6 +6,8 @@ import { clearHash } from "@utils/hashUtils";
 
 const siteName = process.env.REACT_APP_NAME || "";
 
+globalThis.content = "category";
+
 const App = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [category, setCategory] = useState("");
@@ -47,6 +49,7 @@ const App = () => {
 
     // III. Set initial category
     if (categories.length > 0) {
+      globalThis.content = "category:" + categories[0];
       setCategory(categories[0]);
       setSelectedNote("");
     }
@@ -64,12 +67,14 @@ const App = () => {
       .catch(error => console.error(error));
   }, [category]);
 
-  const handleCategoryClick = nextCategory => {
+  const handleCategorySelected = nextCategory => {
+    globalThis.content = "category:" + nextCategory;
     setCategory(nextCategory);
     setSelectedNote("");
   };
 
-  const handleNoteClick = (nextCategory, nextNote) => {
+  const handleNoteSelected = (nextCategory, nextNote) => {
+    globalThis.content = "note:" + nextCategory + "[" + nextNote + "]";
     setCategory(nextCategory);
     setSelectedNote(nextNote);
   };
@@ -80,8 +85,8 @@ const App = () => {
         <Sidebar
           categories={categories}
           categoryNoteList={categoryNoteList}
-          onCategoryClick={handleCategoryClick}
-          onNoteClick={handleNoteClick}
+          onCategorySelected={handleCategorySelected}
+          onNoteSelected={handleNoteSelected}
           onCollapse={() => setIsSidebarCollapsed(true)}
         />
       )}

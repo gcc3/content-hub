@@ -6,7 +6,7 @@ export function toNoteId(category_, note_) {
     .replace('.markdown/', '');
 
   const category = category_.replace(/^\d+_/, '');
-  return `${category}-${note}`;
+  return `${category}[${note}]`;
 }
 
 // The file name

@@ -14,8 +14,8 @@ const links = (process.env.REACT_APP_LINKS || "").split(";").map(link => {
 const Sidebar = ({
   categories = [],
   categoryNoteList = {},
-  onCategoryClick,
-  onNoteClick,
+  onCategorySelected,
+  onNoteSelected,
   onCollapse,
 }) => {
   const [searchText, setSearchText] = useState("");
@@ -53,13 +53,29 @@ const Sidebar = ({
 
   // Category click handler
   const handleCategoryClick = (category) => {
+    console.log(`category clicked: ${category}`);
+
     clearHash();
-    onCategoryClick?.(category);
+    onCategorySelected?.(category);
   };
 
   // Note click handler
   const handleNoteClick = (category, note) => {
-    onNoteClick?.(category, note);
+    console.log(`note clicked: category=${category}, note=${note}, noteid=${toNoteId(category, note)}`);
+
+    // Not on category page
+    // Not on the same note page
+    if (globalThis.content !== "category:" + category && globalThis.content !== "note:" + category + "[" + note + "]") {
+      // Go to Note page
+      onNoteSelected?.(category, note);
+      return;
+    }
+
+    // Or if the tag is already `#${toNoteId(category, note)}`
+    if (window.location.hash === `#${toNoteId(category, note)}`) {
+      // Go to Note page
+      onNoteSelected?.(category, note);
+    }
   };
 
   return (
