@@ -151,7 +151,7 @@ const Content = ({ content = "" }) => {
     <div>
       {parsed.type === "category" ? (
         <div className={styles.categoryName}>
-          <Markdown>{`**${toCategoryTitle(parsed.category)}**`}</Markdown>
+          {toCategoryTitle(parsed.category)}
         </div>
       ) : null}
 
@@ -170,7 +170,9 @@ const Content = ({ content = "" }) => {
         </div>
       ) : !singleNote ? null : (
         <div id={toNoteId(parsed.category, singleNote.filename)} key={singleNote.filename}>
-          <Markdown basePath={`/notes/${parsed.category}/`}>{singleNote.content}</Markdown>
+          <div className={styles.note}>
+            <Markdown basePath={`/notes/${parsed.category}/`}>{singleNote.content}</Markdown>
+          </div>
           <Copyright />
         </div>
       )}

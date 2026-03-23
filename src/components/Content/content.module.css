@@ -3,7 +3,10 @@
 }
 
 .categoryName {
-  padding-bottom: 2px;
+  font-weight: bold;
+  font-size: 14px;
+  padding-top: 4px;
+  padding-bottom: 6px;
 }
 
 .notes {
@@ -11,4 +14,8 @@
   flex-direction: column;
   gap: 8px;
   margin-top: 10px;
+}
+
+.note {
+  margin-bottom: 14px;
 }
