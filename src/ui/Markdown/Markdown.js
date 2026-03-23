@@ -126,6 +126,9 @@ const Markdown = ({ children, basePath = "/" }) => {
   // Replace spaces in markdown with non-breaking spaces
   resolvedHtml = resolvedHtml.replace(/░/g, "&nbsp;");
 
+  // Replace tofu with nothing
+  resolvedHtml = resolvedHtml.replace(/□/g, "");
+
   return (
     <div
       className="md-root"
