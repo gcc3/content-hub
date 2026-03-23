@@ -7,10 +7,9 @@
 body {
   font-family: "Fira Code VF", Helvetica, sans-serif;
   margin: 10px 10px 20px 10px;
+  scroll-behavior: smooth;
   overflow-x: hidden;
-  overscroll-behavior-y: none;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  overflow-y: auto;
 }
 
 a {
@@ -28,9 +27,7 @@ ol {
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
-  overscroll-behavior-y: none;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  overflow-y: auto;
 }
 
 #root {
