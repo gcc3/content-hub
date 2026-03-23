@@ -21,6 +21,8 @@ Build the project for production:
 This generates the bundled `main.js` file in the `public/` directory.  
 Serve the project with Express:  
 `npm start`  
+You can use PM2 to keep the server alive:  
+`pm2 start ecosystem.config.js`  
 
 Content  
 Simply write and put the markdown files in the `notes/[category]/*.md` directory.  
