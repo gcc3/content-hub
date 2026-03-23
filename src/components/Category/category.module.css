@@ -4,3 +4,8 @@
   gap: 8px;
   margin-top: 10px;
 }
+
+.loading {
+  margin-top: 18px;
+  font-weight: normal;
+}

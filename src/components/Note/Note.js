@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Markdown from "@ui/Markdown";
 import { toNoteId } from "@utils/textUtils";
+import styles from "./note.module.css";
 
 const Note = ({ category, note_ }) => {
   const [note, setNote] = useState(null);
@@ -51,7 +52,7 @@ const Note = ({ category, note_ }) => {
   return (
     <>
       {loading ? (
-        <h5 style={{ fontWeight: "normal" }}>Loading...</h5>
+        <div className={styles.loading}>Loading...</div>
       ) : !note ? null : (
         <div id={toNoteId(category, note.filename)} key={note.filename}>
           <Markdown basePath={`/notes/${category}/`}>{note.content}</Markdown>
