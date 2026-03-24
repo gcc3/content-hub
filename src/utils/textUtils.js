@@ -21,7 +21,7 @@ export function toNoteId(category_, note_) {
   // Replace the whitespace with underscore
   note = note.replace(/\s+/g, '_');
 
-  return `${category}[${note}]`;
+  return `${category}:${note}`;
 }
 
 // The file name
