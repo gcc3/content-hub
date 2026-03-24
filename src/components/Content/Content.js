@@ -23,6 +23,7 @@ const Content = ({ content_ = "" }) => {
     if (content.type === "note") {
       setLoading(true);
 
+      // Fetch the note content
       fetch(`/notes/${content.category}/${content.note}`)
         .then(async response => {
           if (!response.ok) {
@@ -64,6 +65,7 @@ const Content = ({ content_ = "" }) => {
           const notes_ = data || [];
           const limitedNotes = notes_.slice(0, NOTES_LIMIT);
 
+          // Fetch content for each note
           return Promise.all(limitedNotes.map(async note_ => {
             try {
               const response = await fetch(`/notes/${content.category}/${note_}`);
@@ -103,6 +105,7 @@ const Content = ({ content_ = "" }) => {
       };
     }
 
+    // Load all categories and notes
     if (content.type === "") {
       setLoading(true);
 
@@ -117,6 +120,7 @@ const Content = ({ content_ = "" }) => {
               const notes_ = await notesResponse.json();
               const limitedNotes = (notes_ || []).slice(0, NOTES_LIMIT);
 
+              // Fetch content for each note
               const noteResults = await Promise.all(limitedNotes.map(async note_ => {
                 try {
                   const response = await fetch(`/notes/${category_}/${note_}`);
@@ -211,7 +215,7 @@ const Content = ({ content_ = "" }) => {
         {loading ? (
           <div className={styles.loading}>Loading...</div>
         ) : (
-          <div>
+          <div className={styles.categories}>
             {Object.entries(categoriesNotes).map(([category, notes]) => (
               <div key={category}>
                 <div id={toCategoryId(category)} className={clx(styles.categoryName, styles.categoryAnchor)}>

@@ -60,5 +60,5 @@ export function toCategoryTitle(category_) {
   // Remove leading digits and underscore
   category = category.replace(/^\d+_/, '');
 
-  return category;
+  return category + ":";
 }
