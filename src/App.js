@@ -43,7 +43,7 @@ const App = () => {
 
         // III. Set initial category
         if (categories.length > 0) {
-          const initialContent = "category:" + categories[0];
+          const initialContent = "[category]" + categories[0];
           globalThis.content = initialContent;
           setContent(initialContent);
         }
@@ -52,13 +52,13 @@ const App = () => {
   }, []);
 
   const handleCategorySelected = nextCategory => {
-    const nextContent = "category:" + nextCategory;
+    const nextContent = "[category]" + nextCategory;
     globalThis.content = nextContent;
     setContent(nextContent);
   };
 
   const handleNoteSelected = (nextCategory, nextNote) => {
-    const nextContent = "note:" + nextCategory + "[" + nextNote + "]";
+    const nextContent = "[note]" + nextCategory + ":" + nextNote;
     globalThis.content = nextContent;
     setContent(nextContent);
   };

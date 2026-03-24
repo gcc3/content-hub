@@ -65,7 +65,7 @@ const Sidebar = ({
 
     // Not on category page
     // Not on the same note page
-    if (globalThis.content !== "category:" + category && globalThis.content !== "note:" + category + "[" + note + "]") {
+    if (globalThis.content !== "[category]" + category && globalThis.content !== "[note]" + category + ":" + note) {
       // Go to Note page
       onNoteSelected?.(category, note);
       return;

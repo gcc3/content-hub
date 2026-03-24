@@ -11,17 +11,17 @@ function parseContent(content = "") {
     return { type: null, category: "", note: "" };
   }
 
-  if (content.startsWith("category:")) {
+  if (content.startsWith("[category]")) {
     return {
       type: "category",
-      category: content.slice("category:".length),
+      category: content.slice("[category]".length),
       note: "",
     };
   }
 
-  if (content.startsWith("note:")) {
-    const noteId = content.slice("note:".length);
-    const match = noteId.match(/^(.*)\[(.*)\]$/);
+  if (content.startsWith("[note]")) {
+    const noteId = content.slice("[note]".length);
+    const match = noteId.match(/^(.*):(.*)$/);
     if (!match) {
       return { type: null, category: "", note: "" };
     }
