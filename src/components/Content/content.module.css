@@ -13,7 +13,7 @@
   font-weight: bold;
   font-size: 14px;
   padding-top: 4px;
-  padding-bottom: 14px;
+  padding-bottom: 18px;
 }
 
 .notes {
@@ -28,7 +28,7 @@
 }
 
 .noteAnchor {
-  scroll-margin-top: 16px;
+  scroll-margin-top: 20px;
 }
 
 .categoryAnchor {

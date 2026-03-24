@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import styles from "./sidebar.module.css";
 import { toNoteId, toNoteTitle, toCategoryTitle, toCategoryId } from "../../utils/textUtils";
+import { parseContent } from "@utils/contentUtils";
 
 const siteName = process.env.REACT_APP_NAME || "";
 const useSearch = process.env.REACT_APP_USE_SEARCH === "true";
@@ -52,25 +53,56 @@ const Sidebar = ({
   // Category click handler
   const handleCategoryClick = (category) => {
     console.log(`category: category=${category}, categoryId=${toCategoryId(category)}`);
-    onCategorySelected?.(category);
+    const content = parseContent(globalThis.content);
+
+    if (content.type === "note") {
+      // Go to category page
+      onCategorySelected?.(category);
+    }
+
+    if (content.type === "category" && content.category !== category) {
+      // Go to category page
+      onCategorySelected?.(category);
+    }
+
+    if (content.type === "") {
+      // If the hash is already the category id
+      if (window.location.hash === `#${toCategoryId(category)}`) {
+        // Go to category page
+        onCategorySelected?.(category);
+      }
+    }
   };
 
   // Note click handler
   const handleNoteClick = (category, note) => {
     console.log(`note: category=${category}, note=${note}, noteid=${toNoteId(category, note)}`);
+    const content = parseContent(globalThis.content);
 
-    // Not on category page
-    // Not on the same note page
-    if (globalThis.content !== "[category]" + category && globalThis.content !== "[note]" + category + ":" + note) {
-      // Go to Note page
+    if (content.type === "note" && (content.category !== category || content.note !== note)) {
+      // Go to note page
       onNoteSelected?.(category, note);
-      return;
     }
 
-    // Or if the tag is already `#${toNoteId(category, note)}`
-    if (window.location.hash === `#${toNoteId(category, note)}`) {
-      // Go to Note page
+    if (content.type === "category" && content.category === category) {
+      // If the hash is already the note id
+      if (window.location.hash === `#${toNoteId(category, note)}`) {
+        // Go to note page
+        onNoteSelected?.(category, note);
+      }
+    }
+
+    if (content.type === "category" && content.category !== category) {
+      // Go to note page
       onNoteSelected?.(category, note);
+    }
+
+    if (content.type === "") {
+      // If the hash is already the note id
+      if (window.location.hash === `#${toNoteId(category, note)}`) {
+        // Go to note page
+        onNoteSelected?.(category, note);
+      }
     }
   };
 
