@@ -5,7 +5,7 @@ gcc³
 
 Light weight blog application.  
 Use Markdown to write text, load in realtime.  
-Used by [gcc³](https://gcc3.com) web.  
+Used by [gcc³.com](https://gcc3.com) web.  
 
 
 How To Use
