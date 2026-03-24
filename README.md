@@ -3,8 +3,9 @@ gcc³
 ====
 
 
-Light weight blog application.  
+Light weight content hub.  
 Use Markdown to write text, load in realtime.  
+It can be used as a blog system, content server etc...
 Used by [gcc³.com](https://gcc3.com) web.  
 
 
