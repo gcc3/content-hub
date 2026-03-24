@@ -42,13 +42,30 @@ const App = () => {
           setIndex(map);
         });
 
-        // III. Set initial category
-        if (categories.length > 0) {
-          const content_ = defaultLoad === "category" ? "[category]" + categories[0] : "";
-          globalThis.content = content_;
-          setContent(content_);
-          console.log("content:", content_ ? content_ : "(all categories)");
+        // I and II will finish set `index`.
+
+        // III. Set initial content
+        // `category`              → load the first category
+        // `categories`            → load all categories
+        // `category_name`         → load a specific category, e.g. `Life`
+        // `category_name:note`    → load a specific note, e.g. `Life:Note1.txt`
+        let content_ = "";
+        if (defaultLoad === "categories") {
+          content_ = "";
+        } else if (defaultLoad === "category") {
+          content_ = categories.length > 0 ? "[category]" + categories[0] : "";
+        } else if (defaultLoad.includes(":")) {
+          const colonIndex = defaultLoad.indexOf(":");
+          const cat = defaultLoad.slice(0, colonIndex);
+          const note = defaultLoad.slice(colonIndex + 1);
+          content_ = cat && note ? "[note]" + cat + ":" + note : "";
+        } else if (defaultLoad) {
+          content_ = "[category]" + defaultLoad;
         }
+
+        globalThis.content = content_;
+        setContent(content_);
+        console.log("content:", content_ || "(all categories)");
       })
       .catch(error => console.error(error));
   }, []);
