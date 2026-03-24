@@ -1,10 +1,8 @@
 import React, { useMemo, useState } from "react";
 import styles from "./sidebar.module.css";
 import { toNoteId, toNoteTitle, toCategoryTitle, toCategoryId } from "../../utils/textUtils";
-import { clearHash } from "@utils/hashUtils";
 
 const siteName = process.env.REACT_APP_NAME || "";
-const sitePublicUrl = process.env.REACT_APP_PUBLIC_URL || "#";
 const useSearch = process.env.REACT_APP_USE_SEARCH === "true";
 const links = (process.env.REACT_APP_LINKS || "").split(";").map(link => {
   const [name, url] = link.split("=").map(part => part.trim());
@@ -80,7 +78,7 @@ const Sidebar = ({
     <div className={styles.sidebar}>
       <div className={styles.stickyTop}>
         <div className={styles.title}>
-          <a href={sitePublicUrl} className={styles.linkReset}>
+          <a href={window.location.origin} className={styles.linkReset}>
             <h1 className={styles.brand}>{siteName}</h1>
           </a>
         </div>

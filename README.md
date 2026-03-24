@@ -62,9 +62,6 @@ Default is 3180.
 REACT_APP_NAME  
 Used to set the site name.  
 
-REACT_APP_PUBLIC_URL  
-Used to set the site public URL.  
-
 REACT_APP_COPYRIGHT  
 Used to set the site copyright information.  
 
