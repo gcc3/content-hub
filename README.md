@@ -72,4 +72,4 @@ REACT_APP_LINKS
 Used to set the site links in the format of `name1:url1,name2:url2`.  
 
 REACT_APP_USE_SEARCH  
-Used to enable the search page.  
+Used to enable the search.  
