@@ -44,45 +44,25 @@ const App = () => {
 
         // III. Set initial category
         if (categories.length > 0) {
-          let initialContent = "";
-
-          if (defaultLoad === "category") {
-            initialContent = "[category]" + categories[0];
-            console.log("content:", initialContent);
-          } else if (defaultLoad === "categories") {
-            // All categories
-            initialContent = "";
-            console.log("content: (all categories)");
-          }
-
-          globalThis.content = initialContent;
-          setContent(initialContent);
+          const content_ = defaultLoad === "category" ? "[category]" + categories[0] : "";
+          globalThis.content = content_;
+          setContent(content_);
+          console.log("content:", content_ ? content_ : "(all categories)");
         }
       })
       .catch(error => console.error(error));
   }, []);
-
-  const handleCategorySelected = nextCategory => {
-    const nextContent = "[category]" + nextCategory;
-    globalThis.content = nextContent;
-    console.log("content:", nextContent);
-    setContent(nextContent);
-  };
-
-  const handleNoteSelected = (nextCategory, nextNote) => {
-    const nextContent = "[note]" + nextCategory + ":" + nextNote;
-    globalThis.content = nextContent;
-    console.log("content:", nextContent);
-    setContent(nextContent);
-  };
 
   return (
     <div className={clsx(styles.wrapper, styles.wrapperInlineBlock)}>
       {!isSidebarCollapsed && (
         <Sidebar
           index={index}
-          onCategorySelected={handleCategorySelected}
-          onNoteSelected={handleNoteSelected}
+          onSetContent={(content) => {
+            globalThis.content = content;
+            setContent(content);
+            console.log("content:", content);
+          }}
           onCollapse={() => setIsSidebarCollapsed(true)}
         />
       )}

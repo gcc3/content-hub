@@ -12,8 +12,7 @@ const links = (process.env.REACT_APP_LINKS || "").split(";").map(link => {
 
 const Sidebar = ({
   index = {},  // map[category] = notes
-  onCategorySelected,
-  onNoteSelected,
+  onSetContent,
   onCollapse,
 }) => {
   const [searchText, setSearchText] = useState("");
@@ -57,19 +56,19 @@ const Sidebar = ({
 
     if (content.type === "note") {
       // Go to category page
-      onCategorySelected?.(category);
+      onSetContent(`[category]${category}`);
     }
 
     if (content.type === "category" && content.category !== category) {
       // Go to category page
-      onCategorySelected?.(category);
+      onSetContent(`[category]${category}`);
     }
 
     if (content.type === "") {
       // If the hash is already the category id
       if (window.location.hash === `#${toCategoryId(category)}`) {
         // Go to category page
-        onCategorySelected?.(category);
+        onSetContent(`[category]${category}`);
       }
     }
   };
@@ -81,27 +80,27 @@ const Sidebar = ({
 
     if (content.type === "note" && (content.category !== category || content.note !== note)) {
       // Go to note page
-      onNoteSelected?.(category, note);
+      onSetContent(`[note]${category}:${note}`);
     }
 
     if (content.type === "category" && content.category === category) {
       // If the hash is already the note id
       if (window.location.hash === `#${toNoteId(category, note)}`) {
         // Go to note page
-        onNoteSelected?.(category, note);
+        onSetContent(`[note]${category}:${note}`);
       }
     }
 
     if (content.type === "category" && content.category !== category) {
       // Go to note page
-      onNoteSelected?.(category, note);
+      onSetContent(`[note]${category}:${note}`);
     }
 
     if (content.type === "") {
       // If the hash is already the note id
       if (window.location.hash === `#${toNoteId(category, note)}`) {
         // Go to note page
-        onNoteSelected?.(category, note);
+        onSetContent(`[note]${category}:${note}`);
       }
     }
   };
