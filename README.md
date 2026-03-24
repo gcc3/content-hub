@@ -73,5 +73,9 @@ REACT_APP_USE_SEARCH
 Used to enable the search.  
 
 REACT_APP_DEFAULT_LOAD  
-Used to set the default load content, either `category` or `categories`.  
-`category` will load the first category, while `categories` will load all categories.  
+Used to set the default load content.  
+`category` for load the first category.  
+`categories` for load all categories.  
+`category_name` for load a specific category, e.g. `REACT_APP_DEFAULT_LOAD=Life`.  
+`category_name:note_name` for load a specific note, e.g. `REACT_APP_DEFAULT_LOAD=Life:Note1`.  
+`category_name` and `note_name` should be the folder name and the file name.  
