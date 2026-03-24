@@ -31,8 +31,6 @@ ol {
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 
 #root {
