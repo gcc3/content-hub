@@ -4,6 +4,11 @@
   --sidebar-width: 220px;
 }
 
+html,
+body {
+  overscroll-behavior: none;
+}
+
 body {
   font-family: "Fira Code VF", Helvetica, sans-serif;
   margin: 10px 10px 20px 10px;
