@@ -1,64 +1,64 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Markdown from "@ui/Markdown";
 import { toCategoryTitle, toNoteId, toCategoryId } from "@utils/textUtils";
+import { parseContent } from "@utils/contentUtils";
 import styles from "./content.module.css";
 import { Copyright } from "@components";
 import clx from "clsx";
 
 const NOTES_LIMIT = 30;
 
-function parseContent(content = "") {
-  if (!content || typeof content !== "string") {
-    return { type: null, category: "", note: "" };
-  }
-
-  if (content.startsWith("[category]")) {
-    return {
-      type: "category",
-      category: content.slice("[category]".length),
-      note: "",
-    };
-  }
-
-  if (content.startsWith("[note]")) {
-    const noteId = content.slice("[note]".length);
-    const match = noteId.match(/^(.*):(.*)$/);
-    if (!match) {
-      return { type: null, category: "", note: "" };
-    }
-
-    return {
-      type: "note",
-      category: match[1],
-      note: match[2],
-    };
-  }
-
-  return { type: null, category: "", note: "" };
-}
-
-const Content = ({ content = "" }) => {
-  const [notes, setNotes] = useState([]);
-  const [singleNote, setSingleNote] = useState(null);
+const Content = ({ content_ = "" }) => {
   const [loading, setLoading] = useState(false);
+  const content = useMemo(() => parseContent(content_), [content_]);
 
-  const parsed = useMemo(() => parseContent(content), [content]);
+  const [note, setNote] = useState(null);
+  const [categoryNotes, setCategoryNotes] = useState([]);
+  const [categoriesNotes, setCategoriesNotes] = useState({});
 
   useEffect(() => {
-    if (!parsed.type || !parsed.category) {
-      setNotes([]);
-      setSingleNote(null);
-      setLoading(false);
-      return;
+    let isCancelled = false;
+
+    // Load a note
+    if (content.type === "note") {
+      setLoading(true);
+
+      fetch(`/notes/${content.category}/${content.note}`)
+        .then(async response => {
+          if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+          }
+
+          const content_ = await response.text();
+          return { filename: content.note, content: content_ };
+        })
+        .then(result => {
+          if (!isCancelled) {
+            setNote(result);
+          }
+        })
+        .catch(error => {
+          if (!isCancelled) {
+            console.error(`Failed to fetch note ${content.note}:`, error);
+            setNote(null);
+          }
+        })
+        .finally(() => {
+          if (!isCancelled) {
+            setLoading(false);
+          }
+        });
+
+      return () => {
+        isCancelled = true;
+      };
     }
 
-    let isCancelled = false;
-    setLoading(true);
+    // Load a category
+    if (content.type === "category") {
+      setLoading(true);
 
-    if (parsed.type === "category") {
-      setSingleNote(null);
-
-      fetch(`/api/categories/${parsed.category}/notes`)
+      fetch(`/api/categories/${content.category}/notes`)
         .then(response => response.json())
         .then(data => {
           const notes_ = data || [];
@@ -66,7 +66,7 @@ const Content = ({ content = "" }) => {
 
           return Promise.all(limitedNotes.map(async note_ => {
             try {
-              const response = await fetch(`/notes/${parsed.category}/${note_}`);
+              const response = await fetch(`/notes/${content.category}/${note_}`);
               if (!response.ok) {
                 throw new Error(`Request failed with status ${response.status}`);
               }
@@ -85,11 +85,11 @@ const Content = ({ content = "" }) => {
           }
 
           const validResults = (results || []).filter(result => result !== null);
-          setNotes(validResults);
+          setCategoryNotes(validResults);
         })
         .catch(() => {
           if (!isCancelled) {
-            setNotes([]);
+            setCategoryNotes([]);
           }
         })
         .finally(() => {
@@ -103,33 +103,52 @@ const Content = ({ content = "" }) => {
       };
     }
 
-    if (parsed.type === "note") {
-      setNotes([]);
+    if (content.type === "") {
+      setLoading(true);
 
-      if (!parsed.note) {
-        setSingleNote(null);
-        setLoading(false);
-        return;
-      }
+      fetch(`/api/categories`)
+        .then(response => response.json())
+        .then(categories => {
+          const categories_ = categories || [];
 
-      fetch(`/notes/${parsed.category}/${parsed.note}`)
-        .then(async response => {
-          if (!response.ok) {
-            throw new Error(`Request failed with status ${response.status}`);
-          }
+          return Promise.all(categories_.map(async category_ => {
+            try {
+              const notesResponse = await fetch(`/api/categories/${category_}/notes`);
+              const notes_ = await notesResponse.json();
+              const limitedNotes = (notes_ || []).slice(0, NOTES_LIMIT);
 
-          const content_ = await response.text();
-          return { filename: parsed.note, content: content_ };
+              const noteResults = await Promise.all(limitedNotes.map(async note_ => {
+                try {
+                  const response = await fetch(`/notes/${category_}/${note_}`);
+                  if (!response.ok) {
+                    throw new Error(`Request failed with status ${response.status}`);
+                  }
+                  const content_ = await response.text();
+                  return { filename: note_, content: content_ };
+                } catch (error) {
+                  console.error(`Failed to fetch note ${note_}:`, error);
+                  return null;
+                }
+              }));
+
+              return { category: category_, notes: noteResults.filter(n => n !== null) };
+            } catch (error) {
+              console.error(`Failed to fetch notes for category ${category_}:`, error);
+              return { category: category_, notes: [] };
+            }
+          }));
         })
-        .then(result => {
-          if (!isCancelled) {
-            setSingleNote(result);
-          }
+        .then(results => {
+          if (isCancelled) return;
+          const map = {};
+          (results || []).forEach(({ category, notes }) => {
+            map[category] = notes;
+          });
+          setCategoriesNotes(map);
         })
-        .catch(error => {
+        .catch(() => {
           if (!isCancelled) {
-            console.error(`Failed to fetch note ${parsed.note}:`, error);
-            setSingleNote(null);
+            setCategoriesNotes({});
           }
         })
         .finally(() => {
@@ -142,17 +161,13 @@ const Content = ({ content = "" }) => {
         isCancelled = true;
       };
     }
-  }, [parsed]);
+  }, [content]);
 
-  if (!parsed.type || !parsed.category) {
-    return null;
-  }
-
-  if (parsed.type === "category") {
+  if (content.type === "category") {
     return (
       <div>
-        <div id={toCategoryId(parsed.category)} className={clx(styles.categoryName, styles.categoryAnchor)}>
-          {toCategoryTitle(parsed.category)}
+        <div id={toCategoryId(content.category)} className={clx(styles.categoryName, styles.categoryAnchor)}>
+          {toCategoryTitle(content.category)}
         </div>
 
         {loading ? (
@@ -160,9 +175,9 @@ const Content = ({ content = "" }) => {
         ) : (
           <div>
             <div className={styles.notes}>
-              {notes.map(note => (
-                <div id={toNoteId(parsed.category, note.filename)} key={note.filename} className={styles.noteAnchor}>
-                  <Markdown basePath={`/notes/${parsed.category}/`}>{note.content}</Markdown>
+              {categoryNotes.map(note => (
+                <div id={toNoteId(content.category, note.filename)} key={note.filename} className={styles.noteAnchor}>
+                  <Markdown basePath={`/notes/${content.category}/`}>{note.content}</Markdown>
                 </div>
               ))}
             </div>
@@ -173,21 +188,49 @@ const Content = ({ content = "" }) => {
     )
   }
 
-  if (parsed.type === "note") {
+  if (content.type === "note") {
     return (
       <div>
         {loading ? (
           <div className={styles.loading}>Loading...</div>
-        ) : !singleNote ? null : (
-          <div id={toNoteId(parsed.category, singleNote.filename)} key={singleNote.filename} className={styles.noteAnchor}>
+        ) : !note ? null : (
+          <div id={toNoteId(content.category, note.filename)} key={note.filename} className={styles.noteAnchor}>
             <div className={styles.note}>
-              <Markdown basePath={`/notes/${parsed.category}/`}>{singleNote.content}</Markdown>
+              <Markdown basePath={`/notes/${content.category}/`}>{note.content}</Markdown>
             </div>
             <Copyright />
           </div>
         )}
       </div>
     )
+  }
+
+  if (content.type === "") {
+    return (
+      <div>
+        {loading ? (
+          <div className={styles.loading}>Loading...</div>
+        ) : (
+          <div>
+            {Object.entries(categoriesNotes).map(([category, notes]) => (
+              <div key={category}>
+                <div id={toCategoryId(category)} className={clx(styles.categoryName, styles.categoryAnchor)}>
+                  {toCategoryTitle(category)}
+                </div>
+                <div className={styles.notes}>
+                  {notes.map(note => (
+                    <div id={toNoteId(category, note.filename)} key={note.filename} className={styles.noteAnchor}>
+                      <Markdown basePath={`/notes/${category}/`}>{note.content}</Markdown>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <Copyright />
+          </div>
+        )}
+      </div>
+    );
   }
 
   return <></>;

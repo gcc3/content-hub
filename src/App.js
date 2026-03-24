@@ -5,6 +5,7 @@ import styles from "./app.module.css";
 import { clearHash } from "@utils/hashUtils";
 
 const siteName = process.env.REACT_APP_NAME || "";
+const defaultLoad = process.env.REACT_APP_DEFAULT_LOAD || "category";
 
 globalThis.content = "";
 
@@ -43,7 +44,17 @@ const App = () => {
 
         // III. Set initial category
         if (categories.length > 0) {
-          const initialContent = "[category]" + categories[0];
+          let initialContent = "";
+
+          if (defaultLoad === "category") {
+            initialContent = "[category]" + categories[0];
+            console.log("content:", initialContent);
+          } else if (defaultLoad === "categories") {
+            // All categories
+            initialContent = "";
+            console.log("content: (all categories)");
+          }
+
           globalThis.content = initialContent;
           setContent(initialContent);
         }
@@ -54,12 +65,14 @@ const App = () => {
   const handleCategorySelected = nextCategory => {
     const nextContent = "[category]" + nextCategory;
     globalThis.content = nextContent;
+    console.log("content:", nextContent);
     setContent(nextContent);
   };
 
   const handleNoteSelected = (nextCategory, nextNote) => {
     const nextContent = "[note]" + nextCategory + ":" + nextNote;
     globalThis.content = nextContent;
+    console.log("content:", nextContent);
     setContent(nextContent);
   };
 
@@ -78,7 +91,7 @@ const App = () => {
         className={clsx(styles.contentContainer, { [styles.contentExpanded]: isSidebarCollapsed })}
       >
         <div className="content" id="main-view">
-          <Content content={content} />
+          <Content content_={content} />
         </div>
 
         {isSidebarCollapsed && (
