@@ -5,8 +5,7 @@ import { parseContent } from "@utils/contentUtils";
 import styles from "./content.module.css";
 import { Copyright } from "@components";
 import clx from "clsx";
-
-const NOTES_LIMIT = 30;
+import { NOTES_LIMIT } from "@constants";
 
 const Content = ({ content_ = "" }) => {
   const [loading, setLoading] = useState(false);

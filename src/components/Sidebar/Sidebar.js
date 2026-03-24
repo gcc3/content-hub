@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import styles from "./sidebar.module.css";
 import { toNoteId, toNoteTitle, toCategoryTitle, toCategoryId } from "../../utils/textUtils";
 import { parseContent } from "@utils/contentUtils";
+import { NOTES_LIMIT } from "@constants";
 
 const siteName = process.env.REACT_APP_NAME || "";
 const useSearch = process.env.REACT_APP_USE_SEARCH === "true";
@@ -57,11 +58,13 @@ const Sidebar = ({
     if (content.type === "note") {
       // Go to category page
       onSetContent(`[category]${category}`);
+      return;
     }
 
     if (content.type === "category" && content.category !== category) {
       // Go to category page
       onSetContent(`[category]${category}`);
+      return;
     }
 
     if (content.type === "") {
@@ -69,6 +72,7 @@ const Sidebar = ({
       if (window.location.hash === `#${toCategoryId(category)}`) {
         // Go to category page
         onSetContent(`[category]${category}`);
+        return;
       }
     }
   };
@@ -81,6 +85,7 @@ const Sidebar = ({
     if (content.type === "note" && (content.category !== category || content.note !== note)) {
       // Go to note page
       onSetContent(`[note]${category}:${note}`);
+      return;
     }
 
     if (content.type === "category" && content.category === category) {
@@ -88,12 +93,14 @@ const Sidebar = ({
       if (window.location.hash === `#${toNoteId(category, note)}`) {
         // Go to note page
         onSetContent(`[note]${category}:${note}`);
+        return;
       }
     }
 
     if (content.type === "category" && content.category !== category) {
       // Go to note page
       onSetContent(`[note]${category}:${note}`);
+      return;
     }
 
     if (content.type === "") {
@@ -101,6 +108,18 @@ const Sidebar = ({
       if (window.location.hash === `#${toNoteId(category, note)}`) {
         // Go to note page
         onSetContent(`[note]${category}:${note}`);
+        return;
+      }
+    }
+
+    // The note is not loaded in the content.
+    if (content.type !== "note") {
+      // Find the index of the note in the category
+      const noteIndex = (index[category] || []).findIndex(n => n === note);
+      if (noteIndex >= NOTES_LIMIT) {
+        // Go to note page
+        onSetContent(`[note]${category}:${note}`);
+        return;
       }
     }
   };
