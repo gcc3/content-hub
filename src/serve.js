@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const { noteListing } = require('./utils/noteUtils');
+const { createRealtimeWatcher } = require('./utils/realtimeUtils');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
   return next();
 });
 
+// Logging middleware for API requests
 app.use('/api', (req, res, next) => {
   const startTime = Date.now();
 
@@ -29,10 +31,10 @@ app.use('/api', (req, res, next) => {
     const durationMs = Date.now() - startTime;
     console.log(`[API] ${req.method} ${req.originalUrl} ${res.statusCode} ${durationMs}ms`);
   });
-
   next();
 });
 
+// Logging middleware for static file requests
 app.use((req, res, next) => {
   const isStaticFileRequest =
     (req.method === 'GET' || req.method === 'HEAD')
@@ -51,9 +53,15 @@ app.use((req, res, next) => {
   return next();
 });
 
+// Set up the SSE watcher for real-time updates
+// SSE endpoint — clients subscribe here to receive change notifications
+const { sseHandler } = createRealtimeWatcher(notesDir);
+app.get('/api/watch', sseHandler);
+
 // Serve the built frontend and static note files from the same server.
 app.use(express.static(publicDir));
 
+// Serve the main page
 app.get('/', (req, res) => {
   res.sendFile(path.join(publicDir, 'index.html'));
 })

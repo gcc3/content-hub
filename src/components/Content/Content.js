@@ -7,9 +7,9 @@ import { Copyright } from "@components";
 import clx from "clsx";
 import { NOTES_LIMIT } from "@constants";
 
-const Content = ({ content_ = "" }) => {
+const Content = ({ content_ = "", reloadKey = 0 }) => {
   const [loading, setLoading] = useState(false);
-  const content = useMemo(() => parseContent(content_), [content_]);
+  const content = useMemo(() => parseContent(content_), [content_, reloadKey]);
 
   const [note, setNote] = useState(null);
   const [categoryNotes, setCategoryNotes] = useState([]);

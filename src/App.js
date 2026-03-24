@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { Content, Sidebar } from "./components";
 import styles from "./app.module.css";
 import { clearHash } from "@utils/hashUtils";
+import { parseContent } from "@utils/contentUtils";
 
 const siteName = process.env.REACT_APP_NAME || "";
 const defaultLoad = process.env.REACT_APP_DEFAULT_LOAD || "category";
@@ -16,11 +17,30 @@ const App = () => {
 
   // Content
   const [content, setContent] = useState("");
+  const [reload, setReload] = useState(0);  // key trick
 
   // Initialize
   useEffect(() => {
     document.title = siteName;
     clearHash();
+
+    // Set up SSE connection to receive real-time updates when notes change
+    const es = new EventSource('/api/watch');
+    es.onmessage = (event) => {
+      const message = event.data;
+      console.log("message: " + message);
+
+      // If the content.category or content.note in the message, reload component
+      const content_ = globalThis.content;
+      const content = parseContent(content_);
+      if (content.type === "") {
+        console.log("reload content: (all categories)");
+        setReload(k => k + 1);
+      } else if (message.includes(content.category) || message.includes(content.note)) {
+        console.log("reload content: " + content_);
+        setReload(k => k + 1);
+      }
+    }
 
     // I. Load categories
     fetch("/api/categories")
@@ -68,6 +88,9 @@ const App = () => {
         console.log("content:", content_ || "(all categories)");
       })
       .catch(error => console.error(error));
+
+    // Unmount
+    return () => es.close();
   }, []);
 
   return (
@@ -88,7 +111,7 @@ const App = () => {
         className={clsx(styles.contentContainer, { [styles.contentExpanded]: isSidebarCollapsed })}
       >
         <div className="content" id="main-view">
-          <Content content_={content} />
+          <Content content_={content} reloadKey={reload} />
         </div>
 
         {isSidebarCollapsed && (
