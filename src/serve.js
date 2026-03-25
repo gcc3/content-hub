@@ -66,6 +66,39 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(publicDir, 'index.html'));
 })
 
+// Get full index: { "": ["root.md"], "category1": ["abc.md"], ... }
+// - Keys are category names (subdirectory names); "" key holds root-level notes
+// - For each category, if a .markdown/ subfolder exists its contents are used instead
+app.get('/api/index', (req, res) => {
+  fs.readdir(notesDir, { withFileTypes: true }, (err, entries) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to read notes directory' });
+    }
+    const index = {};
+
+    // Root-level .md files → "__root__" key
+    index["__root__"] = noteListing(notesDir);
+
+    // One entry per category directory
+    const categories = entries
+      .filter(e => e.isDirectory() && !e.name.startsWith('.'))
+      .map(e => e.name);
+
+    for (const category of categories) {
+      const categoryDir = path.join(notesDir, category);
+      const markdownDir = path.join(categoryDir, '.markdown');
+      const isDotMarkdown = fs.existsSync(markdownDir) && fs.statSync(markdownDir).isDirectory();
+      if (isDotMarkdown) {
+        index[category] = noteListing(markdownDir).map(note => path.posix.join('.markdown', note));
+      } else {
+        index[category] = noteListing(categoryDir);
+      }
+    }
+
+    res.json(index);
+  });
+});
+
 // List categories
 app.get('/api/categories', (req, res) => {
   fs.readdir(notesDir, { withFileTypes: true }, (err, entries) => {
@@ -77,9 +110,9 @@ app.get('/api/categories', (req, res) => {
       .map((entry) => entry.name);
     res.json(directories);
   });
-})
+});
 
-// List notes
+// List notes in a category
 // The notes folder structure can be either:
 // note/Note.md
 // note/Note.txt, note/.markdown/Note.md, .md build from .txt
@@ -103,6 +136,7 @@ app.listen(port, () => {
   const pageUrl = `http://localhost:${port}/`;
   const apiBaseUrl = `http://localhost:${port}/api`;
   const apiEndpoints = [
+    `GET ${apiBaseUrl}/index`,
     `GET ${apiBaseUrl}/categories`,
     `GET ${apiBaseUrl}/categories/:category/notes`,
   ];

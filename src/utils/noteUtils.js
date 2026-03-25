@@ -29,7 +29,7 @@ const noteListing = (dirPath) => {
   const entries = fs.readdirSync(dirPath, { withFileTypes: true });
 
   return entries
-    .filter((entry) => entry.isFile() && path.extname(entry.name).toLowerCase() === '.md')
+    .filter((entry) => entry.isFile() && path.extname(entry.name).toLowerCase() === '.md' && !entry.name.startsWith('.'))
     .map((entry) => entry.name)
     .sort((a, b) => noterc.retrieveOrder === 'asc' ? a.localeCompare(b) : b.localeCompare(a));
 };

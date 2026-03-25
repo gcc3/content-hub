@@ -26,51 +26,14 @@ const App = () => {
     document.title = APP_NAME;
     clearHash();
 
-    if (USE_REALTIME) {
-      const reloadContent = (content) => {
-        console.log("reload content: " + (content ? content : "(all categories)"));
-        setReload(k => k + 1);
-        showToast("Content updated.");
-      }
-      const es = new EventSource('/api/watch');
-      es.onmessage = (event) => {
-        const message = event.data;
-        console.log("message: " + message);
-
-        // If the content.category or content.note in the message, reload component
-        const content_ = globalThis.content;
-        const content = parseContent(content_);
-        if (content.type === "") {
-          reloadContent(content_);
-        } else if (content.type === "category" && message.includes(content.category)) {
-          reloadContent(content_);
-        } else if (content.type === "note" && message.includes(content.category) && message.includes(content.note)) {
-          reloadContent(content_);
-        }
-      }
-    }
-
-    // I. Load categories
-    fetch("/api/categories")
+    // Load full index
+    fetch("/api/index")
       .then(response => response.json())
       .then(data => {
-        const categories = data || [];
+        const index = data || {};
+        setIndex(index);
 
-        // II. Load note list for each category
-        Promise.all(
-          categories.map(category =>
-            fetch(`/api/categories/${category}/notes`)
-              .then(response => response.json())
-              .then(notes => ({ category: category, notes: notes }))
-              .catch(() => ({ category: category, notes: [] }))
-          )
-        ).then(results => {
-          const map = {};
-          results.forEach(({ category, notes }) => { map[category] = notes; });
-          setIndex(map);
-        });
-
-        // I and II will finish set `index`.
+        const categories = Object.keys(index).filter(k => k !== "__root__");
 
         // III. Set initial content
         // `category`              → load the first category
@@ -96,6 +59,30 @@ const App = () => {
         console.log("content:", content_ || "(all categories)");
       })
       .catch(error => console.error(error));
+
+    if (USE_REALTIME) {
+      const reloadContent = (content) => {
+        console.log("reload content: " + (content ? content : "(all categories)"));
+        setReload(k => k + 1);
+        showToast("Content updated.");
+      }
+      const es = new EventSource('/api/watch');
+      es.onmessage = (event) => {
+        const message = event.data;
+        console.log("message: " + message);
+
+        // If the content.category or content.note in the message, reload component
+        const content_ = globalThis.content;
+        const content = parseContent(content_);
+        if (content.type === "") {
+          reloadContent(content_);
+        } else if (content.type === "category" && message.includes(content.category)) {
+          reloadContent(content_);
+        } else if (content.type === "note" && message.includes(content.category) && message.includes(content.note)) {
+          reloadContent(content_);
+        }
+      }
+    }
 
     // Unmount
     return () => {
