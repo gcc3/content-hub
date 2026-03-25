@@ -4,15 +4,15 @@ import { toNoteId, toNoteTitle, toCategoryTitle, toCategoryId } from "../../util
 import { parseContent } from "@utils/contentUtils";
 import { NOTES_LIMIT } from "@constants";
 
-const siteName = process.env.REACT_APP_NAME || "";
-const useSearch = process.env.REACT_APP_USE_SEARCH === "true";
-const links = (process.env.REACT_APP_LINKS || "").split(";").map(link => {
+const APP_NAME = process.env.REACT_APP_NAME || "";
+const USE_SEARCH = process.env.REACT_APP_USE_SEARCH === "true";
+const LINKS = (process.env.REACT_APP_LINKS || "").split(";").map(link => {
   const [name, url] = link.split("=").map(part => part.trim());
   return { name, url };
 }).filter(link => link.name && link.url);
 
 const Sidebar = ({
-  index = {},  // map[category] = notes
+  index = {},
   onSetContent,
   onCollapse,
 }) => {
@@ -57,21 +57,21 @@ const Sidebar = ({
 
     if (content.type === "note") {
       // Go to category page
-      onSetContent(`[category]${category}`);
+      onSetContent(`[category]${category}:`);
       return;
     }
 
     if (content.type === "category" && content.category !== category) {
       // Go to category page
-      onSetContent(`[category]${category}`);
+      onSetContent(`[category]${category}:`);
       return;
     }
 
-    if (content.type === "") {
+    if (content.type === "categories") {
       // If the hash is already the category id
       if (window.location.hash === `#${toCategoryId(category)}`) {
         // Go to category page
-        onSetContent(`[category]${category}`);
+        onSetContent(`[category]${category}:`);
         return;
       }
     }
@@ -103,7 +103,7 @@ const Sidebar = ({
       return;
     }
 
-    if (content.type === "") {
+    if (content.type === "categories") {
       // If the hash is already the note id
       if (window.location.hash === `#${toNoteId(category, note)}`) {
         // Go to note page
@@ -129,7 +129,7 @@ const Sidebar = ({
       <div className={styles.stickyTop}>
         <div className={styles.title}>
           <a href={window.location.origin} className={styles.linkReset}>
-            <h1 className={styles.brand}>{siteName}</h1>
+            <h1 className={styles.brand}>{APP_NAME}</h1>
           </a>
         </div>
 
@@ -144,7 +144,7 @@ const Sidebar = ({
           </h5>
         </div>
 
-        {useSearch && (
+        {USE_SEARCH && (
           <div className={styles.search}>
             <input
               type="text"
@@ -193,10 +193,10 @@ const Sidebar = ({
         </div>
       )}
 
-      {links && links.length > 0 && (
+      {LINKS && LINKS.length > 0 && (
         <div className={styles.links}>
           <h5>links</h5>
-          {links.map(link => (
+          {LINKS.map(link => (
             <p key={link.name}>
               <a href={link.url}>{link.name}</a>
             </p>

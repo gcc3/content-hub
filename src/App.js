@@ -7,10 +7,10 @@ import { clearHash } from "@utils/hashUtils";
 import { parseContent } from "@utils/contentUtils";
 
 const APP_NAME = process.env.REACT_APP_NAME || "";
-const DEFAULT_LOAD = process.env.REACT_APP_DEFAULT_LOAD || "category";
 const USE_REALTIME = process.env.REACT_APP_USE_REALTIME === "true";
+const DEFAULT_CONTENT = process.env.REACT_APP_DEFAULT_CONTENT || "[categories]";
 
-globalThis.content = "";
+globalThis.content = DEFAULT_CONTENT;
 
 const App = () => {
   // Sidebar
@@ -18,7 +18,7 @@ const App = () => {
   const [index, setIndex] = useState({});
 
   // Content
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(DEFAULT_CONTENT);
   const [reload, setReload] = useState(0);  // key trick
 
   // Initialize
@@ -26,55 +26,35 @@ const App = () => {
     document.title = APP_NAME;
     clearHash();
 
-    // Load full index
+    // Load index
     fetch("/api/index")
       .then(response => response.json())
       .then(data => {
         const index = data || {};
         setIndex(index);
 
-        const categories = Object.keys(index).filter(k => k !== "__root__");
-
-        // III. Set initial content
-        // `category`              → load the first category
-        // `categories`            → load all categories
-        // `category_name`         → load a specific category, e.g. `Life`
-        // `category_name:note`    → load a specific note, e.g. `Life:Note1.txt`
-        let content_ = "";
-        if (DEFAULT_LOAD === "categories") {
-          content_ = "";
-        } else if (DEFAULT_LOAD === "category") {
-          content_ = categories.length > 0 ? "[category]" + categories[0] : "";
-        } else if (DEFAULT_LOAD.includes(":")) {
-          const colonIndex = DEFAULT_LOAD.indexOf(":");
-          const cat = DEFAULT_LOAD.slice(0, colonIndex);
-          const note = DEFAULT_LOAD.slice(colonIndex + 1);
-          content_ = cat && note ? "[note]" + cat + ":" + note : "";
-        } else if (DEFAULT_LOAD) {
-          content_ = "[category]" + DEFAULT_LOAD;
-        }
-
-        globalThis.content = content_;
-        setContent(content_);
-        console.log("content:", content_ || "(all categories)");
+        console.log("index:", JSON.stringify(index, null, 2));
+        console.log("content:", DEFAULT_CONTENT);
       })
       .catch(error => console.error(error));
 
     if (USE_REALTIME) {
       const reloadContent = (content) => {
-        console.log("reload content: " + (content ? content : "(all categories)"));
+        console.log("reload content: " + content);
         setReload(k => k + 1);
         showToast("Content updated.");
       }
       const es = new EventSource('/api/watch');
       es.onmessage = (event) => {
         const message = event.data;
+
+        // The message contains the changed file or category.
         console.log("message: " + message);
 
         // If the content.category or content.note in the message, reload component
         const content_ = globalThis.content;
         const content = parseContent(content_);
-        if (content.type === "") {
+        if (content.type === "categories") {
           reloadContent(content_);
         } else if (content.type === "category" && message.includes(content.category)) {
           reloadContent(content_);
@@ -111,7 +91,7 @@ const App = () => {
         className={clsx(styles.contentContainer, { [styles.contentExpanded]: isSidebarCollapsed })}
       >
         <div className="content" id="main-view">
-          <Content content_={content} reloadKey={reload} />
+          <Content content_={content} reload={reload} />
         </div>
         {isSidebarCollapsed && (
           <div

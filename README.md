@@ -53,6 +53,34 @@ Get the list of categories.
 Get the list of notes in a category.  
 
 
+Content String
+--------------
+
+String with format of `[type]category:note` is used to indicate the content to load.  
+
+1. Load types (`type`)  
+`type` can be `category`, `note`, `categories`.  
+`[note]` indicates to load the note.  
+`[category]` indicates to load the category.  
+`[categories]` indicates to load all categories.  
+
+2. `category`  
+`category` is the exact folder name.  
+
+3. `note`  
+`note` is the exact file name (with relative path, relative to the category folder).  
+So, sometimes contains the parent folder, if it is inside a subfolder.   
+e,g: `Note1.md` or `subfolder/Note1.md`.  
+
+For example:  
+`[category]Life:` indicates to load the category `Life`.
+`[note]Life:Note1` indicates to load the note `Note1.md` in the category `Life`.  
+
+3. Root-level content  
+To load the root folder or note in root folder.  
+Use `[category]__root__:` or `[note]__root__:note_name`.  
+
+
 .env
 ----
 
@@ -75,10 +103,5 @@ Enable search.
 REACT_APP_USE_REALTIME  
 Enable realtime update with SSE.  
 
-REACT_APP_DEFAULT_LOAD  
+REACT_APP_DEFAULT_CONTENT  
 Used to set the default load content.  
-`category` for load the first category.  
-`categories` for load all categories.  
-`category_name` for load a specific category, e.g. `REACT_APP_DEFAULT_LOAD=Life`.  
-`category_name:note_name` for load a specific note, e.g. `REACT_APP_DEFAULT_LOAD=Life:Note1`.  
-`category_name` and `note_name` should be the folder name and the file name.  

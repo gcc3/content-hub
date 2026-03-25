@@ -7,9 +7,13 @@ import { Copyright } from "@components";
 import clx from "clsx";
 import { NOTES_LIMIT } from "@constants";
 
-const Content = ({ content_ = "", reloadKey = 0 }) => {
+const Content = ({ content_ = "", reload = 0 }) => {
   const [loading, setLoading] = useState(false);
-  const content = useMemo(() => parseContent(content_), [content_, reloadKey]);
+
+  const content = useMemo(() => parseContent(content_), [content_, reload]);
+  if (content.type === "null") {
+    return <>Not found.</>;
+  }
 
   const [note, setNote] = useState(null);
   const [categoryNotes, setCategoryNotes] = useState([]);
@@ -75,9 +79,9 @@ const Content = ({ content_ = "", reloadKey = 0 }) => {
             try {
               let url = "";
               if (content.category === "__root__") {
-                url = `/notes/${content.note}`;
+                url = `/notes/${note_}`;
               } else {
-                url = `/notes/${content.category}/${content.note}`;
+                url = `/notes/${content.category}/${note_}`;
               }
 
               const response = await fetch(url);
@@ -118,7 +122,7 @@ const Content = ({ content_ = "", reloadKey = 0 }) => {
     }
 
     // Load all categories and notes
-    if (content.type === "") {
+    if (content.type === "categories") {
       setLoading(true);
 
       fetch(`/api/categories`)
@@ -221,7 +225,7 @@ const Content = ({ content_ = "", reloadKey = 0 }) => {
     )
   }
 
-  if (content.type === "") {
+  if (content.type === "categories") {
     return (
       <div>
         {loading ? (
