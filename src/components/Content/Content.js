@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Markdown from "@ui/Markdown";
+import { Share } from "@ui";
 import { toCategoryTitle, toNoteId, toCategoryId } from "@utils/textUtils";
 import { parseContent } from "@utils/contentUtils";
 import styles from "./content.module.css";
 import { Copyright } from "@components";
 import clx from "clsx";
 import { NOTES_LIMIT } from "@constants";
+import { Toast, showToast } from "@ui";
 
 const Content = ({ content_ = "", reload = 0 }) => {
   const [loading, setLoading] = useState(false);
@@ -186,10 +188,10 @@ const Content = ({ content_ = "", reload = 0 }) => {
   if (content.type === "category") {
     return (
       <div>
+        <Toast />
         <div id={toCategoryId(content.category)} className={clx(styles.categoryName, styles.categoryAnchor)}>
           {toCategoryTitle(content.category)}
         </div>
-
         {loading ? (
           <div className={styles.loading}>Loading...</div>
         ) : (
@@ -211,6 +213,7 @@ const Content = ({ content_ = "", reload = 0 }) => {
   if (content.type === "note") {
     return (
       <div>
+        <Toast />
         {loading ? (
           <div className={styles.loading}>Loading...</div>
         ) : !note ? null : (
@@ -218,6 +221,7 @@ const Content = ({ content_ = "", reload = 0 }) => {
             <div className={clx(styles.note, styles.noteAnchor)}>
               <Markdown basePath={`/notes/${content.category}/`}>{note.content}</Markdown>
             </div>
+            <Share content_={content_} showToast={showToast} />
             <Copyright />
           </div>
         )}
@@ -228,6 +232,7 @@ const Content = ({ content_ = "", reload = 0 }) => {
   if (content.type === "categories") {
     return (
       <div>
+        <Toast />
         {loading ? (
           <div className={styles.loading}>Loading...</div>
         ) : (

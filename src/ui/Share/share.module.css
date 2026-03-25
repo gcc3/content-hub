@@ -1,0 +1,15 @@
+.shareButton {
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 2px;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0.8;
+  user-select: none;
+  padding: 4px 8px;
+  background: lightgray;
+}
+
+.shareButton:hover {
+  opacity: 1;
+}
