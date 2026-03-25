@@ -51,7 +51,7 @@ export function toCategoryId(category_) {
   // Replace the whitespace with underscore
   category = category.replace(/\s+/g, '_');
 
-  return category;
+  return category + ":";
 }
 
 export function toCategoryTitle(category_) {

@@ -23,7 +23,13 @@ const Content = ({ content_ = "", reloadKey = 0 }) => {
       setLoading(true);
 
       // Fetch the note content
-      fetch(`/notes/${content.category}/${content.note}`)
+      let url = "";
+      if (content.category === "__root__") {
+        url = `/notes/${content.note}`;
+      } else {
+        url = `/notes/${content.category}/${content.note}`;
+      }
+      fetch(url)
         .then(async response => {
           if (!response.ok) {
             throw new Error(`Request failed with status ${response.status}`);
@@ -67,7 +73,14 @@ const Content = ({ content_ = "", reloadKey = 0 }) => {
           // Fetch content for each note
           return Promise.all(limitedNotes.map(async note_ => {
             try {
-              const response = await fetch(`/notes/${content.category}/${note_}`);
+              let url = "";
+              if (content.category === "__root__") {
+                url = `/notes/${content.note}`;
+              } else {
+                url = `/notes/${content.category}/${content.note}`;
+              }
+
+              const response = await fetch(url);
               if (!response.ok) {
                 throw new Error(`Request failed with status ${response.status}`);
               }

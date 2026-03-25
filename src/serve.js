@@ -112,6 +112,11 @@ app.get('/api/categories', (req, res) => {
   });
 });
 
+// List root-level notes
+app.get('/api/categories/__root__/notes', (req, res) => {
+  res.json(noteListing(notesDir));
+});
+
 // List notes in a category
 // The notes folder structure can be either:
 // note/Note.md
