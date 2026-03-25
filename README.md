@@ -80,6 +80,11 @@ For example:
 To load the root folder or note in root folder.  
 Use `[category]__root__:` or `[note]__root__:note_name`.  
 
+* Access content with content string
+Use the query parameter `content` to specify the content string to load.
+Example:
+`http://gcc3.com/?content=[note]projects:simple ai.md`
+
 
 .env
 ----
