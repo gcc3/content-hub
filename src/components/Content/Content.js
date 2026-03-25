@@ -197,8 +197,8 @@ const Content = ({ content_ = "", reloadKey = 0 }) => {
         {loading ? (
           <div className={styles.loading}>Loading...</div>
         ) : !note ? null : (
-          <div id={toNoteId(content.category, note.filename)} key={note.filename} className={styles.noteAnchor}>
-            <div className={styles.note}>
+          <div id={toNoteId(content.category, note.filename)}>
+            <div className={clx(styles.note, styles.noteAnchor)}>
               <Markdown basePath={`/notes/${content.category}/`}>{note.content}</Markdown>
             </div>
             <Copyright />
@@ -214,21 +214,23 @@ const Content = ({ content_ = "", reloadKey = 0 }) => {
         {loading ? (
           <div className={styles.loading}>Loading...</div>
         ) : (
-          <div className={styles.categories}>
-            {Object.entries(categoriesNotes).map(([category, notes]) => (
-              <div key={category}>
-                <div id={toCategoryId(category)} className={clx(styles.categoryName, styles.categoryAnchor)}>
-                  {toCategoryTitle(category)}
+          <div>
+            <div className={styles.categories}>
+              {Object.entries(categoriesNotes).map(([category, notes]) => (
+                <div key={category}>
+                  <div id={toCategoryId(category)} className={clx(styles.categoryName, styles.categoryAnchor)}>
+                    {toCategoryTitle(category)}
+                  </div>
+                  <div className={styles.notes}>
+                    {notes.map(note => (
+                      <div id={toNoteId(category, note.filename)} key={note.filename} className={styles.noteAnchor}>
+                        <Markdown basePath={`/notes/${category}/`}>{note.content}</Markdown>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className={styles.notes}>
-                  {notes.map(note => (
-                    <div id={toNoteId(category, note.filename)} key={note.filename} className={styles.noteAnchor}>
-                      <Markdown basePath={`/notes/${category}/`}>{note.content}</Markdown>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
             <Copyright />
           </div>
         )}
