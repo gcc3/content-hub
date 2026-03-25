@@ -2,7 +2,25 @@
 // 01_Category 01_Note.md -> Category[Note]
 export function toNoteId(category_, note_) {
   let category = category_;
+
+  // Remove leading digits and underscore
+  category = category.replace(/^\d+_/, '');
+
   let note = note_;
+
+  // Remove leading digits and underscore
+  note = note.replace(/^\d+_/, '')
+
+  // Remove the extension
+  note = note.replace('.md', '')
+    .replace('.MD', '');
+
+  // Remove the `.markdown/` prefix
+  note = note.replace('.markdown/', '');
+
+  // Replace the whitespace with underscore
+  note = note.replace(/\s+/g, '_');
+
   return `${category}:${note}`;
 }
 
@@ -26,6 +44,13 @@ export function toNoteTitle(note_) {
 
 export function toCategoryId(category_) {
   let category = category_;
+
+  // Remove leading digits and underscore
+  category = category.replace(/^\d+_/, '');
+
+  // Replace the whitespace with underscore
+  category = category.replace(/\s+/g, '_');
+
   return category + ":";
 }
 
@@ -36,25 +61,4 @@ export function toCategoryTitle(category_) {
   category = category.replace(/^\d+_/, '');
 
   return category + ":";
-}
-
-
-export function pathToContent(path, defaultContent) {
-  let content = defaultContent;
-
-  if (path.includes(":")) {
-    const colonIndex = path.indexOf(":");
-    const category = path.slice(0, colonIndex);
-    const note = path.slice(colonIndex + 1);
-
-    let type = "null";
-    if (note) {
-      type = "note";
-    } else {
-      type = "category";
-    }
-    content = `[${type}]${category}:${note}`;
-  }
-
-  return content;
 }
