@@ -52,8 +52,14 @@ const Sidebar = ({
 
   // Category click handler
   const handleCategoryClick = (category) => {
-    console.log(`category: category=${category}, categoryId=${toCategoryId(category)}`);
-    const content = parseContent(globalThis.content);
+    const categoryId = toCategoryId(category);
+    console.log(`category: category=${category}, categoryId=${categoryId}`);
+
+    const currentContent = parseContent(globalThis.content);
+    console.log("current content:", JSON.stringify(currentContent));
+
+    const windowHashDecoded = decodeURIComponent(window.location.hash);
+    console.log("window hash (decoded):", windowHashDecoded);
 
     if (category === "__root__") {
       // Go to root page
@@ -61,21 +67,21 @@ const Sidebar = ({
       return;
     }
 
-    if (content.type === "note") {
+    if (currentContent.type === "note") {
       // Go to category page
       onSetContent(`[category]${category}:`);
       return;
     }
 
-    if (content.type === "category" && content.category !== category) {
+    if (currentContent.type === "category" && currentContent.category !== category) {
       // Go to category page
       onSetContent(`[category]${category}:`);
       return;
     }
 
-    if (content.type === "categories") {
+    if (currentContent.type === "categories") {
       // If the hash is already the category id
-      if (window.location.hash === `#${toCategoryId(category)}`) {
+      if (windowHashDecoded === `#${categoryId}`) {
         // Go to category page
         onSetContent(`[category]${category}:`);
         return;
@@ -85,42 +91,54 @@ const Sidebar = ({
 
   // Note click handler
   const handleNoteClick = (category, note) => {
-    console.log(`note: category=${category}, note=${note}, noteid=${toNoteId(category, note)}`);
-    const content = parseContent(globalThis.content);
+    const noteId = toNoteId(category, note);
+    console.log(`note: category=${category}, note=${note}, noteid=${noteId}`);
+
+    const currentContent = parseContent(globalThis.content);
+    console.log("current content:", JSON.stringify(currentContent));
+
+    const windowHashDecoded = decodeURIComponent(window.location.hash);
+    console.log("window hash (decoded):", windowHashDecoded);
 
     if (category === "__root__") {
+      if (currentContent.type === "categories" || currentContent.category !== "__root__") {
+        // Go to note page
+        onSetContent(`[note]__root__:${note}`);
+        return;
+      }
+
       // If the hash is already the note id
-      if (window.location.hash === `#${toNoteId(category, note)}`) {
+      if (windowHashDecoded === `#${noteId}`) {
         // Go to note page
         onSetContent(`[note]${category}:${note}`);
         return;
       }
     }
 
-    if (content.type === "note" && (content.category !== category || content.note !== note)) {
+    if (currentContent.type === "note" && (currentContent.category !== category || currentContent.note !== note)) {
       // Go to note page
       onSetContent(`[note]${category}:${note}`);
       return;
     }
 
-    if (content.type === "category" && content.category === category) {
+    if (currentContent.type === "category" && currentContent.category === category) {
       // If the hash is already the note id
-      if (window.location.hash === `#${toNoteId(category, note)}`) {
+      if (windowHashDecoded === `#${noteId}`) {
         // Go to note page
         onSetContent(`[note]${category}:${note}`);
         return;
       }
     }
 
-    if (content.type === "category" && content.category !== category) {
+    if (currentContent.type === "category" && currentContent.category !== category) {
       // Go to note page
       onSetContent(`[note]${category}:${note}`);
       return;
     }
 
-    if (content.type === "categories") {
+    if (currentContent.type === "categories") {
       // If the hash is already the note id
-      if (window.location.hash === `#${toNoteId(category, note)}`) {
+      if (windowHashDecoded === `#${noteId}`) {
         // Go to note page
         onSetContent(`[note]${category}:${note}`);
         return;
@@ -128,7 +146,7 @@ const Sidebar = ({
     }
 
     // The note is not loaded in the content.
-    if (content.type !== "note") {
+    if (currentContent.type !== "note") {
       // Find the index of the note in the category
       const noteIndex = (index[category] || []).findIndex(n => n === note);
       if (noteIndex >= NOTES_LIMIT) {

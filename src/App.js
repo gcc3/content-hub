@@ -10,7 +10,10 @@ const APP_NAME = process.env.REACT_APP_NAME || "";
 const USE_REALTIME = process.env.REACT_APP_USE_REALTIME === "true";
 const DEFAULT_CONTENT = process.env.REACT_APP_DEFAULT_CONTENT || "[categories]";
 
-globalThis.content = DEFAULT_CONTENT;
+const urlContent = new URLSearchParams(window.location.search).get("content");
+const INITIAL_CONTENT = urlContent || DEFAULT_CONTENT;
+
+globalThis.content = INITIAL_CONTENT;
 
 const App = () => {
   // Sidebar
@@ -18,7 +21,7 @@ const App = () => {
   const [index, setIndex] = useState({});
 
   // Content
-  const [content, setContent] = useState(DEFAULT_CONTENT);
+  const [content, setContent] = useState(INITIAL_CONTENT);
   const [reload, setReload] = useState(0);  // key trick
 
   // Initialize
@@ -34,7 +37,7 @@ const App = () => {
         setIndex(index);
 
         console.log("index:", JSON.stringify(index, null, 2));
-        console.log("content:", DEFAULT_CONTENT);
+        console.log("content:", globalThis.content);
       })
       .catch(error => console.error(error));
 
