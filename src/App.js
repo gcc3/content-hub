@@ -6,8 +6,9 @@ import styles from "./app.module.css";
 import { clearHash } from "@utils/hashUtils";
 import { parseContent } from "@utils/contentUtils";
 
-const siteName = process.env.REACT_APP_NAME || "";
-const defaultLoad = process.env.REACT_APP_DEFAULT_LOAD || "category";
+const APP_NAME = process.env.REACT_APP_NAME || "";
+const DEFAULT_LOAD = process.env.REACT_APP_DEFAULT_LOAD || "category";
+const USE_REALTIME = process.env.REACT_APP_USE_REALTIME === "true";
 
 globalThis.content = "";
 
@@ -22,29 +23,30 @@ const App = () => {
 
   // Initialize
   useEffect(() => {
-    document.title = siteName;
+    document.title = APP_NAME;
     clearHash();
 
-    // Set up SSE connection to receive real-time updates when notes change
-    const reloadContent = (content) => {
-      console.log("reload content: " + (content ? content : "(all categories)"));
-      setReload(k => k + 1);
-      showToast("Content updated.");
-    }
-    const es = new EventSource('/api/watch');
-    es.onmessage = (event) => {
-      const message = event.data;
-      console.log("message: " + message);
+    if (USE_REALTIME) {
+      const reloadContent = (content) => {
+        console.log("reload content: " + (content ? content : "(all categories)"));
+        setReload(k => k + 1);
+        showToast("Content updated.");
+      }
+      const es = new EventSource('/api/watch');
+      es.onmessage = (event) => {
+        const message = event.data;
+        console.log("message: " + message);
 
-      // If the content.category or content.note in the message, reload component
-      const content_ = globalThis.content;
-      const content = parseContent(content_);
-      if (content.type === "") {
-        reloadContent(content_);
-      } else if (content.type === "category" && message.includes(content.category)) {
-        reloadContent(content_);
-      } else if (content.type === "note" && message.includes(content.category) && message.includes(content.note)) {
-        reloadContent(content_);
+        // If the content.category or content.note in the message, reload component
+        const content_ = globalThis.content;
+        const content = parseContent(content_);
+        if (content.type === "") {
+          reloadContent(content_);
+        } else if (content.type === "category" && message.includes(content.category)) {
+          reloadContent(content_);
+        } else if (content.type === "note" && message.includes(content.category) && message.includes(content.note)) {
+          reloadContent(content_);
+        }
       }
     }
 
@@ -76,17 +78,17 @@ const App = () => {
         // `category_name`         → load a specific category, e.g. `Life`
         // `category_name:note`    → load a specific note, e.g. `Life:Note1.txt`
         let content_ = "";
-        if (defaultLoad === "categories") {
+        if (DEFAULT_LOAD === "categories") {
           content_ = "";
-        } else if (defaultLoad === "category") {
+        } else if (DEFAULT_LOAD === "category") {
           content_ = categories.length > 0 ? "[category]" + categories[0] : "";
-        } else if (defaultLoad.includes(":")) {
-          const colonIndex = defaultLoad.indexOf(":");
-          const cat = defaultLoad.slice(0, colonIndex);
-          const note = defaultLoad.slice(colonIndex + 1);
+        } else if (DEFAULT_LOAD.includes(":")) {
+          const colonIndex = DEFAULT_LOAD.indexOf(":");
+          const cat = DEFAULT_LOAD.slice(0, colonIndex);
+          const note = DEFAULT_LOAD.slice(colonIndex + 1);
           content_ = cat && note ? "[note]" + cat + ":" + note : "";
-        } else if (defaultLoad) {
-          content_ = "[category]" + defaultLoad;
+        } else if (DEFAULT_LOAD) {
+          content_ = "[category]" + DEFAULT_LOAD;
         }
 
         globalThis.content = content_;
@@ -96,7 +98,11 @@ const App = () => {
       .catch(error => console.error(error));
 
     // Unmount
-    return () => es.close();
+    return () => {
+      if (USE_REALTIME) {
+        es.close();
+      }
+    };
   }, []);
 
   return (
