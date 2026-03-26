@@ -39,3 +39,21 @@ export function parseContent(content_ = "") {
     note,
   }
 }
+
+export function toContentUrl({ type, category = "", note = "" } = {}) {
+  let content_;
+  if (type === "note") {
+    content_ = !category || category === "__root__"
+      ? `[note]${note}`
+      : `[note]${category}:${note}`;
+  } else if (type === "category") {
+    content_ = !category || category === "__root__"
+      ? `[category]${note}`
+      : `[category]${category}:${note}`;
+  } else if (type === "categories") {
+    content_ = "[categories]";
+  } else {
+    content_ = "";
+  }
+  return `${window.location.origin}${window.location.pathname}?content=${encodeURIComponent(content_)}`;
+}

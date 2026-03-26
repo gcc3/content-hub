@@ -15,13 +15,16 @@ const normalizeLanguageClass = language => {
   return language.toLowerCase().replace(/[^a-z0-9_-]/g, "-");
 };
 
-const createMarkedRenderer = () => {
+const createMarkedRenderer = (url) => {
   const renderer = new marked.Renderer();
 
   renderer.paragraph = text => `<p class="md-token md-token-paragraph">${text}</p>\n`;
 
   renderer.heading = (text, level) => {
     const headingTag = `h${level}`;
+    if (level === 1 && url) {
+      return `<${headingTag} class="md-token md-token-heading md-token-heading-${level}"><a class="md-token md-token-heading-link" href="${escapeHtmlAttribute(url)}">${text}</a></${headingTag}>\n`;
+    }
     return `<${headingTag} class="md-token md-token-heading md-token-heading-${level}">${text}</${headingTag}>\n`;
   };
 
@@ -101,6 +104,9 @@ const resolveRelativeUrls = (html, basePath) => {
 
   // Links
   template.content.querySelectorAll("a[href]").forEach(element => {
+    if (element.classList.contains("md-token-heading-link")) {
+      return;
+    }
     element.setAttribute("target", "_blank");
     element.setAttribute("rel", "noopener noreferrer");
   });
@@ -116,8 +122,8 @@ const resolveRelativeUrls = (html, basePath) => {
   return template.innerHTML;
 };
 
-const Markdown = ({ children, basePath = "/" }) => {
-  const renderer = createMarkedRenderer();
+const Markdown = ({ children, basePath = "/", url = "" }) => {
+  const renderer = createMarkedRenderer(url);
   let resolvedHtml = marked.parse(children, { renderer });
 
   // Resolve relative URLs

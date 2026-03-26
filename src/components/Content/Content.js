@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Markdown from "@ui/Markdown";
 import { Share } from "@ui";
 import { toCategoryTitle, toNoteId, toCategoryId } from "@utils/textUtils";
-import { parseContent } from "@utils/contentUtils";
+import { parseContent, toContentUrl } from "@utils/contentUtils";
 import styles from "./content.module.css";
 import { Copyright } from "@components";
 import clx from "clsx";
@@ -199,7 +199,10 @@ const Content = ({ content_ = "", reload = 0 }) => {
             <div className={styles.notes}>
               {categoryNotes.map(note => (
                 <div id={toNoteId(content.category, note.filename)} key={note.filename} className={styles.noteAnchor}>
-                  <Markdown basePath={`/notes/${content.category}/`}>{note.content}</Markdown>
+                  <Markdown
+                    basePath={`/notes/${content.category}/`}
+                    url={toContentUrl({ type: "note", category: content.category, note: note.filename })}
+                  >{note.content}</Markdown>
                 </div>
               ))}
             </div>
@@ -219,7 +222,10 @@ const Content = ({ content_ = "", reload = 0 }) => {
         ) : !note ? null : (
           <div id={toNoteId(content.category, note.filename)}>
             <div className={clx(styles.note, styles.noteAnchor)}>
-              <Markdown basePath={`/notes/${content.category}/`}>{note.content}</Markdown>
+              <Markdown
+                basePath={`/notes/${content.category}/`}
+                url={toContentUrl(content)}
+              >{note.content}</Markdown>
             </div>
             <Share content_={content_} showToast={showToast} />
             <Copyright />
@@ -246,7 +252,10 @@ const Content = ({ content_ = "", reload = 0 }) => {
                   <div className={styles.notes}>
                     {notes.map(note => (
                       <div id={toNoteId(category, note.filename)} key={note.filename} className={styles.noteAnchor}>
-                        <Markdown basePath={`/notes/${category}/`}>{note.content}</Markdown>
+                        <Markdown
+                          basePath={`/notes/${category}/`}
+                          url={toContentUrl({ type: "note", category, note: note.filename })}
+                        >{note.content}</Markdown>
                       </div>
                     ))}
                   </div>
