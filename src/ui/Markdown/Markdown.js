@@ -15,15 +15,15 @@ const normalizeLanguageClass = language => {
   return language.toLowerCase().replace(/[^a-z0-9_-]/g, "-");
 };
 
-const createMarkedRenderer = (url) => {
+const createMarkedRenderer = () => {
   const renderer = new marked.Renderer();
 
   renderer.paragraph = text => `<p class="md-token md-token-paragraph">${text}</p>\n`;
 
   renderer.heading = (text, level) => {
     const headingTag = `h${level}`;
-    if (level === 1 && url) {
-      return `<${headingTag} class="md-token md-token-heading md-token-heading-${level}"><a class="md-token md-token-heading-link" href="${escapeHtmlAttribute(url)}">${text}</a></${headingTag}>\n`;
+    if (level === 1) {
+      return `<${headingTag} class="md-token md-token-heading md-token-heading-${level} md-token-heading-clickable">${text}</${headingTag}>\n`;
     }
     return `<${headingTag} class="md-token md-token-heading md-token-heading-${level}">${text}</${headingTag}>\n`;
   };
@@ -104,9 +104,6 @@ const resolveRelativeUrls = (html, basePath) => {
 
   // Links
   template.content.querySelectorAll("a[href]").forEach(element => {
-    if (element.classList.contains("md-token-heading-link")) {
-      return;
-    }
     element.setAttribute("target", "_blank");
     element.setAttribute("rel", "noopener noreferrer");
   });
@@ -122,8 +119,8 @@ const resolveRelativeUrls = (html, basePath) => {
   return template.innerHTML;
 };
 
-const Markdown = ({ children, basePath = "/", url = "" }) => {
-  const renderer = createMarkedRenderer(url);
+const Markdown = ({ children, basePath = "/", content, onHeaderClick }) => {
+  const renderer = createMarkedRenderer();
   let resolvedHtml = marked.parse(children, { renderer });
 
   // Resolve relative URLs
@@ -135,9 +132,17 @@ const Markdown = ({ children, basePath = "/", url = "" }) => {
   // Replace tofu with nothing
   resolvedHtml = resolvedHtml.replace(/□/g, "");
 
+  const handleClick = onHeaderClick ? (e) => {
+    const heading = e.target.closest(".md-token-heading-clickable");
+    if (heading) {
+      onHeaderClick(content);
+    }
+  } : undefined;
+
   return (
     <div
       className="md-root"
+      onClick={handleClick}
       dangerouslySetInnerHTML={{
         __html: resolvedHtml
       }}

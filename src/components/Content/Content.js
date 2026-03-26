@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Markdown from "@ui/Markdown";
 import { Share } from "@ui";
 import { toCategoryTitle, toNoteId, toCategoryId } from "@utils/textUtils";
-import { parseContent, toContentUrl } from "@utils/contentUtils";
+import { parseContent } from "@utils/contentUtils";
 import styles from "./content.module.css";
 import { Copyright } from "@components";
 import clx from "clsx";
@@ -11,15 +11,22 @@ import { Toast, showToast } from "@ui";
 
 const Content = ({ content_ = "", reload = 0 }) => {
   const [loading, setLoading] = useState(false);
-
-  const content = useMemo(() => parseContent(content_), [content_, reload]);
-  if (content.type === "null") {
-    return <>Not found.</>;
-  }
-
+  const [content, setContent] = useState(() => parseContent(content_));
   const [note, setNote] = useState(null);
   const [categoryNotes, setCategoryNotes] = useState([]);
   const [categoriesNotes, setCategoriesNotes] = useState({});
+
+  useEffect(() => {
+    setContent(parseContent(content_));
+  }, [content_, reload]);
+
+  const headerClickHandler = (content) => {
+    setContent(content);
+  };
+
+  if (content.type === "null") {
+    return <>Not found.</>;
+  }
 
   useEffect(() => {
     let isCancelled = false;
@@ -201,7 +208,8 @@ const Content = ({ content_ = "", reload = 0 }) => {
                 <div id={toNoteId(content.category, note.filename)} key={note.filename} className={styles.noteAnchor}>
                   <Markdown
                     basePath={`/notes/${content.category}/`}
-                    url={toContentUrl({ type: "note", category: content.category, note: note.filename })}
+                    content={{ type: "note", category: content.category, note: note.filename }}
+                    onHeaderClick={headerClickHandler}
                   >{note.content}</Markdown>
                 </div>
               ))}
@@ -224,6 +232,8 @@ const Content = ({ content_ = "", reload = 0 }) => {
             <div className={clx(styles.note, styles.noteAnchor)}>
               <Markdown
                 basePath={`/notes/${content.category}/`}
+                content={{ type: "note", category: content.category, note: note.filename }}
+                onHeaderClick={headerClickHandler}
               >{note.content}</Markdown>
             </div>
             <Share content_={content_} showToast={showToast} />
@@ -253,7 +263,8 @@ const Content = ({ content_ = "", reload = 0 }) => {
                       <div id={toNoteId(category, note.filename)} key={note.filename} className={styles.noteAnchor}>
                         <Markdown
                           basePath={`/notes/${category}/`}
-                          url={toContentUrl({ type: "note", category, note: note.filename })}
+                          content={{ type: "note", category, note: note.filename }}
+                          onHeaderClick={headerClickHandler}
                         >{note.content}</Markdown>
                       </div>
                     ))}

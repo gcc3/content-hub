@@ -25,9 +25,8 @@
   margin-bottom: 1rem;
 }
 
-.md-root .md-token-heading-link {
-  text-decoration: none;
-  color: inherit;
+.md-root .md-token-heading-clickable {
+  cursor: pointer;
 }
 
 .md-root .md-token-heading-2,
