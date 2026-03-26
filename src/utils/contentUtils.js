@@ -40,6 +40,13 @@ export function parseContent(content_ = "") {
   }
 }
 
+export function parseContent_(content) {
+  const type = content.type || "null";
+  const category = content.category || "";
+  const note = content.note || "";
+  return "[" + type + "]" + (category ? category + ":" : "") + note;
+}
+
 export function toContentUrl({ type, category = "", note = "" } = {}) {
   let content_;
   if (type === "note") {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Markdown from "@ui/Markdown";
 import { Share } from "@ui";
 import { toCategoryTitle, toNoteId, toCategoryId } from "@utils/textUtils";
-import { parseContent } from "@utils/contentUtils";
+import { parseContent, parseContent_ } from "@utils/contentUtils";
 import styles from "./content.module.css";
 import { Copyright } from "@components";
 import clx from "clsx";
@@ -21,6 +21,7 @@ const Content = ({ content_ = "", reload = 0 }) => {
   }, [content_, reload]);
 
   const headerClickHandler = (content) => {
+    globalThis.content = parseContent_(content);
     setContent(content);
   };
 
