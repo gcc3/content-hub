@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import styles from "./sidebar.module.css";
+import styles from "./header.module.css";
 import { toNoteId, toNoteTitle, toCategoryTitle, toCategoryId } from "../../utils/textUtils";
 import { parseContent } from "@utils/contentUtils";
 import { NOTES_LIMIT } from "@constants";
@@ -11,10 +11,9 @@ const LINKS = (process.env.REACT_APP_LINKS || "").split(";").map(link => {
   return { name, url };
 }).filter(link => link.name && link.url);
 
-const Sidebar = ({
+const Header = ({
   index = {},
   onSetContent,
-  onCollapse,
 }) => {
   const [searchText, setSearchText] = useState("");
   const categories = useMemo(() => Object.keys(index), [index]);
@@ -158,39 +157,30 @@ const Sidebar = ({
   };
 
   return (
-    <div className={styles.sidebar}>
-      <div className={styles.stickyTop}>
-        <div className={styles.title}>
-          <a href={window.location.origin} className={styles.linkReset}>
-            <h1 className={styles.brand}>{APP_NAME}</h1>
-          </a>
-        </div>
-
-        <div className={styles.categoryRow}>
-          <h5>index</h5>
-          <h5
-            id="btn-collapse-sidbar"
-            className={styles.collapseButton}
-            onClick={onCollapse}
-          >
-            {"<<"}
-          </h5>
-        </div>
-
-        {USE_SEARCH && (
-          <div className={styles.search}>
-            <input
-              type="text"
-              value={searchText}
-              onChange={e => setSearchText(e.target.value)}
-              onKeyDown={event => handleSearchKeyDown(event)}
-              placeholder="search notes"
-              className={styles.searchInput}
-              aria-label="Search notes"
-            />
-          </div>
-        )}
+    <div className={styles.header}>
+      <div>
+        <a href={window.location.origin} className={styles.linkReset}>
+          <h1 className={styles.brand}>{APP_NAME}</h1>
+        </a>
       </div>
+
+      <div className={styles.indexLabel}>
+        index
+      </div>
+
+      {USE_SEARCH && (
+        <div className={styles.search}>
+          <input
+            type="text"
+            value={searchText}
+            onChange={e => setSearchText(e.target.value)}
+            onKeyDown={event => handleSearchKeyDown(event)}
+            placeholder="search notes"
+            className={styles.searchInput}
+            aria-label="Search notes"
+          />
+        </div>
+      )}
 
       {hasFilteredNotes && (
         <div className={styles.index}>
@@ -242,4 +232,4 @@ const Sidebar = ({
   );
 };
 
-export default Sidebar;
+export default Header;

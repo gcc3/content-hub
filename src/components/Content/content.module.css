@@ -6,7 +6,7 @@
 .categories {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .categoryName {

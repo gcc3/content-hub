@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import clsx from "clsx";
-import { Content, Sidebar } from "./components";
+import { Content, Sidebar, Header } from "./components";
 import { Toast, showToast } from "./ui";
 import styles from "./app.module.css";
 import { clearHash } from "@utils/hashUtils";
 import { parseContent } from "@utils/contentUtils";
+import { isMobile } from "@utils/mobileUtils";
 
 const APP_NAME = process.env.REACT_APP_NAME || "";
 const USE_REALTIME = process.env.REACT_APP_USE_REALTIME === "true";
@@ -20,7 +21,8 @@ globalThis.content = INITIAL_CONTENT;
 
 const App = () => {
   // Sidebar
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const useSidebar = !isMobile;
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(!useSidebar);
   const [index, setIndex] = useState({});
 
   // Content
@@ -81,7 +83,7 @@ const App = () => {
   return (
     <div className={clsx(styles.wrapper, styles.wrapperInlineBlock)}>
       <Toast />
-      {!isSidebarCollapsed && (
+      {useSidebar && !isSidebarCollapsed && (
         <Sidebar
           index={index}
           onSetContent={(content) => {
@@ -92,6 +94,16 @@ const App = () => {
           onCollapse={() => setIsSidebarCollapsed(true)}
         />
       )}
+      {!useSidebar && (
+        <Header
+          index={index}
+          onSetContent={(content) => {
+            globalThis.content = content;
+            setContent(content);
+            console.log("content:", content);
+          }}
+        />
+      )}
 
       <div
         className={clsx(styles.contentContainer, { [styles.contentExpanded]: isSidebarCollapsed })}
@@ -99,7 +111,7 @@ const App = () => {
         <div className="content" id="main-view">
           <Content content_={content} reload={reload} />
         </div>
-        {isSidebarCollapsed && (
+        {useSidebar && isSidebarCollapsed && (
           <div
             className={styles.expandSidebarButton}
             onClick={() => setIsSidebarCollapsed(false)}

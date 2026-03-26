@@ -1,5 +1,12 @@
-.title {
-  padding-top: 10px;
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.indexLabel {
+  font-weight: bold;
+  margin-top: 24px;
 }
 
 .linkReset {
@@ -10,21 +17,9 @@
   display: inline;
 }
 
-.categoryRow {
-  display: flex;
-  justify-content: space-between;
-  height: 38px;
-}
-
-.collapseButton {
-  width: 25px;
-  cursor: pointer;
-}
-
 .search {
-  padding-top: 4px;
+  padding-top: 8px;
   padding-bottom: 10px;
-  padding-right: 10px;
 }
 
 .searchInput {
@@ -46,44 +41,18 @@
   box-shadow: none;
 }
 
-.sidebar {
-  width: var(--sidebar-width);
-  height: 100%;
-  position: fixed;
-  border-right: 1px solid gray;
-  overflow-y: auto;
-  overflow-x: hidden;
-  overscroll-behavior: none;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.sidebar::-webkit-scrollbar {
-  display: none;
-}
-
-.stickyTop {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background: white;
-}
-
-.tab {
-  margin-left: 20px;
-}
-
 .index {
-  margin-top: 12px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  align-items: flex-start;
+  margin-top: 16px;
 }
 
 .categories {
   display: flex;
-  flex-direction: column;
-  gap: 14px;
+  flex-direction: row;
+  gap: 12px;
 }
 
 .category {
@@ -99,7 +68,8 @@
 }
 
 .linksContainer {
-  margin-top: 20px;
+  margin-top: 16px;
+  margin-bottom: 16px;
   display: flex;
   flex-direction: column;
 }
@@ -109,9 +79,8 @@
 }
 
 .links {
-  margin-top: 16px;
+  margin-top: 8px;
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding-bottom: 16px;
+  flex-direction: row;
+  gap: 12px;
 }
