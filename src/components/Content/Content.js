@@ -202,7 +202,7 @@ const Content = ({ content_ = "", reload = 0 }) => {
         </div>
         {loading ? (
           <div className={styles.loading}>Loading...</div>
-        ) : (
+        ) : categoryNotes.length === 0 ? <>Not found.</> : (
           <div>
             <div className={styles.notes}>
               {categoryNotes.map(note => (
@@ -228,7 +228,7 @@ const Content = ({ content_ = "", reload = 0 }) => {
         <Toast />
         {loading ? (
           <div className={styles.loading}>Loading...</div>
-        ) : !note ? null : (
+        ) : !note ? <>Not found.</> : (
           <div id={toNoteId(content.category, note.filename)}>
             <div className={clx(styles.note, styles.noteAnchor)}>
               <Markdown
@@ -251,7 +251,7 @@ const Content = ({ content_ = "", reload = 0 }) => {
         <Toast />
         {loading ? (
           <div className={styles.loading}>Loading...</div>
-        ) : (
+        ) : Object.keys(categoriesNotes).length === 0 ? <>Not found.</> : (
           <div>
             <div className={styles.categories}>
               {Object.entries(categoriesNotes).map(([category, notes]) => (
