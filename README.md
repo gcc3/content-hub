@@ -35,9 +35,9 @@ Category folders and note files will be loaded to index.
 Scripts  
 `pull.sh`
 pull the source code and the content, recursively.  
-`push-notes.sh`  
-Push all notes recursively.  
-If you want to edit the notes directly on the server.  
+`notes-push.sh` and `notes-status.sh`  
+Push or check status for all notes recursively.  
+In case users want to edit the notes directly on the server.  
 
 
 Content String
