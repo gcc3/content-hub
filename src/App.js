@@ -6,6 +6,7 @@ import styles from "./app.module.css";
 import { clearHash } from "@utils/hashUtils";
 import { parseContent } from "@utils/contentUtils";
 import { isMobile } from "@utils/mobileUtils";
+import { BASE_PATH } from "@constants";
 
 const APP_NAME = process.env.REACT_APP_NAME || "";
 const APP_SUBTITLE = process.env.REACT_APP_SUBTITLE || "";
@@ -36,7 +37,7 @@ const App = () => {
     clearHash();
 
     // Load index
-    fetch("/api/index")
+    fetch(`${BASE_PATH}/api/index`)
       .then(response => response.json())
       .then(data => {
         const index = data || {};
@@ -53,7 +54,7 @@ const App = () => {
         setReload(k => k + 1);
         showToast("Content updated.");
       }
-      const es = new EventSource('/api/watch');
+      const es = new EventSource(`${BASE_PATH}/api/watch`);
       es.onmessage = (event) => {
         const message = event.data;
 

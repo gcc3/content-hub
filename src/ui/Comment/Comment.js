@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Modal from "@ui/Modal";
 import styles from "./comment.module.css";
+import { BASE_PATH } from "@constants";
 
 const Comment = ({ content_, category, showToast }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,7 @@ const Comment = ({ content_, category, showToast }) => {
 
     setSubmitting(true);
     try {
-      const response = await fetch(`/api/categories/${encodeURIComponent(category)}/comments`, {
+      const response = await fetch(`${BASE_PATH}/api/categories/${encodeURIComponent(category)}/comments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: content_, email: email.trim(), comment: comment.trim() }),

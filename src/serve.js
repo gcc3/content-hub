@@ -8,11 +8,14 @@ const { createRealtimeWatcher } = require('./utils/realtimeUtils');
 const app = express();
 const port = process.env.PORT || 3000;
 const corsOrigin = process.env.CORS_ORIGIN || '*';
+const basePath = (process.env.BASE_PATH || '').replace(/\/$/, '');
 const publicDir = path.join(__dirname, '../public');
 const notesDir = path.join(publicDir, 'notes');
 
+const router = express.Router();
+
 // CORS middleware
-app.use((req, res, next) => {
+router.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', corsOrigin);
   res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -27,7 +30,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 // Logging middleware for API requests
-app.use('/api', (req, res, next) => {
+router.use('/api', (req, res, next) => {
   const startTime = Date.now();
 
   res.on('finish', () => {
@@ -38,7 +41,7 @@ app.use('/api', (req, res, next) => {
 });
 
 // Logging middleware for static file requests
-app.use((req, res, next) => {
+router.use((req, res, next) => {
   const isStaticFileRequest =
     (req.method === 'GET' || req.method === 'HEAD')
     && (req.path.startsWith('/notes/') || path.extname(req.path) !== '');
@@ -59,20 +62,20 @@ app.use((req, res, next) => {
 // Set up the SSE watcher for real-time updates
 // SSE endpoint — clients subscribe here to receive change notifications
 const { sseHandler } = createRealtimeWatcher(notesDir);
-app.get('/api/watch', sseHandler);
+router.get('/api/watch', sseHandler);
 
 // Serve the built frontend and static note files from the same server.
-app.use(express.static(publicDir));
+router.use(express.static(publicDir));
 
 // Serve the main page
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.sendFile(path.join(publicDir, 'index.html'));
 })
 
 // Get full index: { "": ["root.md"], "category1": ["abc.md"], ... }
 // - Keys are category names (subdirectory names); "" key holds root-level notes
 // - For each category, if a .markdown/ subfolder exists its contents are used instead
-app.get('/api/index', (req, res) => {
+router.get('/api/index', (req, res) => {
   fs.readdir(notesDir, { withFileTypes: true }, (err, entries) => {
     if (err) {
       return res.status(500).json({ error: 'Failed to read notes directory' });
@@ -103,7 +106,7 @@ app.get('/api/index', (req, res) => {
 });
 
 // List categories
-app.get('/api/categories', (req, res) => {
+router.get('/api/categories', (req, res) => {
   fs.readdir(notesDir, { withFileTypes: true }, (err, entries) => {
     if (err) {
       return res.status(500).json({ error: 'Failed to read notes directory' });
@@ -116,7 +119,7 @@ app.get('/api/categories', (req, res) => {
 });
 
 // List root-level notes
-app.get('/api/categories/__root__/notes', (req, res) => {
+router.get('/api/categories/__root__/notes', (req, res) => {
   res.json(noteListing(notesDir));
 });
 
@@ -124,7 +127,7 @@ app.get('/api/categories/__root__/notes', (req, res) => {
 // The notes folder structure can be either:
 // note/Note.md
 // note/Note.txt, note/.markdown/Note.md, .md build from .txt
-app.get('/api/categories/:category/notes', (req, res) => {
+router.get('/api/categories/:category/notes', (req, res) => {
   const category = req.params.category;
   const categoryDir = path.resolve(notesDir, category);
   const markdownDir = path.join(categoryDir, '.markdown');
@@ -142,7 +145,7 @@ app.get('/api/categories/:category/notes', (req, res) => {
 
 // Post a comment for a note in a category
 // Appends to public/notes/:category/.comments.json
-app.post('/api/categories/:category/comments', (req, res) => {
+router.post('/api/categories/:category/comments', (req, res) => {
   const category = req.params.category;
   const baseDir = category === '__root__'
     ? notesDir
@@ -180,9 +183,12 @@ app.post('/api/categories/:category/comments', (req, res) => {
   });
 });
 
+// Mount all routes under basePath (empty string = root, '/docs' = subpath)
+app.use(basePath, router);
+
 app.listen(port, () => {
-  const pageUrl = `http://localhost:${port}/`;
-  const apiBaseUrl = `http://localhost:${port}/api`;
+  const pageUrl = `http://localhost:${port}${basePath}/`;
+  const apiBaseUrl = `http://localhost:${port}${basePath}/api`;
   const apiEndpoints = [
     `GET ${apiBaseUrl}/index`,
     `GET ${apiBaseUrl}/categories`,

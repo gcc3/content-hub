@@ -5,7 +5,7 @@ import { parseContent, parseContent_ } from "@utils/contentUtils";
 import styles from "./content.module.css";
 import { Copyright } from "@components";
 import clx from "clsx";
-import { NOTES_LIMIT } from "@constants";
+import { NOTES_LIMIT, BASE_PATH } from "@constants";
 import { Toast, showToast, Share, Comment } from "@ui";
 
 const Content = ({ content_ = "", reload = 0 }) => {
@@ -38,9 +38,9 @@ const Content = ({ content_ = "", reload = 0 }) => {
       // Fetch the note content
       let url = "";
       if (content.category === "__root__") {
-        url = `/notes/${content.note}`;
+        url = `${BASE_PATH}/notes/${content.note}`;
       } else {
-        url = `/notes/${content.category}/${content.note}`;
+        url = `${BASE_PATH}/notes/${content.category}/${content.note}`;
       }
       fetch(url)
         .then(async response => {
@@ -77,7 +77,7 @@ const Content = ({ content_ = "", reload = 0 }) => {
     if (content.type === "category") {
       setLoading(true);
 
-      fetch(`/api/categories/${content.category}/notes`)
+      fetch(`${BASE_PATH}/api/categories/${content.category}/notes`)
         .then(response => response.json())
         .then(data => {
           const notes_ = data || [];
@@ -88,9 +88,9 @@ const Content = ({ content_ = "", reload = 0 }) => {
             try {
               let url = "";
               if (content.category === "__root__") {
-                url = `/notes/${note_}`;
+                url = `${BASE_PATH}/notes/${note_}`;
               } else {
-                url = `/notes/${content.category}/${note_}`;
+                url = `${BASE_PATH}/notes/${content.category}/${note_}`;
               }
 
               const response = await fetch(url);
@@ -134,21 +134,21 @@ const Content = ({ content_ = "", reload = 0 }) => {
     if (content.type === "categories") {
       setLoading(true);
 
-      fetch(`/api/categories`)
+      fetch(`${BASE_PATH}/api/categories`)
         .then(response => response.json())
         .then(categories => {
           const categories_ = categories || [];
 
           return Promise.all(categories_.map(async category_ => {
             try {
-              const notesResponse = await fetch(`/api/categories/${category_}/notes`);
+              const notesResponse = await fetch(`${BASE_PATH}/api/categories/${category_}/notes`);
               const notes_ = await notesResponse.json();
               const limitedNotes = (notes_ || []).slice(0, NOTES_LIMIT);
 
               // Fetch content for each note
               const noteResults = await Promise.all(limitedNotes.map(async note_ => {
                 try {
-                  const response = await fetch(`/notes/${category_}/${note_}`);
+                  const response = await fetch(`${BASE_PATH}/notes/${category_}/${note_}`);
                   if (!response.ok) {
                     throw new Error(`Request failed with status ${response.status}`);
                   }

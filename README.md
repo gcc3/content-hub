@@ -95,6 +95,11 @@ PORT
 Used to set the web and content server port.  
 Default is 3180.  
 
+REACT_APP_BASE_PATH  
+Used to set the base path for the app.  
+For example, 
+If the app is served at `https://example.com/docs/`, set `REACT_APP_BASE_PATH=/docs`.  
+
 REACT_APP_NAME  
 Used to set the site name.  
 
