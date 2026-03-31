@@ -103,6 +103,12 @@ If the app is served at `https://example.com/docs/`, set `REACT_APP_BASE_PATH=/d
 REACT_APP_NAME  
 Used to set the site name.  
 
+REACT_APP_SUBTITLE  
+Used to set the site subtitle.  
+
+REACT_APP_SITE_URL  
+Used to set the site URL.  
+
 REACT_APP_COPYRIGHT  
 Used to set the site copyright information.  
 
