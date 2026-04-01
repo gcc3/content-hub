@@ -2,6 +2,8 @@ import React from "react";
 import { marked } from "marked";
 import "./markdown.css";
 
+import { BASE_PATH } from "@constants";
+
 const escapeHtmlAttribute = value => String(value)
   .replace(/&/g, "&amp;")
   .replace(/"/g, "&quot;")
@@ -114,7 +116,7 @@ const resolveRelativeUrls = (html, basePath) => {
     if (!attributeValue) {
       return;
     }
-    element.setAttribute("src", basePath + attributeValue);
+    element.setAttribute("src", BASE_PATH + basePath + attributeValue);
   });
   return template.innerHTML;
 };
