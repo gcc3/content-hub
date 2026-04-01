@@ -170,13 +170,13 @@ const Sidebar = ({
         </div>
 
         <div className={styles.categoryRow}>
-          <h5>index</h5>
-          <h5
+          <div className={styles.indexLabel}>index</div>
+          <div
             className={styles.collapseButton}
             onClick={onCollapse}
           >
             {"←"}
-          </h5>
+          </div>
         </div>
 
         {USE_SEARCH && (
