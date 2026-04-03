@@ -6,7 +6,9 @@ import styles from "./content.module.css";
 import { Copyright } from "@components";
 import clx from "clsx";
 import { NOTES_LIMIT, BASE_PATH } from "@constants";
-import { Toast, showToast, Share, Comment } from "@ui";
+import { Toast, showToast } from "@ui";
+import Share from "./Share";
+import Comment from "./Comment";
 
 const Content = ({ content_ = "", reload = 0 }) => {
   const [loading, setLoading] = useState(false);
