@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ActionButton from "@ui/ActionButton";
 import Modal from "@ui/Modal";
 import styles from "./comment.module.css";
 import { BASE_PATH } from "@constants";
@@ -44,11 +45,11 @@ const Comment = ({ content_, category, showToast }) => {
 
   return (
     <>
-      <span className={styles.commentButton} onClick={handleOpen}>
-        <svg className={styles.commentIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <ActionButton tooltip="Comment" onClick={handleOpen}>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
         </svg>
-      </span>
+      </ActionButton>
 
       <Modal isOpen={isOpen} onClose={handleClose}>
         <h3 className={styles.title}>Leave a Comment</h3>
