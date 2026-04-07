@@ -23,7 +23,7 @@ const Comment = ({ content_, category, showToast }) => {
 
     setSubmitting(true);
     try {
-      const response = await fetch(`${BASE_PATH}/api/categories/${encodeURIComponent(category)}/comments`, {
+      const response = await fetch(`${BASE_PATH}/api/comments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: content_, email: email.trim(), comment: comment.trim() }),

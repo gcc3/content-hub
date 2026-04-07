@@ -143,17 +143,9 @@ router.get('/api/categories/:category/notes', (req, res) => {
   }
 });
 
-// Post a comment for a note in a category
+// Post a comment for a note
 // Appends to public/notes/.comments.json
-router.post('/api/categories/:category/comments', (req, res) => {
-  const category = req.params.category;
-  const baseDir = category === '__root__'
-    ? notesDir
-    : path.resolve(notesDir, category);
-  if (!baseDir.startsWith(notesDir)) {
-    return res.status(400).json({ error: 'Invalid category name' });
-  }
-
+router.post('/api/comments', (req, res) => {
   const { content, email, comment } = req.body || {};
   if (!email || !comment) {
     return res.status(400).json({ error: 'email and comment are required' });
@@ -193,7 +185,7 @@ app.listen(port, () => {
     `GET ${apiBaseUrl}/index`,
     `GET ${apiBaseUrl}/categories`,
     `GET ${apiBaseUrl}/categories/:category/notes`,
-    `POST ${apiBaseUrl}/categories/:category/comments`,
+    `POST ${apiBaseUrl}/comments`,
   ];
   console.log(`Webapp endpoint: ${pageUrl}`);
   console.log(`API endpoint: ${apiBaseUrl}`);
