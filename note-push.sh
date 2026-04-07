@@ -11,4 +11,5 @@ if [[ ! -f "$push_script" ]]; then
   exit 1
 fi
 
+cd "$repo_dir/public/notes"
 bash "$push_script"
