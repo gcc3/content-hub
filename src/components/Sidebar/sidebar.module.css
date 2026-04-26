@@ -27,12 +27,13 @@
 }
 
 .brand {
-  display: inline;
+  font-size: 28px;
+  font-weight: bold;
 }
 
 .subtitle {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 12px;
   color: gray;
 }
 

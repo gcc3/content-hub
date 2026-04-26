@@ -164,7 +164,7 @@ const Sidebar = ({
       <div className={styles.stickyTop}>
         <div className={styles.title}>
           <a href={SITE_URL || window.location.origin} className={styles.linkReset}>
-            <h1 className={styles.brand}>{APP_NAME}</h1>
+            <div className={styles.brand}>{APP_NAME}</div>
           </a>
           {APP_SUBTITLE && <div className={styles.subtitle}>{APP_SUBTITLE}</div>}
         </div>
