@@ -1,18 +1,17 @@
 {
     "compilerOptions": {
-        "baseUrl": ".",
         "paths": {
             "@components/*": [
-                "src/components/*"
+                "./src/components/*"
             ],
             "@ui/*": [
-                "src/ui/*"
+                "./src/ui/*"
             ],
             "@utils/*": [
-                "src/utils/*"
+                "./src/utils/*"
             ],
             "@constants": [
-                "src/constants.js"
+                "./src/constants.js"
             ]
         }
     },
