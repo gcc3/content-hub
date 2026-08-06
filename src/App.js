@@ -3,9 +3,9 @@ import clsx from "clsx";
 import { Content, Sidebar, Header } from "./components";
 import { Toast, showToast } from "./ui";
 import styles from "./app.module.css";
-import { clearHash } from "@utils/hashUtils";
-import { parseContent } from "@utils/contentUtils";
-import { isMobile } from "@utils/mobileUtils";
+import { clearHash } from "@utils/hash";
+import { parseContent } from "@utils/content";
+import { isMobile } from "@utils/mobile";
 import { BASE_PATH } from "@constants";
 
 const APP_NAME = process.env.REACT_APP_NAME || "";

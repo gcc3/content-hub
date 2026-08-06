@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import styles from "./header.module.css";
-import { toNoteId, toNoteTitle, toCategoryTitle, toCategoryId } from "../../utils/textUtils";
-import { parseContent } from "@utils/contentUtils";
+import { toNoteId, toNoteTitle, toCategoryTitle, toCategoryId } from "../../utils/text";
+import { parseContent } from "@utils/content";
 import { NOTES_LIMIT } from "@constants";
 
 const APP_NAME = process.env.REACT_APP_NAME || "";

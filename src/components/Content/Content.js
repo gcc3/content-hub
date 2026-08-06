@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Markdown from "@ui/Markdown";
-import { toCategoryTitle, toNoteId, toCategoryId } from "@utils/textUtils";
-import { parseContent, parseContent_ } from "@utils/contentUtils";
+import { toCategoryTitle, toNoteId, toCategoryId } from "@utils/text";
+import { parseContent, parseContent_ } from "@utils/content";
 import styles from "./content.module.css";
 import { Copyright } from "@components";
 import clx from "clsx";

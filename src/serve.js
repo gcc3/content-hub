@@ -2,8 +2,8 @@ require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
-const { noteListing } = require('./utils/noteUtils');
-const { createRealtimeWatcher } = require('./utils/realtimeUtils');
+const { noteListing } = require('./utils/note');
+const { createRealtimeWatcher } = require('./utils/realtime');
 
 const app = express();
 const port = process.env.PORT || 3000;
