@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Markdown from "@ui/Markdown";
-import { toCategoryTitle, toNoteId, toCategoryId } from "@utils/text";
+import { toCategoryTitle, toNoteId, toCategoryId, fromAnchorId } from "@utils/text";
 import { parseContent, parseContent_ } from "@utils/content";
 import styles from "./content.module.css";
 import { Copyright } from "@components";
@@ -10,7 +10,7 @@ import { Toast, showToast } from "@ui";
 import Share from "./Share";
 import Comment from "./Comment";
 
-const Content = ({ content_ = "", reload = 0 }) => {
+const Content = ({ content_ = "", reload = 0, index = {} }) => {
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState(() => parseContent(content_));
   const [note, setNote] = useState(null);
@@ -24,6 +24,23 @@ const Content = ({ content_ = "", reload = 0 }) => {
   const headerClickHandler = (content) => {
     globalThis.content = parseContent_(content);
     setContent(content);
+  };
+
+  // An in-page link such as [Pob](#utils:pob)
+  const noteLinkClickHandler = (anchorId) => {
+    // The anchor is already rendered, let the browser scroll to it.
+    if (document.getElementById(anchorId)) {
+      return;
+    }
+
+    // Otherwise the linked note is not on the page, open it.
+    const target = fromAnchorId(index, anchorId);
+    if (!target) {
+      return;
+    }
+
+    globalThis.content = parseContent_(target);
+    setContent(target);
   };
 
   if (content.type === "null") {
@@ -212,6 +229,7 @@ const Content = ({ content_ = "", reload = 0 }) => {
                     basePath={`/notes/${content.category}/`}
                     content={{ type: "note", category: content.category, note: note.filename }}
                     onHeaderClick={headerClickHandler}
+                    onNoteLinkClick={noteLinkClickHandler}
                   >{note.content}</Markdown>
                   <div className={styles.actions}>
                     <Share content_={`[note]${content.category}:${note.filename}`} showToast={showToast} />
@@ -240,6 +258,7 @@ const Content = ({ content_ = "", reload = 0 }) => {
                 basePath={`/notes/${content.category}/`}
                 content={{ type: "note", category: content.category, note: note.filename }}
                 onHeaderClick={headerClickHandler}
+                onNoteLinkClick={noteLinkClickHandler}
               >{note.content}</Markdown>
               <div className={styles.actions}>
                 <Share content_={`[note]${content.category}:${note.filename}`} showToast={showToast} />
@@ -274,6 +293,7 @@ const Content = ({ content_ = "", reload = 0 }) => {
                           basePath={`/notes/${category}/`}
                           content={{ type: "note", category, note: note.filename }}
                           onHeaderClick={headerClickHandler}
+                          onNoteLinkClick={noteLinkClickHandler}
                         >{note.content}</Markdown>
                         <div className={styles.actions}>
                           <Share content_={`[note]${category}:${note.filename}`} showToast={showToast} />

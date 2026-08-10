@@ -54,6 +54,25 @@ export function toCategoryId(category_) {
   return category + ":";
 }
 
+// The reverse of toNoteId/toCategoryId, resolved against the index.
+// utils:pob -> { type: "note", category: "02_utils", note: ".markdown/00_pob.md" }
+// utils: -> { type: "category", category: "02_utils", note: "" }
+export function fromAnchorId(index = {}, anchorId = "") {
+  for (const category of Object.keys(index)) {
+    if (toCategoryId(category) === anchorId) {
+      return { type: "category", category, note: "" };
+    }
+
+    for (const note of index[category] || []) {
+      if (toNoteId(category, note) === anchorId) {
+        return { type: "note", category, note };
+      }
+    }
+  }
+
+  return null;
+}
+
 export function toCategoryTitle(category_) {
   let category = category_;
 

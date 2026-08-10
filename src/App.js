@@ -113,7 +113,7 @@ const App = () => {
         className={clsx(styles.contentContainer, { [styles.contentExpanded]: isSidebarCollapsed })}
       >
         <div className="content" id="main-view">
-          <Content content_={content} reload={reload} />
+          <Content content_={content} reload={reload} index={index} />
         </div>
         {useSidebar && isSidebarCollapsed && (
           <div

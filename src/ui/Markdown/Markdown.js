@@ -106,6 +106,11 @@ const resolveRelativeUrls = (html, basePath) => {
 
   // Links
   template.content.querySelectorAll("a[href]").forEach(element => {
+    // In-page links (e.g. #utils:pob) scroll within the page, keep them in the same tab.
+    if ((element.getAttribute("href") || "").startsWith("#")) {
+      return;
+    }
+
     element.setAttribute("target", "_blank");
     element.setAttribute("rel", "noopener noreferrer");
   });
@@ -121,7 +126,7 @@ const resolveRelativeUrls = (html, basePath) => {
   return template.innerHTML;
 };
 
-const Markdown = ({ children, basePath = "/", content, onHeaderClick }) => {
+const Markdown = ({ children, basePath = "/", content, onHeaderClick, onNoteLinkClick }) => {
   const renderer = createMarkedRenderer();
   let resolvedHtml = marked.parse(children, { renderer });
 
@@ -134,12 +139,22 @@ const Markdown = ({ children, basePath = "/", content, onHeaderClick }) => {
   // Replace tofu with nothing
   resolvedHtml = resolvedHtml.replace(/□/g, "");
 
-  const handleClick = onHeaderClick ? (e) => {
+  const handleClick = (e) => {
+    // An in-page note link, e.g. [Pob](#utils:pob)
+    const noteLink = e.target.closest("a.md-token-link");
+    if (noteLink) {
+      const href = noteLink.getAttribute("href") || "";
+      if (href.startsWith("#") && onNoteLinkClick) {
+        onNoteLinkClick(decodeURIComponent(href.slice(1)));
+      }
+      return;
+    }
+
     const heading = e.target.closest(".md-token-heading-clickable");
-    if (heading) {
+    if (heading && onHeaderClick) {
       onHeaderClick(content);
     }
-  } : undefined;
+  };
 
   return (
     <div
