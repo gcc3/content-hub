@@ -134,6 +134,27 @@
   color: var(--pob-muted);
 }
 
+/* Each platform is its own zip, so each name is its own link. */
+.platform {
+  color: var(--pob-muted);
+  text-decoration: none;
+  border-bottom: 2px solid var(--pob-hairline);
+}
+
+.platform:hover {
+  color: var(--pob-ink);
+  border-color: var(--pob-accent);
+}
+
+.platform:focus-visible {
+  outline: 2px solid var(--pob-ink);
+  outline-offset: 2px;
+}
+
+.dot {
+  padding: 0 6px;
+}
+
 .shot {
   margin: 0;
 }

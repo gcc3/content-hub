@@ -7,6 +7,7 @@ import styles from "./simple-ai.module.css";
 
 const [chat, even] = meta.repositories;
 const [web, webCli] = chat.online;
+const docs = `${web}/docs`;
 
 const MODELS = ["OpenAI", "Anthropic", "Google", "xAI", "Ollama"];
 
@@ -40,6 +41,7 @@ const SimpleAi = () => {
         <div className={styles.actions}>
           <a className={styles.primary} href={web}>{t.open}</a>
           <a className={styles.secondary} href={chat.github}>{t.source}</a>
+          <a className={styles.secondary} href={docs}>{t.docs}</a>
         </div>
         <div className={styles.models}>
           <span className={styles.modelsLabel}>{t.modelsLabel}</span>

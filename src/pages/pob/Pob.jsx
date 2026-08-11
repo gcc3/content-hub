@@ -1,20 +1,26 @@
 import React, { useEffect } from "react";
 import meta from "./meta.json";
 import { useStrings } from "./strings";
+import { useRelease } from "./release";
 import LanguageSwitcher from "./LanguageSwitcher";
 import Macro from "./Macro";
 import styles from "./pob.module.css";
 
-const { github, download } = meta.repositories[0];
+const { github } = meta.repositories[0];
 
 const SHOT = "/notes/02_utils/.images/202608111912_pob.webp";
 
 const Pob = () => {
   const { t, language, languages, setLanguage } = useStrings();
+  const { platform, version, platforms, hrefFor, href, releasesHref } = useRelease();
 
   useEffect(() => {
     document.title = t.title;
   }, [t]);
+
+  const label = platform
+    ? t.downloadFor.replace("{platform}", t.platformNames[platform])
+    : t.download;
 
   return (
     <div className={styles.page}>
@@ -31,10 +37,23 @@ const Pob = () => {
           <p className={styles.tagline}>{t.tagline}</p>
           <p className={styles.lede}>{t.lede}</p>
           <div className={styles.actions}>
-            <a className={styles.primary} href={download}>{t.download}</a>
+            <a className={styles.primary} href={href}>{label}</a>
             <a className={styles.secondary} href={github}>{t.source}</a>
           </div>
-          <p className={styles.platforms}>{t.platforms}</p>
+          <p className={styles.platforms}>
+            {platforms.map((name, index) => (
+              <React.Fragment key={name}>
+                {index > 0 && <span className={styles.dot}>·</span>}
+                <a className={styles.platform} href={hrefFor(name)}>{t.platformNames[name]}</a>
+              </React.Fragment>
+            ))}
+            {version && (
+              <>
+                <span className={styles.dot}>·</span>
+                <span>{`v${version}`}</span>
+              </>
+            )}
+          </p>
         </div>
         <figure className={styles.shot}>
           <img src={SHOT} alt={t.shotAlt} />
@@ -96,7 +115,7 @@ const Pob = () => {
       <footer className={styles.footer}>
         <div className={styles.footerLinks}>
           <a href={github}>GitHub</a>
-          <a href={download}>{t.releases}</a>
+          <a href={releasesHref}>{t.releases}</a>
           <a href="/psl">PSL</a>
           <a href="/">gcc³</a>
         </div>

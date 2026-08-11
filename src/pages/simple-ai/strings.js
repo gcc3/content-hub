@@ -10,6 +10,7 @@ const STRINGS = {
     ledeAfter: " command and you are steering the thing itself — which model, which role, which files it can see. The same conversation, whether you opened a browser tab or a shell.",
     open: "Open Simple AI",
     source: "Source on GitHub",
+    docs: "Documentation",
     modelsLabel: "models from",
     entrancesTitle: "Three ways in",
     entrances: [
@@ -72,6 +73,7 @@ const STRINGS = {
     ledeAfter: " 开头的命令，你就在调整它本身 —— 用哪个模型、用什么角色、能看到哪些文件。无论你打开的是浏览器标签页还是一个 shell，都是同一个对话。",
     open: "打开 Simple AI",
     source: "在 GitHub 查看源码",
+    docs: "文档",
     modelsLabel: "模型来自",
     entrancesTitle: "三个入口",
     entrances: [
@@ -134,6 +136,7 @@ const STRINGS = {
     ledeAfter: " で始まるコマンドを打てば、それ自体を操っていることになります。どのモデルか、どの役割か、どのファイルを見せるか。ブラウザのタブでもシェルでも、会話はひとつです。",
     open: "Simple AI を開く",
     source: "GitHub のソース",
+    docs: "ドキュメント",
     modelsLabel: "モデル提供元",
     entrancesTitle: "入口は三つ",
     entrances: [
