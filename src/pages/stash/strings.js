@@ -1,10 +1,13 @@
+import meta from "./meta.json";
 import { useEffect, useState } from "react";
 
 // Everything this page says, in the three languages the gcc³ apps speak.
 // Kept inside the page folder so stash stays a self-contained thing.
 const STRINGS = {
   en: {
-    title: "stash — keep the things you find",
+    // The English title is the one a search result carries, so it is kept
+    // where the rest of the page's search metadata lives.
+    title: meta.seo.title,
     tagline: "Paste a link. Keep the thing.",
     lede: "Pages, posts, videos, channels, conversations, repositories, mobile apps — the things you find in a day scatter across a dozen apps that will not talk to each other. stash puts them in one place, with a note attached, in a collection you can share or take away with you.",
     open: "Open stash",

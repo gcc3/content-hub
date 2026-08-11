@@ -1,10 +1,13 @@
+import meta from "./meta.json";
 import { useEffect, useState } from "react";
 
 // Everything this page says, in the three languages the gcc³ apps speak.
 // Kept inside the page folder so Pob stays a self-contained thing.
 const STRINGS = {
   en: {
-    title: "Pob — Perception & Operation Bridge",
+    // The English title is the one a search result carries, so it is kept
+    // where the rest of the page's search metadata lives.
+    title: meta.seo.title,
     eyebrow: "Perception & Operation Bridge",
     tagline: "Gives AI a pair of eyes and a pair of hands on your desktop.",
     lede: "Pob is an overlay. It sits on top of whatever application you point it at, perceives that application through the window that contains it, and operates it — pointer, keys, and everything in between. Applications with no API get one.",

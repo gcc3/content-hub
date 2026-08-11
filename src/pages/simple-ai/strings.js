@@ -1,10 +1,13 @@
+import meta from "./meta.json";
 import { useEffect, useState } from "react";
 
 // Everything this page says, in the three languages the gcc³ apps speak.
 // Kept inside the page folder so Simple AI stays a self-contained thing.
 const STRINGS = {
   en: {
-    title: "Simple AI — one AI chat, everywhere you work",
+    // The English title is the one a search result carries, so it is kept
+    // where the rest of the page's search metadata lives.
+    title: meta.seo.title,
     tagline: "One chat, in the browser and in your terminal, across every model worth asking.",
     ledeBefore: "Simple AI is a command-based AI chat. Type a question and it answers; type a ",
     ledeAfter: " command and you are steering the thing itself — which model, which role, which files it can see. The same conversation, whether you opened a browser tab or a shell.",

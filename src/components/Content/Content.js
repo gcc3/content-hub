@@ -11,7 +11,11 @@ import Share from "./Share";
 import Comment from "./Comment";
 
 const Content = ({ content_ = "", reload = 0, index = {} }) => {
-  const [loading, setLoading] = useState(false);
+  // True from the start: every branch below fetches, and the effect that does
+  // it runs after the first render — so starting at false means the first frame
+  // is drawn with nothing loaded and no load in flight, which reads as
+  // "Not found." That frame is also the one the prerender writes to disk.
+  const [loading, setLoading] = useState(true);
   const [content, setContent] = useState(() => parseContent(content_));
   const [note, setNote] = useState(null);
   const [categoryNotes, setCategoryNotes] = useState([]);

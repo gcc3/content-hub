@@ -4,7 +4,24 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!--
+      The shell every page is built from. src/build/prerender.js reads this file,
+      fills the block below with the title, description and structured data for
+      one page, drops that page's markup into #root, and writes the result to
+      public/.prerender/. Left as it is, this is the fallback the server sends
+      when a prerendered page is missing.
+    -->
+    <!-- head:start -->
+    <title>gcc³</title>
+    <!-- head:end -->
+
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link rel="stylesheet" href="global.css" />
+    <!-- Written by the production build, so the prerendered HTML arrives
+         styled. In development style-loader injects the same rules instead. -->
+    <link rel="stylesheet" href="main.css" />
   </head>
 
   <body>

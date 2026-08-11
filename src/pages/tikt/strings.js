@@ -1,10 +1,13 @@
+import meta from "./meta.json";
 import { useEffect, useState } from "react";
 
 // Everything this page says, in the three languages the gcc³ apps speak.
 // Kept inside the page folder so tikt stays a self-contained thing.
 const STRINGS = {
   en: {
-    title: "tikt — a tick tied in time",
+    // The English title is the one a search result carries, so it is kept
+    // where the rest of the page's search metadata lives.
+    title: meta.seo.title,
     tagline: "A tick tied in time.",
     lede: "In ancient times people tied knots in ropes to record what happened. tikt keeps the idea and drops everything else: a rope is a timeline, a knot is an event, and recording one takes a single press.",
     open: "Open tikt",

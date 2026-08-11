@@ -1,5 +1,14 @@
 {
   "name": "Pob - Perception & Operation Bridge",
+  "seo": {
+    "blurb": "AI eyes and hands on your desktop",
+    "title": "Pob — desktop automation that gives AI eyes and hands",
+    "description": "Pob is a desktop automation overlay that lets AI see and operate any application: screen capture, mouse and keyboard control, recorded macros and an MCP server. Windows, macOS and Linux.",
+    "category": "DeveloperApplication",
+    "os": "Windows, macOS, Linux",
+    "image": "/notes/02_utils/.images/202608111912_pob.webp",
+    "keywords": "desktop automation, AI agent, computer use, MCP server, macro recorder, GUI automation"
+  },
   "repositories": [
     {
       "github": "https://github.com/lhypds/pob",

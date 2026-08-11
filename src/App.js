@@ -7,9 +7,7 @@ import { clearHash } from "@utils/hash";
 import { parseContent } from "@utils/content";
 import { isMobile } from "@utils/mobile";
 import { BASE_PATH } from "@constants";
-
-const APP_NAME = process.env.REACT_APP_NAME || "";
-const APP_SUBTITLE = process.env.REACT_APP_SUBTITLE || "";
+import home from "./pages/home.json";
 const USE_REALTIME = process.env.REACT_APP_USE_REALTIME === "true";
 const DEFAULT_CONTENT = process.env.REACT_APP_DEFAULT_CONTENT || "[categories]";
 
@@ -33,7 +31,9 @@ const App = () => {
 
   // Initialize
   useEffect(() => {
-    document.title = APP_NAME + (APP_SUBTITLE ? ` ${APP_SUBTITLE}` : "");
+    // The same title the prerendered page was written with, so taking the page
+    // over does not quietly replace it with a shorter one.
+    document.title = home.title;
     clearHash();
 
     // Load index

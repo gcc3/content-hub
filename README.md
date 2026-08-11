@@ -40,6 +40,52 @@ Push or check status for all notes recursively.
 In case users want to edit the notes directly on the server.  
 
 
+Landing Pages
+-------------
+
+Each folder in `src/pages/` is a landing page served at `/<folder>`, e.g. `/pob`.  
+A page folder holds its own components, styles, `strings.js` and `meta.json`.  
+
+Prerendering  
+`npm run build` bundles the app and then runs `npm run prerender`, which renders  
+every page once with React and writes the HTML to `public/.prerender/`.  
+The server sends that file, so a URL arrives with its title, description and  
+words already in it — the bundle then boots and takes the page over.  
+Nothing is hydrated: the file on disk is the first frame, not a contract.  
+
+The prerender also writes `public/sitemap.xml` and `public/robots.txt`.  
+All three are git ignored and rebuilt on every deploy.  
+
+Styles  
+Production extracts the CSS modules into `public/main.css` so the prerendered  
+HTML arrives styled. Class names come from `src/build/local-ident.js`, which  
+webpack and the prerender both call, so the two agree on every name.  
+Development keeps `style-loader` and hot reloading.  
+
+Adding a page  
+1. Create `src/pages/<slug>/` with a component and a `meta.json`.  
+2. Register the component in `src/pages/index.js`.  
+3. Register the page in `src/pages/projects.js` — this is what puts it in the  
+   sitemap and the prerender. The build fails if it is missing.  
+
+Search metadata  
+The `seo` block in a page's `meta.json` is what a search result is made of:  
+
+    "seo": {
+      "blurb": "AI eyes and hands ...",  // one line, for the front page's ItemList
+      "title": "Pob — desktop ...",      // <title>, and the English page title
+      "description": "...",              // <meta name="description">, ~155 chars
+      "category": "DeveloperApplication",// schema.org applicationCategory
+      "os": "Windows, macOS, Linux",
+      "image": "/notes/.../pob.webp",    // optional, the link preview image
+      "keywords": "..."
+    }
+
+`title` is also the English title in `strings.js`, so the browser tab and the  
+search result cannot disagree. The other languages keep their own.  
+The front page's title and description live in `src/pages/home.json`.  
+
+
 Content String
 --------------
 
@@ -108,6 +154,8 @@ Used to set the site subtitle.
 
 REACT_APP_SITE_URL  
 Used to set the site URL.  
+Every canonical URL, sitemap entry and link preview is built from it.  
+Defaults to `https://gcc3.com` when it is empty.  
 
 REACT_APP_COPYRIGHT  
 Used to set the site copyright information.  

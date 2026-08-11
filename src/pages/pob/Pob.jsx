@@ -34,7 +34,9 @@ const Pob = () => {
         <div className={styles.heroText}>
           <div className={styles.eyebrow}>{t.eyebrow}</div>
           <h1 className={styles.wordmark}>Pob</h1>
-          <p className={styles.tagline}>{t.tagline}</p>
+          {/* A heading, not a paragraph: it is the line that says what a name
+              as short as this one means, to a reader and to a crawler alike. */}
+          <h2 className={styles.tagline}>{t.tagline}</h2>
           <p className={styles.lede}>{t.lede}</p>
           <div className={styles.actions}>
             <a className={styles.primary} href={href}>{label}</a>

@@ -1,6 +1,8 @@
 const path = require("path");
 const webpack = require("webpack");
 const dotenv = require("dotenv");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { localIdent } = require("./src/build/local-ident");
 
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 
@@ -9,6 +11,13 @@ After that apply all the rules in module.rules and produce the output and place 
 
 module.exports = (_, argv = {}) => {
     const mode = argv.mode || process.env.NODE_ENV || "development";
+
+    /** Production pulls the styles out into public/main.css so the prerendered
+     * HTML arrives already styled — style-loader only has them once main.js has
+     * run, which is exactly the wait the prerender exists to remove. Development
+     * keeps style-loader for hot reloading. */
+    const isProduction = mode === "production";
+    const styleLoader = isProduction ? MiniCssExtractPlugin.loader : "style-loader";
 
     return {
         /** "mode"
@@ -94,6 +103,7 @@ module.exports = (_, argv = {}) => {
             }
         },
         plugins: [
+            ...(isProduction ? [new MiniCssExtractPlugin({ filename: "main.css" })] : []),
             new webpack.DefinePlugin({
                 'process.env': JSON.stringify(
                     Object.fromEntries([
@@ -115,7 +125,7 @@ module.exports = (_, argv = {}) => {
                 {
                     test: /\.module\.css$/,
                     use: [
-                        'style-loader',
+                        styleLoader,
                         {
                             loader: 'css-loader',
                             options: {
@@ -123,6 +133,8 @@ module.exports = (_, argv = {}) => {
                                 modules: {
                                     namedExport: false,
                                     exportLocalsConvention: 'as-is',
+                                    getLocalIdent: (context, _localIdentName, localName) =>
+                                        localIdent(context.resourcePath, localName),
                                 },
                             },
                         },
@@ -131,7 +143,7 @@ module.exports = (_, argv = {}) => {
                 {
                     test: /\.css$/,
                     exclude: /\.module\.css$/,
-                    use: ['style-loader', 'css-loader'],
+                    use: [styleLoader, 'css-loader'],
                 },
                 {
                     test: /\.(js|jsx)$/,    //kind of file extension this rule should look for and apply in test

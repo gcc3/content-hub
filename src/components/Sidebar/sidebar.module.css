@@ -26,7 +26,10 @@
   text-decoration: none;
 }
 
+/* An <h1>: the front page's heading is the name of the place. Its own margins
+   would push the title block off the top of the sidebar. */
 .brand {
+  margin: 0;
   font-size: 28px;
   font-weight: bold;
 }

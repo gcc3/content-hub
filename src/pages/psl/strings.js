@@ -1,10 +1,13 @@
+import meta from "./meta.json";
 import { useEffect, useState } from "react";
 
 // Everything this page says, in the three languages the gcc³ apps speak.
 // Kept inside the page folder so psl stays a self-contained thing.
 const STRINGS = {
   en: {
-    title: "psl — Prompt Script Language",
+    // The English title is the one a search result carries, so it is kept
+    // where the rest of the page's search metadata lives.
+    title: meta.seo.title,
     tagline: "Prompt Script Language — an AI native language that lets you embed AI instructions in files written in other languages.",
     ledeBefore: "Wrap an instruction in ",
     ledeMiddle: " delimiters and it becomes a slot. The ",

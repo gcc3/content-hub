@@ -1,10 +1,13 @@
+import meta from "./meta.json";
 import { useEffect, useState } from "react";
 
 // Everything this page says, in the three languages the gcc³ apps speak.
 // Kept inside the page folder so q stays a self-contained thing.
 const STRINGS = {
   en: {
-    title: "q — surveys, written and read with AI",
+    // The English title is the one a search result carries, so it is kept
+    // where the rest of the page's search metadata lives.
+    title: meta.seo.title,
     tagline: "Say what you want to know. Get a survey back.",
     lede: "Writing a good survey is slow, and reading the results is slower. q does both ends: the model drafts the questions from a sentence, and once the answers are in, it tells you what they add up to. Small, quick, and free of everything a survey tool usually asks of you.",
     open: "Open q",

@@ -11,6 +11,17 @@ const corsOrigin = process.env.CORS_ORIGIN || '*';
 const basePath = (process.env.BASE_PATH || '').replace(/\/$/, '');
 const publicDir = path.join(__dirname, '../public');
 const notesDir = path.join(publicDir, 'notes');
+// Written by src/build/prerender.js: one static HTML file per URL, each with
+// its own title, description and content already in it. Missing until the
+// build has run, so every route here falls back to the empty shell. Kept out
+// of publicDir so the pages are only reachable at the URL they belong to.
+const prerenderDir = path.join(__dirname, '../.prerender');
+
+const shell = path.join(publicDir, 'index.html');
+const prerendered = (name) => {
+  const file = path.join(prerenderDir, `${name}.html`);
+  return fs.existsSync(file) ? file : shell;
+};
 
 const router = express.Router();
 
@@ -65,15 +76,20 @@ const { sseHandler } = createRealtimeWatcher(notesDir);
 router.get('/api/watch', sseHandler);
 
 // Serve the built frontend and static note files from the same server.
-router.use(express.static(publicDir));
+// index: false — "/" is answered below, with the prerendered front page rather
+// than the shell express.static would reach for on its own. Dotfiles keep the
+// default handling: the notes live in .markdown/ and .images/ folders, and
+// ignoring dotfiles here takes every note body and image down with it.
+router.use(express.static(publicDir, { index: false }));
 
 // Serve the main page
 router.get('/', (req, res) => {
-  res.sendFile(path.join(publicDir, 'index.html'));
+  res.sendFile(prerendered('index'));
 })
 
 // Landing pages: one per folder in src/pages, served at /<folder> (e.g. /liveboard).
-// The frontend picks the page from the path, so every one of them gets index.html.
+// Each gets the copy of itself the build rendered, so the page has a title and
+// its words in it before the bundle arrives and takes over.
 const pagesDir = path.join(__dirname, 'pages');
 const pageSlugs = fs.existsSync(pagesDir)
   ? fs.readdirSync(pagesDir, { withFileTypes: true })
@@ -85,11 +101,12 @@ router.get('/:page', (req, res, next) => {
   if (!pageSlugs.includes(req.params.page)) {
     return next();
   }
-  // index.html links its assets relatively, so keep the path free of a trailing slash.
+  // index.html links its assets relatively, so keep the path free of a trailing
+  // slash — and one page one URL, which is also what the canonical tag says.
   if (req.path.endsWith('/')) {
     return res.redirect(301, `${basePath}/${req.params.page}`);
   }
-  return res.sendFile(path.join(publicDir, 'index.html'));
+  return res.sendFile(prerendered(req.params.page));
 })
 
 // Get full index: { "": ["root.md"], "category1": ["abc.md"], ... }

@@ -162,7 +162,7 @@ const Header = ({
     <div className={styles.header}>
       <div className={styles.title}>
         <a href={SITE_URL || window.location.origin} className={styles.linkReset}>
-          <div className={styles.brand}>{APP_NAME}</div>
+          <h1 className={styles.brand}>{APP_NAME}</h1>
         </a>
         {APP_SUBTITLE && <div className={styles.subtitle}>{APP_SUBTITLE}</div>}
       </div>

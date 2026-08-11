@@ -2,6 +2,13 @@ node_modules/
 .markdown/
 public/main.js
 public/main.js.LICENSE.txt
+public/main.css
+
+# Written by the build: one prerendered page per URL, plus what a crawler asks
+# for before it reads any of them.
+.prerender/
+public/sitemap.xml
+public/robots.txt
 public/notes/*
 .DS_Store
 *.log

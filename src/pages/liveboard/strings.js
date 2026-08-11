@@ -1,10 +1,13 @@
+import meta from "./meta.json";
 import { useEffect, useState } from "react";
 
 // Everything this page says, in the three languages the gcc³ apps speak.
 // Kept inside the page folder so liveboard stays a self-contained thing.
 const STRINGS = {
   en: {
-    title: "liveboard — anything on a screen, kept live",
+    // The English title is the one a search result carries, so it is kept
+    // where the rest of the page's search metadata lives.
+    title: meta.seo.title,
     tagline: "Put anything on a screen, and let it keep itself up to date.",
     lede: "A spare monitor, a wall-mounted tablet, the second screen nobody uses — liveboard turns it into a board you compose yourself. Cards carry the things you would otherwise go and check: the weather, a page, a number, a note to whoever walks past.",
     open: "Open liveboard",
