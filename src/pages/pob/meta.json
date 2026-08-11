@@ -1,0 +1,10 @@
+{
+  "name": "Pob - Perception & Operation Bridge",
+  "repositories": [
+    {
+      "github": "https://github.com/lhypds/pob",
+      "online": "",
+      "download": "https://github.com/lhypds/pob/releases"
+    }
+  ]
+}

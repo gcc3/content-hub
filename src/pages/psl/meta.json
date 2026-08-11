@@ -1,0 +1,10 @@
+{
+  "name": "PSL - Prompt Script Language",
+  "repositories": [
+    {
+      "github": "https://github.com/lhypds/psl",
+      "online": "",
+      "download": "https://github.com/lhypds/psl/releases"
+    }
+  ]
+}

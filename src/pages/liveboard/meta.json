@@ -1,0 +1,10 @@
+{
+  "name": "liveboard",
+  "repositories": [
+    {
+      "github": "https://github.com/lhypds/liveboard",
+      "online": "https://liveboard.gcc3.com",
+      "download": ""
+    }
+  ]
+}

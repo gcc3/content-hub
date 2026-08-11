@@ -1,0 +1,10 @@
+{
+  "name": "stash",
+  "repositories": [
+    {
+      "github": "https://github.com/lhypds/stash",
+      "online": "https://stash.gcc3.com",
+      "download": ""
+    }
+  ]
+}

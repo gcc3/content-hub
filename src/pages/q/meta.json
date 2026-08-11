@@ -1,0 +1,10 @@
+{
+  "name": "q",
+  "repositories": [
+    {
+      "github": "https://github.com/lhypds/q",
+      "online": "https://q.gcc3.com",
+      "download": ""
+    }
+  ]
+}

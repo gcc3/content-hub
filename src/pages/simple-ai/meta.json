@@ -1,0 +1,15 @@
+{
+  "name": "simple-ai",
+  "repositories": [
+    {
+      "github": "https://github.com/gcc3/simple-ai-chat",
+      "online": ["https://simple-ai.io", "https://cli.simple-ai.io"],
+      "download": "https://www.npmjs.com/package/simple-ai-chat"
+    },
+    {
+      "github": "https://github.com/gcc3/sc-even",
+      "online": "",
+      "download": "https://evenhub.evenrealities.com"
+    }
+  ]
+}

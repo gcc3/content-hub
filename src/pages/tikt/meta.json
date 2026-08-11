@@ -1,0 +1,10 @@
+{
+  "name": "tikt",
+  "repositories": [
+    {
+      "github": "https://github.com/lhypds/tikt",
+      "online": "https://tikt.gcc3.com",
+      "download": ""
+    }
+  ]
+}
