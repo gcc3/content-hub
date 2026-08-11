@@ -1,0 +1,269 @@
+.demo {
+  max-width: 558px;
+}
+
+/* Stages */
+.stages {
+  display: flex;
+  gap: 0;
+  margin: 0 0 -2px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stage,
+.stageOn {
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 2px solid var(--q-hairline);
+  border-right: none;
+  color: var(--q-muted);
+  background: var(--q-ground);
+}
+
+.stage:last-child,
+.stageOn:last-child {
+  border-right: 2px solid var(--q-hairline);
+}
+
+.stageOn {
+  background: var(--q-accent);
+  border-color: var(--q-accent);
+  color: #ffffff;
+}
+
+/* Panel */
+.panel {
+  padding: 22px;
+  border: 2px solid var(--q-ink);
+  background: var(--q-ground);
+}
+
+.panelLabel {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--q-muted);
+}
+
+.topic {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 2px solid var(--q-hairline);
+  background: var(--q-wash);
+  font-size: 14px;
+}
+
+.question {
+  margin: 10px 0 0 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+.description {
+  margin: 8px 0 0 0;
+  font-size: 12px;
+  color: var(--q-muted);
+}
+
+/* Options */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.option,
+.optionOn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  border: 2px solid var(--q-hairline);
+  background: var(--q-ground);
+  color: var(--q-ink);
+}
+
+.option:hover {
+  border-color: var(--q-accent);
+}
+
+.optionOn {
+  border-color: var(--q-accent);
+  background: var(--q-wash);
+}
+
+.option:focus-visible,
+.optionOn:focus-visible {
+  outline: 2px solid var(--q-accent);
+  outline-offset: 2px;
+}
+
+.optionKey {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 2px solid var(--q-hairline);
+}
+
+.optionOn .optionKey {
+  border-color: var(--q-accent);
+  background: var(--q-accent);
+  color: #ffffff;
+}
+
+/* Actions */
+.action,
+.reset {
+  margin-top: 16px;
+  padding: 10px 20px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 2px solid var(--q-accent);
+  background: var(--q-accent);
+  color: #ffffff;
+}
+
+.action:hover:not(:disabled),
+.reset:hover {
+  background: var(--q-ink);
+  border-color: var(--q-ink);
+}
+
+.action:disabled {
+  cursor: default;
+  background: var(--q-ground);
+  border-color: var(--q-hairline);
+  color: var(--q-muted);
+}
+
+.reset {
+  background: var(--q-ground);
+  color: var(--q-accent);
+}
+
+.reset:hover {
+  color: #ffffff;
+}
+
+.action:focus-visible,
+.reset:focus-visible {
+  outline: 2px solid var(--q-ink);
+  outline-offset: 2px;
+}
+
+.note {
+  margin: 12px 0 0 0;
+  font-size: 12px;
+  color: var(--q-muted);
+}
+
+/* Results */
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.barRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 36px;
+  grid-template-areas:
+    "label value"
+    "track value";
+  align-items: center;
+  gap: 4px 10px;
+}
+
+.barLabel {
+  grid-area: label;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.yours {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0 6px;
+  background: var(--q-accent);
+  color: #ffffff;
+}
+
+.barTrack {
+  grid-area: track;
+  height: 10px;
+  background: var(--q-wash);
+}
+
+.barFill,
+.barFillOwn {
+  height: 100%;
+  background: var(--q-bar);
+  transition: width 400ms ease-out;
+}
+
+.barFillOwn {
+  background: var(--q-accent);
+}
+
+.barValue {
+  grid-area: value;
+  text-align: right;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--q-muted);
+}
+
+.analysis {
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 2px solid var(--q-hairline);
+}
+
+.analysisLabel {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--q-accent);
+}
+
+.analysisBody {
+  margin: 8px 0 0 0;
+  font-size: 12px;
+  color: var(--q-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .barFill,
+  .barFillOwn {
+    transition: none;
+  }
+}

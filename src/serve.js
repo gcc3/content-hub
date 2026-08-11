@@ -72,6 +72,26 @@ router.get('/', (req, res) => {
   res.sendFile(path.join(publicDir, 'index.html'));
 })
 
+// Landing pages: one per folder in src/pages, served at /<folder> (e.g. /liveboard).
+// The frontend picks the page from the path, so every one of them gets index.html.
+const pagesDir = path.join(__dirname, 'pages');
+const pageSlugs = fs.existsSync(pagesDir)
+  ? fs.readdirSync(pagesDir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+  : [];
+
+router.get('/:page', (req, res, next) => {
+  if (!pageSlugs.includes(req.params.page)) {
+    return next();
+  }
+  // index.html links its assets relatively, so keep the path free of a trailing slash.
+  if (req.path.endsWith('/')) {
+    return res.redirect(301, `${basePath}/${req.params.page}`);
+  }
+  return res.sendFile(path.join(publicDir, 'index.html'));
+})
+
 // Get full index: { "": ["root.md"], "category1": ["abc.md"], ... }
 // - Keys are category names (subdirectory names); "" key holds root-level notes
 // - For each category, if a .markdown/ subfolder exists its contents are used instead

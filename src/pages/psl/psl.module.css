@@ -1,0 +1,298 @@
+/* psl — the file is the subject, so the page is set like one: ink on paper,
+   with the highlighter yellow of a marked-up draft as the only colour. */
+.page {
+  --psl-ink: #14130c;
+  --psl-ground: #ffffff;
+  --psl-accent: #ffe14d;
+  --psl-slot-ink: #3a3200;
+  --psl-muted: #78735f;
+  --psl-hairline: #e4e0cf;
+  --psl-wash: #faf8ee;
+
+  max-width: 792px;
+  margin: 0 auto;
+  padding: 0 6px 72px 6px;
+  color: var(--psl-ink);
+  background: var(--psl-ground);
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.topbar {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 10px 0 0 0;
+  font-size: 12px;
+}
+
+.home {
+  color: var(--psl-ink);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 2px solid var(--psl-accent);
+}
+
+.home:hover {
+  background: var(--psl-accent);
+}
+
+.crumb {
+  color: var(--psl-muted);
+}
+
+/* Hero */
+.hero {
+  padding: 64px 0 50px 0;
+  border-bottom: 2px solid var(--psl-hairline);
+}
+
+.wordmark {
+  margin: 0;
+  font-size: 68px;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.tagline {
+  margin: 22px 0 0 0;
+  max-width: 34em;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.55;
+  text-wrap: balance;
+}
+
+.lede {
+  margin: 16px 0 0 0;
+  max-width: 40em;
+  color: var(--psl-muted);
+}
+
+.inline {
+  background: var(--psl-wash);
+  border-bottom: 2px solid var(--psl-accent);
+  padding: 0 4px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.primary,
+.secondary {
+  display: inline-block;
+  padding: 10px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid var(--psl-ink);
+}
+
+.primary {
+  background: var(--psl-ink);
+  color: var(--psl-ground);
+}
+
+.primary:hover {
+  background: var(--psl-accent);
+  color: var(--psl-ink);
+}
+
+.secondary {
+  background: var(--psl-ground);
+  color: var(--psl-ink);
+}
+
+.secondary:hover {
+  background: var(--psl-wash);
+}
+
+.primary:focus-visible,
+.secondary:focus-visible {
+  outline: 2px solid var(--psl-ink);
+  outline-offset: 2px;
+}
+
+/* Sections */
+.section {
+  padding: 44px 0;
+  border-bottom: 2px solid var(--psl-hairline);
+}
+
+.label {
+  margin: 0 0 22px 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--psl-muted);
+}
+
+/* Syntax */
+.syntax {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.syntaxLine {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.mark {
+  background: var(--psl-accent);
+  color: var(--psl-slot-ink);
+  padding: 2px 10px;
+}
+
+.syntaxNote {
+  margin: 0;
+  max-width: 42em;
+  color: var(--psl-muted);
+}
+
+.rules {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(252px, 1fr));
+  gap: 26px;
+  margin-top: 32px;
+}
+
+.ruleTitle {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ruleBody {
+  margin: 0;
+  font-size: 12px;
+  color: var(--psl-muted);
+}
+
+/* Options */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.flag {
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--psl-accent);
+  color: var(--psl-slot-ink);
+  display: inline-block;
+  padding: 0 8px;
+  /* keep -- reading as two hyphens rather than Fira Code's dash ligature */
+  font-variant-ligatures: none;
+}
+
+.command {
+  margin: 10px 0;
+  padding: 10px 12px;
+  background: var(--psl-ink);
+  color: var(--psl-ground);
+  font-family: inherit;
+  font-size: 12px;
+  font-variant-ligatures: none;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.optionBody {
+  margin: 0;
+  max-width: 42em;
+  font-size: 12px;
+  color: var(--psl-muted);
+}
+
+/* Install */
+.install {
+  max-width: 42em;
+}
+
+.installBody {
+  margin: 0 0 4px 0;
+  font-size: 12px;
+  color: var(--psl-muted);
+}
+
+/* Related */
+.related {
+  display: block;
+  padding: 18px;
+  border: 2px solid var(--psl-hairline);
+  color: var(--psl-ink);
+  text-decoration: none;
+}
+
+.related:hover {
+  border-color: var(--psl-ink);
+  background: var(--psl-wash);
+}
+
+.relatedName {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.relatedBody {
+  display: block;
+  font-size: 12px;
+  color: var(--psl-muted);
+  max-width: 44em;
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 14px;
+  padding-top: 28px;
+  font-size: 12px;
+  color: var(--psl-muted);
+}
+
+.footerLinks {
+  display: flex;
+  gap: 18px;
+}
+
+.footerLinks a {
+  color: var(--psl-ink);
+  text-decoration: none;
+  border-bottom: 2px solid var(--psl-hairline);
+}
+
+.footerLinks a:hover {
+  border-color: var(--psl-accent);
+}
+
+@media (max-width: 600px) {
+  .wordmark {
+    font-size: 50px;
+  }
+
+  .tagline {
+    font-size: 14px;
+  }
+
+  .hero {
+    padding: 36px 0 32px 0;
+  }
+
+  .syntaxLine {
+    font-size: 20px;
+  }
+}

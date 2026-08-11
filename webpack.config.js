@@ -68,7 +68,12 @@ module.exports = (_, argv = {}) => {
                     context: ['/api'],
                     target: `http://localhost:${process.env.PORT || 3180}`,
                 }
-            ]
+            ],
+            /** "historyApiFallback"
+             * landing page paths such as /liveboard are handled by the frontend,
+             * so serve index.html instead of a 404
+            */
+            historyApiFallback: true
         },
         externals: {
             react: 'React',

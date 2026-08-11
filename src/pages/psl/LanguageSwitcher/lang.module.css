@@ -1,0 +1,35 @@
+.switcher {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.option,
+.optionOn {
+  padding: 0;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.6;
+  cursor: pointer;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--psl-muted);
+}
+
+.option:hover {
+  color: var(--psl-ink);
+}
+
+.optionOn {
+  color: var(--psl-ink);
+  font-weight: 700;
+  border-bottom-color: var(--psl-accent);
+}
+
+.option:focus-visible,
+.optionOn:focus-visible {
+  outline: 2px solid var(--psl-accent);
+  outline-offset: 2px;
+}
