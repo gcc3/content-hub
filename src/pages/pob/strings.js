@@ -13,6 +13,7 @@ const STRINGS = {
     source: "Source on GitHub",
     shotAlt: "Pob running as an overlay above a desktop application",
     platformNames: { windows: "Windows", macos: "macOS", linux: "Linux" },
+    archLabel: "Processor architecture",
     capabilitiesTitle: "What it can do",
     capabilities: [
       { term: "Sees", detail: "Screen capture of the window underneath, on demand or as the macro runs." },
@@ -110,6 +111,7 @@ const STRINGS = {
     source: "在 GitHub 查看源码",
     shotAlt: "Pob 作为浮窗运行在桌面应用之上",
     platformNames: { windows: "Windows", macos: "macOS", linux: "Linux" },
+    archLabel: "处理器架构",
     capabilitiesTitle: "它能做什么",
     capabilities: [
       { term: "看", detail: "对下方窗口截屏 —— 按需截，或者在宏运行的过程中截。" },
@@ -207,6 +209,7 @@ const STRINGS = {
     source: "GitHub のソース",
     shotAlt: "デスクトップアプリの上でオーバーレイとして動く Pob",
     platformNames: { windows: "Windows", macos: "macOS", linux: "Linux" },
+    archLabel: "プロセッサアーキテクチャ",
     capabilitiesTitle: "できること",
     capabilities: [
       { term: "見る", detail: "下にあるウィンドウのスクリーンキャプチャ。必要なときにも、マクロの実行中にも。" },

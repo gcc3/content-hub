@@ -12,7 +12,7 @@ const SHOT = "/notes/02_utils/.images/202608111912_pob.webp";
 
 const Pob = () => {
   const { t, language, languages, setLanguage } = useStrings();
-  const { platform, version, platforms, hrefFor, href, releasesHref } = useRelease();
+  const { platform, version, platforms, arch, arches, setArch, hrefFor, href, releasesHref } = useRelease();
 
   useEffect(() => {
     document.title = t.title;
@@ -40,20 +40,37 @@ const Pob = () => {
             <a className={styles.primary} href={href}>{label}</a>
             <a className={styles.secondary} href={github}>{t.source}</a>
           </div>
-          <p className={styles.platforms}>
-            {platforms.map((name, index) => (
-              <React.Fragment key={name}>
-                {index > 0 && <span className={styles.dot}>·</span>}
-                <a className={styles.platform} href={hrefFor(name)}>{t.platformNames[name]}</a>
-              </React.Fragment>
-            ))}
-            {version && (
-              <>
-                <span className={styles.dot}>·</span>
-                <span>{`v${version}`}</span>
-              </>
+          <div className={styles.platforms}>
+            <span>
+              {platforms.map((name, index) => (
+                <React.Fragment key={name}>
+                  {index > 0 && <span className={styles.dot}>·</span>}
+                  <a className={styles.platform} href={hrefFor(name)}>{t.platformNames[name]}</a>
+                </React.Fragment>
+              ))}
+              {version && (
+                <>
+                  <span className={styles.dot}>·</span>
+                  <span>{`v${version}`}</span>
+                </>
+              )}
+            </span>
+            {arches.length > 1 && (
+              <span className={styles.arches} role="group" aria-label={t.archLabel}>
+                {arches.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={item.id === arch ? styles.archOn : styles.arch}
+                    aria-pressed={item.id === arch}
+                    onClick={() => setArch(item.id)}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </span>
             )}
-          </p>
+          </div>
         </div>
         <figure className={styles.shot}>
           <img src={SHOT} alt={t.shotAlt} />

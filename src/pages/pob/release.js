@@ -12,7 +12,11 @@ const LATEST = `https://api.github.com/repos/${repo}/releases/latest`;
 
 const PLATFORMS = ["windows", "macos", "linux"];
 
-const ARCH_TOKENS = /amd64|arm64|x86_64|aarch64|x64/;
+// The architectures builds are cut for, in the order they are offered.
+const ARCHES = [
+  { id: "amd64", label: "x64" },
+  { id: "arm64", label: "ARM64" },
+];
 
 // Which of the three desktops this is. Phones get no platform: there is
 // nothing here for them to run, so they are sent to the releases page.
@@ -27,6 +31,7 @@ const detectPlatform = () => {
 
 // Windows on ARM reports itself as x64 in the user agent string, so ask for the
 // real architecture where the browser offers it and read the string otherwise.
+// The guess is only a starting point — the page lets it be changed by hand.
 const detectArch = async () => {
   const hints = navigator.userAgentData;
   if (hints && hints.getHighEntropyValues) {
@@ -41,20 +46,35 @@ const detectArch = async () => {
   return /arm64|aarch64/.test(navigator.userAgent.toLowerCase()) ? "arm64" : "amd64";
 };
 
+// Which architecture an asset is built for, or null for a universal build that
+// names none — macOS ships one of those.
+const archOf = (name) => {
+  const lower = name.toLowerCase();
+  if (/arm64|aarch64/.test(lower)) return "arm64";
+  if (/amd64|x86_64|x64/.test(lower)) return "amd64";
+  return null;
+};
+
+const zips = (assets) => assets.filter((asset) => asset.name.toLowerCase().endsWith(".zip"));
+
 // The zip for one platform: the build matching this architecture, else the
-// build that names no architecture (macOS ships a single universal one).
+// build that names no architecture. Nothing otherwise — handing over the other
+// architecture's binary would be worse than pointing at the releases page,
+// now that the architecture is something the visitor picks.
 const pickAsset = (assets, platform, arch) => {
-  const candidates = assets.filter((asset) => {
-    const name = asset.name.toLowerCase();
-    return name.endsWith(".zip") && name.includes(platform);
-  });
-  if (candidates.length === 0) return null;
+  const candidates = zips(assets).filter((asset) => asset.name.toLowerCase().includes(platform));
   return (
-    candidates.find((asset) => asset.name.toLowerCase().includes(arch))
-    || candidates.find((asset) => !ARCH_TOKENS.test(asset.name.toLowerCase()))
-    || candidates[0]
+    candidates.find((asset) => archOf(asset.name) === arch)
+    || candidates.find((asset) => archOf(asset.name) === null)
+    || null
   );
 };
+
+// Only the architectures this release actually carries a build for, so the
+// choice on the page is never a choice between a zip and nothing.
+const archesIn = (assets) => ARCHES.filter(
+  (arch) => zips(assets).some((asset) => archOf(asset.name) === arch.id),
+);
 
 // One request per page load, however many times the hook is used.
 let pending = null;
@@ -70,28 +90,28 @@ const fetchLatest = () => {
   return pending;
 };
 
-// Returns a link for every platform plus the one for this machine. Until the
-// release is known — and if it never is — every link is the releases page,
-// which is a working answer rather than a dead button.
+// Returns a link for every platform plus the one for this machine, and the
+// architecture switch that moves them all. Until the release is known — and if
+// it never is — every link is the releases page, which is a working answer
+// rather than a dead button.
 const useRelease = () => {
   const [release, setRelease] = useState(null);
-  const [platform, setPlatform] = useState(detectPlatform);
+  const [detected] = useState(detectPlatform);
+  const [arch, setArch] = useState(ARCHES[0].id);
 
   useEffect(() => {
     let alive = true;
 
     Promise.all([fetchLatest(), detectArch()])
-      .then(([latest, arch]) => {
+      .then(([latest, machineArch]) => {
         if (!alive) return;
-        const assets = Array.isArray(latest.assets) ? latest.assets : [];
-        const urls = {};
-        PLATFORMS.forEach((name) => {
-          const asset = pickAsset(assets, name, arch);
-          if (asset) urls[name] = asset.browser_download_url;
+        setRelease({
+          version: (latest.tag_name || "").replace(/^v/, ""),
+          assets: Array.isArray(latest.assets) ? latest.assets : [],
         });
-        setRelease({ version: (latest.tag_name || "").replace(/^v/, ""), urls });
-        // A platform we detected but cannot serve is not a platform to offer.
-        setPlatform((current) => (current && !urls[current] ? null : current));
+        // Safe to overwrite: the switch is only rendered once a release is
+        // known, so there is no choice of the visitor's to lose here.
+        setArch(machineArch);
       })
       .catch(() => {
         // offline, rate limited, or no release yet — the page keeps its links
@@ -102,13 +122,25 @@ const useRelease = () => {
     };
   }, []);
 
-  const urls = (release && release.urls) || {};
+  const assets = (release && release.assets) || [];
+
+  const urls = {};
+  PLATFORMS.forEach((name) => {
+    const asset = pickAsset(assets, name, arch);
+    if (asset) urls[name] = asset.browser_download_url;
+  });
+
   const hrefFor = (name) => urls[name] || download;
+  // A platform we detected but cannot serve is not a platform to offer.
+  const platform = !release || urls[detected] ? detected : null;
 
   return {
     platform,
     version: release ? release.version : null,
     platforms: PLATFORMS,
+    arch,
+    arches: archesIn(assets),
+    setArch,
     hrefFor,
     href: platform ? hrefFor(platform) : download,
     releasesHref: download,
