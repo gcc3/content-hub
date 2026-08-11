@@ -1,12 +1,15 @@
 #!/bin/bash
 
-echo "[1/6] Pulling latest code..."
+echo "[1/7] Pulling latest code..."
 ./pull.sh
 
-echo "[2/6] Installing dependencies..."
-npm install
+echo "[2/7] Installing dependencies..."
+# --include=dev is not optional here: when this runs from the gift webhook the
+# environment carries NODE_ENV=production, which makes npm omit *and prune*
+# devDependencies — taking webpack with them, so the build below cannot run.
+npm install --include=dev
 
-echo "[3/6] Setting up .env..."
+echo "[3/7] Setting up .env..."
 if [ ! -f .env ]; then
   cp .env.example .env
   echo "  .env created from .env.example"
@@ -25,7 +28,7 @@ else
 fi
 
 echo "[6/7] Building..."
-npm run build
+npm run build || { echo "  Build failed." >&2; exit 1; }
 
 echo "[7/7] Create notes folder in public/notes..."
 mkdir -p public/notes
