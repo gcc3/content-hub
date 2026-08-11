@@ -3,6 +3,7 @@ import meta from "./meta.json";
 import { useStrings } from "./strings";
 import LanguageSwitcher from "./LanguageSwitcher";
 import Compiler from "./Compiler";
+import Install from "./Install";
 import styles from "./psl.module.css";
 
 const { github, download } = meta.repositories[0];
@@ -38,7 +39,7 @@ const Psl = () => {
           {t.ledeAfter}
         </p>
         <div className={styles.actions}>
-          <a className={styles.primary} href={download}>{t.download}</a>
+          <a className={styles.primary} href="#install">{t.installCta}</a>
           <a className={styles.secondary} href={github}>{t.source}</a>
         </div>
       </header>
@@ -79,13 +80,9 @@ const Psl = () => {
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section className={styles.section} id="install">
         <h2 className={styles.label}>{t.installTitle}</h2>
-        <div className={styles.install}>
-          <p className={styles.installBody}>{t.installBody}</p>
-          <pre className={styles.command}>psl update</pre>
-          <p className={styles.installBody}>{t.updateBody}</p>
-        </div>
+        <Install t={t.install} />
       </section>
 
       <section className={styles.section}>

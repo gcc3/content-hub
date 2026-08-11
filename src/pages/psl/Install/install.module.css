@@ -1,0 +1,138 @@
+.install {
+  max-width: 42em;
+}
+
+.body {
+  margin: 0 0 18px 0;
+  font-size: 12px;
+  color: var(--psl-muted);
+}
+
+/* Platform tabs — the guessed one is on when the page loads. */
+.tabs {
+  display: flex;
+  gap: 0;
+}
+
+.tab,
+.tabOn {
+  padding: 8px 14px;
+  border: 2px solid var(--psl-ink);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.tab + .tab,
+.tab + .tabOn,
+.tabOn + .tab {
+  border-left-width: 0;
+}
+
+.tab {
+  background: var(--psl-ground);
+  color: var(--psl-muted);
+}
+
+.tab:hover {
+  background: var(--psl-wash);
+  color: var(--psl-ink);
+}
+
+.tabOn {
+  background: var(--psl-ink);
+  color: var(--psl-ground);
+}
+
+.tab:focus-visible,
+.tabOn:focus-visible {
+  outline: 2px solid var(--psl-ink);
+  outline-offset: 2px;
+}
+
+/* Commands */
+.commands {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.shell {
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--psl-accent);
+  color: var(--psl-slot-ink);
+  display: inline-block;
+  padding: 0 8px;
+  margin-bottom: 6px;
+  /* keep cmd.exe and --flags off Fira Code's ligatures */
+  font-variant-ligatures: none;
+}
+
+.line {
+  display: flex;
+  align-items: stretch;
+  border: 2px solid var(--psl-ink);
+  background: var(--psl-ink);
+}
+
+.command {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 10px 12px;
+  background: var(--psl-ink);
+  color: var(--psl-ground);
+  font-family: inherit;
+  font-size: 12px;
+  font-variant-ligatures: none;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.copy {
+  flex: none;
+  padding: 0 14px;
+  border: 0;
+  border-left: 2px solid var(--psl-ground);
+  background: var(--psl-ink);
+  color: var(--psl-ground);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.copy:hover {
+  background: var(--psl-accent);
+  color: var(--psl-slot-ink);
+}
+
+.copy:focus-visible {
+  outline: 2px solid var(--psl-accent);
+  outline-offset: -4px;
+}
+
+.note {
+  margin: 12px 0 0 0;
+  font-size: 12px;
+  color: var(--psl-muted);
+}
+
+.update {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 2px solid var(--psl-hairline);
+}
+
+@media (max-width: 600px) {
+  .tabs {
+    flex-wrap: wrap;
+  }
+}

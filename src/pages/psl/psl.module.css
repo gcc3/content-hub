@@ -124,6 +124,8 @@
 .section {
   padding: 44px 0;
   border-bottom: 2px solid var(--psl-hairline);
+  /* the hero's button jumps to #install; keep the heading off the top edge */
+  scroll-margin-top: 24px;
 }
 
 .label {
@@ -211,17 +213,6 @@
 .optionBody {
   margin: 0;
   max-width: 42em;
-  font-size: 12px;
-  color: var(--psl-muted);
-}
-
-/* Install */
-.install {
-  max-width: 42em;
-}
-
-.installBody {
-  margin: 0 0 4px 0;
   font-size: 12px;
   color: var(--psl-muted);
 }
