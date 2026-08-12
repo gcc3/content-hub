@@ -2,7 +2,7 @@
   "name": "Pob - Perception & Operation Bridge",
   "seo": {
     "blurb": "AI eyes and hands on your desktop",
-    "title": "Pob — desktop automation that gives AI eyes and hands",
+    "title": "Pob — Perception & Operation Bridge, desktop automation for AI",
     "description": "Pob is a desktop automation overlay that lets AI see and operate any application: screen capture, mouse and keyboard control, recorded macros and an MCP server. Windows, macOS and Linux.",
     "category": "DeveloperApplication",
     "os": "Windows, macOS, Linux",

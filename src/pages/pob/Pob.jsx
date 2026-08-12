@@ -8,8 +8,6 @@ import styles from "./pob.module.css";
 
 const { github } = meta.repositories[0];
 
-const SHOT = "/notes/02_utils/.images/202608111912_pob.webp";
-
 const Pob = () => {
   const { t, language, languages, setLanguage } = useStrings();
   const { platform, version, platforms, arch, arches, setArch, hrefFor, href, releasesHref } = useRelease();
@@ -31,52 +29,47 @@ const Pob = () => {
       </nav>
 
       <header className={styles.hero}>
-        <div className={styles.heroText}>
-          <div className={styles.eyebrow}>{t.eyebrow}</div>
-          <h1 className={styles.wordmark}>Pob</h1>
-          {/* A heading, not a paragraph: it is the line that says what a name
-              as short as this one means, to a reader and to a crawler alike. */}
-          <h2 className={styles.tagline}>{t.tagline}</h2>
-          <p className={styles.lede}>{t.lede}</p>
-          <div className={styles.actions}>
-            <a className={styles.primary} href={href}>{label}</a>
-            <a className={styles.secondary} href={github}>{t.source}</a>
-          </div>
-          <div className={styles.platforms}>
-            <span>
-              {platforms.map((name, index) => (
-                <React.Fragment key={name}>
-                  {index > 0 && <span className={styles.dot}>·</span>}
-                  <a className={styles.platform} href={hrefFor(name)}>{t.platformNames[name]}</a>
-                </React.Fragment>
-              ))}
-              {version && (
-                <>
-                  <span className={styles.dot}>·</span>
-                  <span>{`v${version}`}</span>
-                </>
-              )}
-            </span>
-            {arches.length > 1 && (
-              <span className={styles.arches} role="group" aria-label={t.archLabel}>
-                {arches.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className={item.id === arch ? styles.archOn : styles.arch}
-                    aria-pressed={item.id === arch}
-                    onClick={() => setArch(item.id)}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </span>
-            )}
-          </div>
+        <div className={styles.eyebrow}>{t.eyebrow}</div>
+        <h1 className={styles.wordmark}>Pob</h1>
+        {/* A heading, not a paragraph: it is the line that says what a name
+            as short as this one means, to a reader and to a crawler alike. */}
+        <h2 className={styles.tagline}>{t.tagline}</h2>
+        <p className={styles.lede}>{t.lede}</p>
+        <div className={styles.actions}>
+          <a className={styles.primary} href={href}>{label}</a>
+          <a className={styles.secondary} href={github}>{t.source}</a>
         </div>
-        <figure className={styles.shot}>
-          <img src={SHOT} alt={t.shotAlt} />
-        </figure>
+        <div className={styles.platforms}>
+          <span>
+            {platforms.map((name, index) => (
+              <React.Fragment key={name}>
+                {index > 0 && <span className={styles.dot}>·</span>}
+                <a className={styles.platform} href={hrefFor(name)}>{t.platformNames[name]}</a>
+              </React.Fragment>
+            ))}
+            {version && (
+              <>
+                <span className={styles.dot}>·</span>
+                <span>{`v${version}`}</span>
+              </>
+            )}
+          </span>
+          {arches.length > 1 && (
+            <span className={styles.arches} role="group" aria-label={t.archLabel}>
+              {arches.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={item.id === arch ? styles.archOn : styles.arch}
+                  aria-pressed={item.id === arch}
+                  onClick={() => setArch(item.id)}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </span>
+          )}
+        </div>
       </header>
 
       <section className={styles.sectionFlush}>

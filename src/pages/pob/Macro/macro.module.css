@@ -99,7 +99,8 @@
 }
 
 .tagAsk,
-.tagAct {
+.tagAct,
+.tagWatch {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -117,6 +118,14 @@
 .tagAct {
   background: var(--pob-ground);
   color: var(--pob-ink);
+}
+
+/* Neither perceiving nor operating: a once is standing there waiting for the
+   screen to move, so it is the accent worn as an outline rather than filled. */
+.tagWatch {
+  background: var(--pob-wash);
+  border-color: var(--pob-accent);
+  color: var(--pob-accent);
 }
 
 .statusText {

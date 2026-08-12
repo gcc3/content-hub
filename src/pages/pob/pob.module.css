@@ -8,7 +8,7 @@
   --pob-hairline: #e8dedb;
   --pob-wash: #fdf4f2;
 
-  max-width: 846px;
+  max-width: 792px;
   margin: 0 auto;
   padding: 0 6px 72px 6px;
   color: var(--pob-ink);
@@ -42,10 +42,6 @@
 
 /* Hero */
 .hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 44px;
-  align-items: center;
   padding: 58px 0 50px 0;
   border-bottom: 2px solid var(--pob-hairline);
 }
@@ -126,12 +122,14 @@
   outline-offset: 2px;
 }
 
+/* Two groups, and the gap is the only thing that separates them — the platform
+   names and the architectures are both underlined words of the same size, so it
+   is wider than the space inside either one. */
 .platforms {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 8px 24px;
   margin: 14px 0 0 0;
   font-size: 12px;
   letter-spacing: 0.12em;
@@ -198,17 +196,6 @@
 
 .dot {
   padding: 0 6px;
-}
-
-.shot {
-  margin: 0;
-}
-
-.shot img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border: 2px solid var(--pob-ink);
 }
 
 /* Sections */
@@ -358,8 +345,6 @@
 
 @media (max-width: 760px) {
   .hero {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 28px;
     padding: 36px 0 32px 0;
   }
 
