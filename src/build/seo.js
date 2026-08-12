@@ -7,8 +7,9 @@
 // to; this file only knows how to dress it.
 
 const home = require("../pages/home.json");
+const { APP_NAME, SITE_TITLE } = require("../constants");
 
-const SITE_NAME = "gcc³";
+const SITE_NAME = APP_NAME || "gcc³";
 const SITE_URL = (process.env.REACT_APP_SITE_URL || "https://gcc3.com").replace(/\/$/, "");
 const AUTHOR_URL = "https://github.com/gcc3";
 
@@ -84,8 +85,10 @@ const homeLd = (projects) => ([
 
 // The front page's own copy sits with the pages it introduces, and App.js puts
 // the same title in the tab — a tab and a search result that disagree about
-// what a page is called are two answers to one question.
-const HOME = { path: "/", ...home };
+// what a page is called are two answers to one question. A deployment that
+// names itself in .env is answering that question, so its name wins over the
+// one in home.json; the project pages keep their own titles either way.
+const HOME = { path: "/", ...home, ...(SITE_TITLE ? { title: SITE_TITLE } : {}) };
 
 // The head for one URL. Everything here is a tag a crawler reads without
 // running a line of JavaScript, which is the whole point of prerendering.

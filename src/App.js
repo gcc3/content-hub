@@ -6,7 +6,7 @@ import styles from "./app.module.css";
 import { clearHash } from "@utils/hash";
 import { parseContent } from "@utils/content";
 import { isMobile } from "@utils/mobile";
-import { BASE_PATH } from "@constants";
+import { BASE_PATH, SITE_TITLE } from "@constants";
 import home from "./pages/home.json";
 const USE_REALTIME = process.env.REACT_APP_USE_REALTIME === "true";
 const DEFAULT_CONTENT = process.env.REACT_APP_DEFAULT_CONTENT || "[categories]";
@@ -32,8 +32,9 @@ const App = () => {
   // Initialize
   useEffect(() => {
     // The same title the prerendered page was written with, so taking the page
-    // over does not quietly replace it with a shorter one.
-    document.title = home.title;
+    // over does not quietly replace it with a different one — see seo.js, which
+    // resolves the head title from the same two values.
+    document.title = SITE_TITLE || home.title;
     clearHash();
 
     // Load index
