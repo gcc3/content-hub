@@ -13,8 +13,6 @@ body {
   font-family: "Fira Code VF", Helvetica, sans-serif;
   margin: 10px 10px 20px 10px;
   scroll-behavior: smooth;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 
 a {
@@ -29,8 +27,15 @@ ol {
   padding-left: 26px;
 }
 
+/*
+  The page scrolls on <html>, not on <body>. Giving <body> an overflow of its
+  own would make it a scroll container that swallows the wheel, and the
+  overscroll-behavior above then stops that scroll from chaining up to the
+  page — the wheel goes dead.
+*/
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 #root {
@@ -43,6 +48,62 @@ body::-webkit-scrollbar,
   display: none;
   width: 0;
   height: 0;
+}
+
+/*
+  The main view keeps its vertical scrollbar on the right at all times, so the
+  content never shifts sideways as pages grow past one screen. It is drawn in
+  the page's own black-on-white style instead of the platform's, which also
+  stops macOS from fading it out when the pointer stops. Touch devices scroll
+  by finger and are left with their native overlay bar.
+*/
+@media (hover: hover) and (pointer: fine) {
+  html {
+    overflow-y: scroll;
+  }
+
+  html::-webkit-scrollbar {
+    display: block;
+    width: 10px;
+    background: #fff;
+  }
+
+  html::-webkit-scrollbar-track {
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* A flat black bar, drawn like a bar in a bar chart: full width of the
+     track, square corners, no bevel or inset of any kind. */
+  html::-webkit-scrollbar-thumb {
+    background: #000;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    min-height: 40px;
+  }
+
+  html::-webkit-scrollbar-button,
+  html::-webkit-scrollbar-corner {
+    display: none;
+  }
+
+  /*
+    Firefox has no ::-webkit-scrollbar and takes the colours through the
+    standard property instead. Chrome must NOT get this: once scrollbar-color
+    is set, Chrome ignores every ::-webkit-scrollbar rule above and draws its
+    own rounded scrollbar in those colours — which is why this looked like the
+    system bar. The @supports test keeps the property away from any engine
+    that understands the pseudo-elements.
+  */
+  @supports not selector(::-webkit-scrollbar) {
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: #000 #fff;
+    }
+  }
 }
 
 h2,
