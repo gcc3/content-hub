@@ -4,6 +4,7 @@ import { useStrings } from "./strings";
 import { useRelease } from "./release";
 import LanguageSwitcher from "./LanguageSwitcher";
 import Macro from "./Macro";
+import Install from "./Install";
 import styles from "./pob.module.css";
 
 const { github } = meta.repositories[0];
@@ -113,8 +114,9 @@ const Pob = () => {
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section className={styles.section} id="install">
         <h2 className={styles.label}>{t.startTitle}</h2>
+        <Install t={t.install} platform={platform} releasesHref={releasesHref} />
         <ol className={styles.steps}>
           {t.steps.map((step) => (
             <li key={step.lead}>

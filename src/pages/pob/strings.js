@@ -98,10 +98,27 @@ const STRINGS = {
       },
     ],
     startTitle: "Getting started",
+    install: {
+      body: "One command on macOS and Linux. It works out which release fits this machine, downloads it, and puts it where a hand would have — Pob.app in Applications on a Mac, the app tree and a link on Linux. Either way the pob command lands on your PATH, and there is no toolchain to install first.",
+      platformsLabel: "Platform",
+      platforms: { unix: "macOS · Linux", windows: "Windows" },
+      notes: {
+        unix: [
+          "On Linux it installs for you alone, under ~/.local; pipe it into sudo sh instead and it installs for everyone. On macOS an admin account needs no sudo to write to /Applications. Anything after sh -s -- reaches the install: --prefix DIR, --bin DIR, --version VER, or --uninstall to take it back off again.",
+          "macOS then asks for two permissions and prompts for neither: allow the blocked first open under System Settings ▸ Privacy & Security, then add Pob to Accessibility and to Screen Recording by hand. Until you do, clicks are dropped in silence.",
+        ],
+        windows: [
+          "Windows has no one-liner yet. Take the zip for your machine, unzip it, and run the line above from inside the folder — the app goes somewhere permanent and the pob command lands on your PATH.",
+        ],
+      },
+      copy: "copy",
+      copied: "copied",
+      zip: "Get the zip →",
+    },
     steps: [
       {
-        lead: "Download the release",
-        body: " for your platform and unpack it. On macOS, drag Pob to Applications; on Windows and Linux, run the installer that comes with it. Either way the pob command lands on your PATH.",
+        lead: "Install it",
+        body: " — the command above, or the release zip for your platform, unpacked and installed by hand.",
       },
       {
         lead: "Open it over the app",
@@ -207,10 +224,27 @@ const STRINGS = {
       },
     ],
     startTitle: "开始使用",
+    install: {
+      body: "macOS 和 Linux 上一条命令就够。它会判断这台机器该用哪个 release，下载下来，然后放到手动安装本来会放的地方 —— Mac 上是「应用程序」里的 Pob.app，Linux 上是应用目录加一个链接。两种情况下 pob 命令都会进入你的 PATH，事先也不需要装任何工具链。",
+      platformsLabel: "平台",
+      platforms: { unix: "macOS · Linux", windows: "Windows" },
+      notes: {
+        unix: [
+          "Linux 上默认只为你一个人装，装在 ~/.local 下；改成管道给 sudo sh，就是为所有人装。macOS 上管理员账户写 /Applications 不需要 sudo。sh -s -- 后面的东西都会传给安装过程：--prefix DIR、--bin DIR、--version VER，或者用 --uninstall 把它卸掉。",
+          "macOS 之后还要两项权限，而且两项都不会主动弹窗：先在「系统设置 ▸ 隐私与安全性」里放行第一次被拦下的启动，再手动把 Pob 加进「辅助功能」和「屏幕录制」。在此之前，点击会被悄无声息地丢掉。",
+        ],
+        windows: [
+          "Windows 暂时还没有一行命令。下载适合你机器的 zip，解压，然后在文件夹里运行上面这行 —— 应用会装到一个固定的位置，pob 命令也会进入你的 PATH。",
+        ],
+      },
+      copy: "复制",
+      copied: "已复制",
+      zip: "下载 zip →",
+    },
     steps: [
       {
-        lead: "下载你平台的 release",
-        body: "并解压。macOS 上把 Pob 拖进「应用程序」；Windows 和 Linux 上运行附带的安装脚本。无论哪种方式，pob 命令都会出现在你的 PATH 里。",
+        lead: "装上它",
+        body: " —— 上面那条命令，或者下载你平台的 release zip，解压后手动装。",
       },
       {
         lead: "把它开在目标应用之上",
@@ -316,10 +350,27 @@ const STRINGS = {
       },
     ],
     startTitle: "はじめかた",
+    install: {
+      body: "macOS と Linux は一行で終わります。このマシンに合うリリースを見つけて取ってきて、手で入れたのと同じ場所へ置きます —— Mac なら「アプリケーション」の Pob.app、Linux ならアプリ本体とリンク。どちらでも pob コマンドが PATH に入り、先に用意しておくツールチェーンもありません。",
+      platformsLabel: "プラットフォーム",
+      platforms: { unix: "macOS · Linux", windows: "Windows" },
+      notes: {
+        unix: [
+          "Linux では既定であなた一人のために ~/.local へ、sudo sh へ渡せば全員のために入ります。macOS の管理者アカウントなら /Applications へ書くのに sudo は要りません。sh -s -- のあとに書いたものはインストールへ渡ります：--prefix DIR、--bin DIR、--version VER、外すときは --uninstall。",
+          "macOS はこのあと権限を二つ要求しますが、どちらも自分からは訊いてきません。「システム設定 ▸ プライバシーとセキュリティ」で最初の起動のブロックを解除し、アクセシビリティと画面収録に Pob を手で追加してください。それまで、クリックは黙って捨てられます。",
+        ],
+        windows: [
+          "Windows にはまだ一行がありません。マシンに合う zip を取って展開し、そのフォルダの中で上の行を実行します —— アプリは定位置に入り、pob コマンドが PATH に入ります。",
+        ],
+      },
+      copy: "コピー",
+      copied: "コピーしました",
+      zip: "zip を入手 →",
+    },
     steps: [
       {
-        lead: "自分のプラットフォームのリリースをダウンロード",
-        body: "して展開します。macOS では Pob をアプリケーションへドラッグ、Windows と Linux では同梱のインストーラを実行。どちらの場合も pob コマンドが PATH に入ります。",
+        lead: "インストールする",
+        body: "。上の一行か、自分のプラットフォームのリリース zip を展開して手で入れるか。",
       },
       {
         lead: "自動化したいアプリの上で開く",

@@ -1,5 +1,6 @@
 import { BASE_PATH } from "@constants";
 
+import Gift from "./gift";
 import Liveboard from "./liveboard";
 import Pob from "./pob";
 import Psl from "./psl";
@@ -11,6 +12,7 @@ import Tikt from "./tikt";
 // Landing pages, served at gcc3.com/<slug>.
 // Each page is a self-contained folder — its own components, styles and meta.json.
 const PAGES = {
+  "gift": Gift,
   "liveboard": Liveboard,
   "pob": Pob,
   "psl": Psl,

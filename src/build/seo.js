@@ -58,7 +58,7 @@ const applicationLd = (project) => {
   };
 };
 
-// The front page says what the site is and lists what is on it, so the seven
+// The front page says what the site is and lists what is on it, so the eight
 // project pages are reachable from the structured data as well as from a link.
 const homeLd = (projects) => ([
   {

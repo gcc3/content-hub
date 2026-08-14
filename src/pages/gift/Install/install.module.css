@@ -1,0 +1,121 @@
+/* The one line on the page meant to be taken away and pasted into a terminal,
+   so it is the block given the page's ink — the same weight the hero's button
+   carries, for the other way in. */
+.install {
+  max-width: 46em;
+}
+
+.body {
+  margin: 0 0 18px 0;
+  font-size: 12px;
+  color: var(--gift-muted);
+}
+
+/* Two ways in, not two platforms of one way: a release unpacked into ~/.gift,
+   or the two steps run against a checkout you already have. */
+.tabs {
+  display: flex;
+  gap: 0;
+}
+
+.tab,
+.tabOn {
+  padding: 8px 14px;
+  border: 2px solid var(--gift-ink);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.tab + .tab,
+.tab + .tabOn,
+.tabOn + .tab {
+  border-left-width: 0;
+}
+
+.tab {
+  background: var(--gift-ground);
+  color: var(--gift-muted);
+}
+
+.tab:hover {
+  background: var(--gift-wash);
+  color: var(--gift-ink);
+}
+
+.tabOn {
+  background: var(--gift-ink);
+  color: var(--gift-ground);
+}
+
+.tab:focus-visible,
+.tabOn:focus-visible {
+  outline: 2px solid var(--gift-ink);
+  outline-offset: 2px;
+}
+
+/* Command */
+.line {
+  display: flex;
+  align-items: stretch;
+  margin-top: 14px;
+  border: 2px solid var(--gift-ink);
+  background: var(--gift-ink);
+}
+
+.command {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 10px 12px;
+  background: var(--gift-ink);
+  color: var(--gift-ground);
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.8;
+  /* keep --flags and the pipe off Fira Code's ligatures */
+  font-variant-ligatures: none;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.copy {
+  flex: none;
+  padding: 0 14px;
+  border: 0;
+  border-left: 2px solid var(--gift-ground);
+  background: var(--gift-ink);
+  color: var(--gift-ground);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.copy:hover {
+  background: var(--gift-accent);
+  color: var(--gift-ground);
+}
+
+.copy:focus-visible {
+  outline: 2px solid var(--gift-accent);
+  outline-offset: -4px;
+}
+
+.note {
+  margin: 12px 0 0 0;
+  max-width: 46em;
+  font-size: 12px;
+  color: var(--gift-muted);
+}
+
+@media (max-width: 600px) {
+  .tabs {
+    flex-wrap: wrap;
+  }
+}

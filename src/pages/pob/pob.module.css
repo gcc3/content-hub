@@ -300,16 +300,18 @@
   color: var(--pob-muted);
 }
 
-/* Steps */
+/* Steps — what follows the install, so a rule between the two. The measure
+   belongs to the text, not to the rule: the rule runs the section's width. */
 .steps {
-  margin: 0;
-  padding-left: 22px;
-  max-width: 46em;
+  margin: 30px 0 0 0;
+  padding: 26px 0 0 22px;
+  border-top: 2px solid var(--pob-hairline);
   color: var(--pob-muted);
 }
 
 .steps li {
   margin-bottom: 12px;
+  max-width: 46em;
 }
 
 .steps strong {
