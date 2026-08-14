@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./src/App"
-import { getPage } from "./src/pages";
+import { getPage } from "@pages";
 
 // A landing page path such as /liveboard renders that page, everything else the content app.
 const Page = getPage(window.location.pathname);

@@ -6,7 +6,7 @@
 // The copy itself lives in each page's meta.json, next to the page it belongs
 // to; this file only knows how to dress it.
 
-const home = require("../pages/home.json");
+const home = require("@pages/home.json");
 const { APP_NAME, SITE_TITLE } = require("../constants");
 
 const SITE_NAME = APP_NAME || "gcc³";
@@ -66,7 +66,7 @@ const homeLd = (projects) => ([
     "@type": "WebSite",
     name: SITE_NAME,
     url: absolute("/"),
-    description: HOME.description,
+    ...(HOME.description ? { description: HOME.description } : {}),
     publisher: { "@type": "Organization", name: SITE_NAME, url: AUTHOR_URL },
   },
   {

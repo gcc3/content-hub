@@ -3,6 +3,7 @@ const webpack = require("webpack");
 const dotenv = require("dotenv");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { localIdent } = require("./src/build/local-ident");
+const { PAGES_DIR } = require("./src/build/pages-dir");
 
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 
@@ -100,6 +101,9 @@ module.exports = (_, argv = {}) => {
                 '@ui': path.resolve(__dirname, 'src/ui'),
                 '@utils': path.resolve(__dirname, 'src/utils'),
                 '@constants': path.resolve(__dirname, 'src/constants.js'),
+                /** src/pages when it is there, src/pages-fallback when it is
+                 * not — see src/build/pages-dir.js */
+                '@pages': PAGES_DIR,
             }
         },
         plugins: [

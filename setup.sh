@@ -29,11 +29,11 @@ else
 fi
 
 echo "[6/6] Building..."
-# Fail here rather than inside webpack: a missing pages repo reads as a broken
-# import otherwise, and the fix is a clone, not a code change.
+# Say it here rather than leaving it to be noticed in the output: a build with
+# no landing pages is a working site, so it is worth one line that this is what
+# was built. Set PAGES_REPO in .env and run ./pull.sh to get them.
 if [ ! -f src/pages/index.js ]; then
-  echo "  src/pages is missing. Set PAGES_REPO in .env and run ./pull.sh." >&2
-  exit 1
+  echo "  src/pages is absent, building without landing pages."
 fi
 npm run build || { echo "  Build failed." >&2; exit 1; }
 

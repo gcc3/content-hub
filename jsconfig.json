@@ -12,6 +12,14 @@
             ],
             "@constants": [
                 "./src/constants.js"
+            ],
+            "@pages": [
+                "./src/pages/index.js",
+                "./src/pages-fallback/index.js"
+            ],
+            "@pages/*": [
+                "./src/pages/*",
+                "./src/pages-fallback/*"
             ]
         }
     },

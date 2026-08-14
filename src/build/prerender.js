@@ -15,6 +15,7 @@ const fs = require("fs");
 const path = require("path");
 const Module = require("module");
 const { localIdent, ROOT } = require("./local-ident");
+const { PAGES_DIR } = require("./pages-dir");
 
 const PUBLIC_DIR = path.join(ROOT, "public");
 // Outside public/ on purpose. These are reachable at /pob, not at
@@ -33,6 +34,7 @@ const ALIASES = {
   "@ui": path.join(ROOT, "src/ui"),
   "@utils": path.join(ROOT, "src/utils"),
   "@constants": path.join(ROOT, "src/constants.js"),
+  "@pages": PAGES_DIR,
 };
 
 const resolveFilename = Module._resolveFilename;
@@ -171,8 +173,8 @@ define("EventSource", function EventSource() { return { close: noop, addEventLis
 /* eslint-disable global-require */
 const React = require("react");
 const { renderToStaticMarkup } = require("react-dom/server");
-const { PROJECTS } = require("../pages/projects");
-const { PAGES } = require("../pages");
+const { PROJECTS } = require("@pages/projects");
+const { PAGES } = require("@pages");
 const { homeHead, projectHead, robots, sitemap } = require("./seo");
 const App = require("../App").default;
 /* eslint-enable global-require */

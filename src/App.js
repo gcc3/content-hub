@@ -7,7 +7,7 @@ import { clearHash } from "@utils/hash";
 import { parseContent } from "@utils/content";
 import { isMobile } from "@utils/mobile";
 import { BASE_PATH, SITE_TITLE } from "@constants";
-import home from "./pages/home.json";
+import home from "@pages/home.json";
 const USE_REALTIME = process.env.REACT_APP_USE_REALTIME === "true";
 const DEFAULT_CONTENT = process.env.REACT_APP_DEFAULT_CONTENT || "[categories]";
 
