@@ -50,7 +50,11 @@ A page folder holds its own components, styles, `strings.js` and `meta.json`.
 `src/pages/` is a separate repo, set by `PAGES_REPO` in `.env` and git ignored  
 here. `pull.sh` clones it when the folder is missing and pulls it when it is  
 there, so `setup.sh` gets it before the build; the build stops with a message  
-if it is absent. Page edits are committed and pushed in that repo, not this one.  
+if it is absent. Anything else — no `PAGES_REPO`, or a `src/pages` that is on  
+disk but is not a clone — stops `pull.sh` itself: a folder that cannot be  
+pulled builds as well as one that can, and ships the pages it already held  
+without saying so. Page edits are committed and pushed in that repo, not this  
+one.  
 
 Prerendering  
 `npm run build` bundles the app and then runs `npm run prerender`, which renders  

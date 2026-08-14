@@ -25,17 +25,30 @@ echo "Pulling pages..."
 # src/pages lives in its own repo and is git ignored here. Without it the
 # bundle has no landing pages to import and the build fails, so a missing
 # folder is cloned rather than skipped.
+#
+# Not fetching them at all is the failure this stops: a src/pages that is on
+# disk but is not a clone — copied in by hand, or cloned before PAGES_REPO was
+# set — builds perfectly well out of whatever it holds, so a deploy that never
+# takes a new page succeeds and says nothing. Every way of not pulling ends
+# here as an error, and the last line says which commit was built.
 pages_dir="$repo_dir/src/pages"
 pages_repo="$(read_env PAGES_REPO)"
 if [ -d "$pages_dir/.git" ]; then
   echo "  Pulling $pages_dir"
   git -C "$pages_dir" pull
-elif [ -n "$pages_repo" ]; then
+elif [ -z "$pages_repo" ]; then
+  echo "  PAGES_REPO is not set in .env, so src/pages cannot be fetched." >&2
+  echo "  Set it (see .env.example) and run ./pull.sh again." >&2
+  exit 1
+elif [ ! -e "$pages_dir" ] || [ -z "$(ls -A "$pages_dir")" ]; then
   echo "  Cloning $pages_repo into $pages_dir"
   git clone "$pages_repo" "$pages_dir"
 else
-  echo "  Warning: PAGES_REPO is not set in .env — src/pages not fetched." >&2
+  echo "  $pages_dir is not a git clone, so nothing can be pulled into it." >&2
+  echo "  Move it aside and run ./pull.sh again to clone $pages_repo." >&2
+  exit 1
 fi
+echo "  Pages at $(git -C "$pages_dir" log -1 --format='%h %s')"
 
 echo "Pulling content..."
 for dir in "$repo_dir/public"/*/; do
