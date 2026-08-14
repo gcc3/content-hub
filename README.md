@@ -34,7 +34,8 @@ Category folders and note files will be loaded to index.
 
 Scripts  
 `pull.sh`
-pull the source code and the content, recursively.  
+pull the source code, the landing pages (`src/pages`, cloned if missing) and  
+the content, recursively.  
 `notes-push.sh` and `notes-status.sh`  
 Push or check status for all notes recursively.  
 In case users want to edit the notes directly on the server.  
@@ -45,6 +46,11 @@ Landing Pages
 
 Each folder in `src/pages/` is a landing page served at `/<folder>`, e.g. `/pob`.  
 A page folder holds its own components, styles, `strings.js` and `meta.json`.  
+
+`src/pages/` is a separate repo, set by `PAGES_REPO` in `.env` and git ignored  
+here. `pull.sh` clones it when the folder is missing and pulls it when it is  
+there, so `setup.sh` gets it before the build; the build stops with a message  
+if it is absent. Page edits are committed and pushed in that repo, not this one.  
 
 Prerendering  
 `npm run build` bundles the app and then runs `npm run prerender`, which renders  
@@ -63,6 +69,7 @@ webpack and the prerender both call, so the two agree on every name.
 Development keeps `style-loader` and hot reloading.  
 
 Adding a page  
+(in the pages repo)  
 1. Create `src/pages/<slug>/` with a component and a `meta.json`.  
 2. Register the component in `src/pages/index.js`.  
 3. Register the page in `src/pages/projects.js` — this is what puts it in the  
@@ -140,6 +147,10 @@ For APIs refer `src/serve.js`
 PORT  
 Used to set the web and content server port.  
 Default is 3180.  
+
+PAGES_REPO  
+Used to set the landing pages repo, cloned into `src/pages` by `pull.sh`.  
+Default is `https://github.com/gcc3/gcc3-pages`.  
 
 REACT_APP_BASE_PATH  
 Used to set the base path for the app.  
