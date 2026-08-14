@@ -1,0 +1,51 @@
+/* The one line on the page that is meant to be taken away and pasted into a
+   terminal, so it is the one block given the page's ink — the same weight the
+   download button carries, for the other way in. */
+/* Only the prose around it is measured. The command keeps the whole width, so
+   the line a visitor is meant to copy can be read before it is copied. */
+.line {
+  display: flex;
+  align-items: stretch;
+  border: 2px solid var(--pob-ink);
+  background: var(--pob-ink);
+}
+
+.command {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 10px 12px;
+  background: var(--pob-ink);
+  color: var(--pob-ground);
+  font-family: inherit;
+  font-size: 12px;
+  /* keep --flags and the pipe off Fira Code's ligatures */
+  font-variant-ligatures: none;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.copy {
+  flex: none;
+  padding: 0 14px;
+  border: 0;
+  border-left: 2px solid var(--pob-ground);
+  background: var(--pob-ink);
+  color: var(--pob-ground);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.copy:hover {
+  background: var(--pob-accent);
+  color: var(--pob-ground);
+}
+
+.copy:focus-visible {
+  outline: 2px solid var(--pob-accent);
+  outline-offset: -4px;
+}

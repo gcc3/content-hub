@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
+import CommandLine from "../CommandLine";
 import styles from "./install.module.css";
 
 // The one command the repo ships: get.sh works out which release fits the
@@ -16,29 +17,7 @@ const PLATFORMS = [
   },
 ];
 
-const writeToClipboard = async (text) => {
-  try {
-    await navigator.clipboard.writeText(text);
-    return true;
-  } catch {
-    // the clipboard API wants a secure context; fall back to selecting text
-  }
-  const area = document.createElement("textarea");
-  area.value = text;
-  area.setAttribute("readonly", "");
-  area.style.position = "fixed";
-  area.style.opacity = "0";
-  document.body.appendChild(area);
-  area.select();
-  let copied = false;
-  try {
-    copied = document.execCommand("copy");
-  } catch {
-    copied = false;
-  }
-  document.body.removeChild(area);
-  return copied;
-};
+const UPDATE = "pob update";
 
 // The tab this opens on follows the machine reading the page, and then stays
 // put: the platform the page detects can be withdrawn later, once the release
@@ -46,25 +25,8 @@ const writeToClipboard = async (text) => {
 // is worse than one that opened on the wrong guess.
 const Install = ({ t, platform, releasesHref }) => {
   const [tab, setTab] = useState(() => (platform === "windows" ? "windows" : "unix"));
-  const [copied, setCopied] = useState(false);
-  const timer = useRef(null);
-
-  useEffect(() => () => window.clearTimeout(timer.current), []);
 
   const current = PLATFORMS.find((entry) => entry.id === tab);
-
-  const choose = (id) => {
-    setTab(id);
-    setCopied(false);
-  };
-
-  const copy = async () => {
-    const ok = await writeToClipboard(current.command);
-    if (!ok) return;
-    setCopied(true);
-    window.clearTimeout(timer.current);
-    timer.current = window.setTimeout(() => setCopied(false), 1600);
-  };
 
   return (
     <div className={styles.install}>
@@ -78,7 +40,7 @@ const Install = ({ t, platform, releasesHref }) => {
             role="tab"
             aria-selected={entry.id === tab}
             className={entry.id === tab ? styles.tabOn : styles.tab}
-            onClick={() => choose(entry.id)}
+            onClick={() => setTab(entry.id)}
           >
             {t.platforms[entry.id]}
           </button>
@@ -86,15 +48,7 @@ const Install = ({ t, platform, releasesHref }) => {
       </div>
 
       <div className={styles.line}>
-        <pre className={styles.command}>{current.command}</pre>
-        <button
-          type="button"
-          className={styles.copy}
-          onClick={copy}
-          aria-label={`${t.copy} — ${current.command}`}
-        >
-          {copied ? t.copied : t.copy}
-        </button>
+        <CommandLine command={current.command} copy={t.copy} copied={t.copied} />
       </div>
 
       {t.notes[tab].map((note) => (
@@ -104,6 +58,13 @@ const Install = ({ t, platform, releasesHref }) => {
       {tab === "windows" && (
         <a className={styles.zip} href={releasesHref}>{t.zip}</a>
       )}
+
+      {/* The install again, later — one line on every platform, so it sits
+          under both tabs rather than inside either. */}
+      <div className={styles.update}>
+        <CommandLine command={UPDATE} copy={t.copy} copied={t.copied} />
+        <p className={styles.note}>{t.updateBody}</p>
+      </div>
     </div>
   );
 };

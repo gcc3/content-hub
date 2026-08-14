@@ -114,6 +114,7 @@ const STRINGS = {
       copy: "copy",
       copied: "copied",
       zip: "Get the zip →",
+      updateBody: "Keeps itself current from there: this installs the latest release over the copy that ran it, closing any running instance on the way, and leaves ~/.pob — settings, instances, macros and logs — untouched.",
     },
     steps: [
       {
@@ -240,6 +241,7 @@ const STRINGS = {
       copy: "复制",
       copied: "已复制",
       zip: "下载 zip →",
+      updateBody: "之后它自己保持更新：这条命令把最新的 release 装到运行它的那份之上，正在运行的实例会顺手关掉，而 ~/.pob —— 设置、实例、宏和日志 —— 不会被碰。",
     },
     steps: [
       {
@@ -366,6 +368,7 @@ const STRINGS = {
       copy: "コピー",
       copied: "コピーしました",
       zip: "zip を入手 →",
+      updateBody: "あとは自分で最新に保ちます。実行したコピーの上へ最新のリリースを入れ、動いているインスタンスは途中で自動的に閉じます。~/.pob —— 設定・インスタンス・マクロ・ログ —— には触りません。",
     },
     steps: [
       {
