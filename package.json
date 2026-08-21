@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "gcc³ web",
   "main": "index.js",
+  "packageManager": "pnpm@11.22.0",
   "scripts": {
     "start": "node ./src/serve.js",
     "dev": "node ./src/serve.js & SERVE=$!; trap 'kill $SERVE 2>/dev/null' EXIT INT TERM; webpack-dev-server .",
