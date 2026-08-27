@@ -25,6 +25,7 @@
 /* An <h1>, see the sidebar's note. */
 .brand {
   margin: 0;
+  font-family: "Courier New", Courier, monospace;
   font-size: 28px;
   font-weight: bold;
   display: inline;
