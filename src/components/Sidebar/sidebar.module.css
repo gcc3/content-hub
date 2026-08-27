@@ -30,7 +30,6 @@
    would push the title block off the top of the sidebar. */
 .brand {
   margin: 0;
-  font-family: "Courier New", Courier, monospace;
   font-size: 24px;
   font-weight: bold;
 }
