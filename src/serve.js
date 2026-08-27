@@ -91,10 +91,13 @@ router.get('/', (req, res) => {
 // Each gets the copy of itself the build rendered, so the page has a title and
 // its words in it before the bundle arrives and takes over.
 const pagesDir = path.join(__dirname, 'pages');
+// A page is a folder that describes itself: src/pages also holds common/, which
+// is shared parts rather than anything with a URL.
 const pageSlugs = fs.existsSync(pagesDir)
   ? fs.readdirSync(pagesDir, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)
+    .filter((name) => fs.existsSync(path.join(pagesDir, name, 'meta.json')))
   : [];
 
 router.get('/:page', (req, res, next) => {

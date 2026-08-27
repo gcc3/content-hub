@@ -2,6 +2,13 @@
 
 :root {
   --sidebar-width: 220px;
+  /* The landing pages under src/pages. Fira Code throughout, the same face the
+     note app uses — defined here because that is where the font import is. */
+  --landing-gutter: clamp(24px, 5vw, 80px);
+  --font-mono: "Fira Code", "SFMono-Regular", Consolas, "Liberation Mono",
+    monospace;
+  --font-project-title: var(--font-mono);
+  --font-project-title-spacing: 0.025em;
 }
 
 html,
@@ -127,5 +134,4 @@ td > code {
   word-wrap: break-word;
   box-decoration-break: clone;
   padding: 0.1rem 0.3rem 0.2rem;
-  border-radius: 0.2rem;
 }

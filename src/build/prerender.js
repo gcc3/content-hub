@@ -131,6 +131,9 @@ const documentStub = {
 };
 
 const windowStub = {
+  /* Read by TypewrittenTitle, which renders its heading in full rather than
+     one character at a time when there is no browser to animate in. */
+  __GCC3_PRERENDER__: true,
   document: documentStub,
   localStorage: storage,
   sessionStorage: storage,
