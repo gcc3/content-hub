@@ -1,14 +1,31 @@
 @import url(https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css);
+/* Inter, variable, carrying its optical-size axis: the same face workos.com
+   reads in. The axis is what InterDisplay is — one family, cut wider for
+   small text and tighter as it grows — so the title needs no second font,
+   only font-optical-sizing, which is on by default. */
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap");
 
 :root {
   --sidebar-width: 220px;
-  /* The landing pages under src/pages. Fira Code throughout, the same face the
-     note app uses — defined here because that is where the font import is. */
+  /* The landing pages under src/pages: Inter for what is read, and a
+     monospace face kept for what is typed — commands, code, the demos that
+     line up in columns. Defined here because that is where the imports are. */
   --landing-gutter: clamp(24px, 5vw, 80px);
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Helvetica, Arial, sans-serif;
   --font-mono: "Fira Code", "SFMono-Regular", Consolas, "Liberation Mono",
     monospace;
-  --font-project-title: var(--font-mono);
-  --font-project-title-spacing: 0.025em;
+  --font-project-title: var(--font-sans);
+  /* Tracking, taken from the reference site: Inter is set tighter the larger
+     it gets — about -0.0275em once the type is display-sized, -0.02em for
+     headings and for anything that reads as a control, and a hair less than
+     that for running text. The one positive value is the small uppercase
+     label, which needs the room back to stay readable. */
+  --tracking-display: -0.0275em;
+  --tracking-heading: -0.02em;
+  --tracking-body: -0.0125em;
+  --tracking-label: 0.08em;
+  --font-project-title-spacing: var(--tracking-display);
 }
 
 html,

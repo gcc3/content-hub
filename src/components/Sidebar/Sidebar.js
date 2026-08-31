@@ -236,7 +236,7 @@ const Sidebar = ({
           <div className={styles.links}>
             {LINKS.map(link => (
               <div key={link.name}>
-                <a href={link.url}>{link.name}</a>
+                <a href={link.url} target="_blank" rel="noopener">{link.name}</a>
               </div>
             ))}
           </div>
