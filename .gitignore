@@ -3,6 +3,8 @@ node_modules/
 public/main.js
 public/main.js.LICENSE.txt
 public/main.css
+# Emitted by webpack from src/pages/<page>/assets/ — the sources live with their pages.
+public/assets/
 
 # Written by the build: one prerendered page per URL, plus what a crawler asks
 # for before it reads any of them.

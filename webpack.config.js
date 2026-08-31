@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { localIdent } = require("./src/build/local-ident");
 const { PAGES_DIR } = require("./src/build/pages-dir");
+const { assetPath } = require("./src/build/asset-url");
 
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 
@@ -36,9 +37,14 @@ module.exports = (_, argv = {}) => {
              */
             path: path.resolve(__dirname, "public"),
             /** "filename"
-             * the name of the output file 
+             * the name of the output file
              */
-            filename: "main.js"
+            filename: "main.js",
+            /** "assetModuleFilename"
+             * an imported page image — src/pages/<page>/assets/… — is emitted
+             * at assets/<page>/…, the same URL the prerender writes for it
+             */
+            assetModuleFilename: (pathData) => assetPath(pathData.filename)
         },
         /** "target"
          * setting "node" as target app (server side), and setting it as "web" is 
@@ -157,6 +163,10 @@ module.exports = (_, argv = {}) => {
                 {
                     test: /\.(txt|md)$/i,
                     use: 'raw-loader',
+                },
+                {
+                    test: /\.(webp|png|jpe?g|gif)$/i,
+                    type: 'asset/resource',
                 },
             ]
         }

@@ -16,6 +16,7 @@ const path = require("path");
 const Module = require("module");
 const { localIdent, ROOT } = require("./local-ident");
 const { PAGES_DIR } = require("./pages-dir");
+const { assetPath } = require("./asset-url");
 
 const PUBLIC_DIR = path.join(ROOT, "public");
 // Outside public/ on purpose. These are reachable at /pob, not at
@@ -73,6 +74,14 @@ const readAsString = (module_, filename) => {
 };
 require.extensions[".txt"] = readAsString;
 require.extensions[".md"] = readAsString;
+
+// asset/resource's job: an imported image is its URL. The name comes from the
+// same helper webpack emits the file under, so both agree on it.
+[".webp", ".png", ".jpg", ".jpeg", ".gif"].forEach((extension) => {
+  require.extensions[extension] = (module_, filename) => {
+    module_.exports = `/${assetPath(filename)}`;
+  };
+});
 
 // babel-loader's job. The project .babelrc targets browsers and asks for the
 // runtime transform; here the only reader is this node process.
